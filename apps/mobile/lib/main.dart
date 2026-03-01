@@ -1,50 +1,23 @@
-
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/core/theme/app_theme.dart';
+import 'package:iitpkd_one/app.dart';
+import 'package:iitpkd_one/core/services/hive_service.dart';
+import 'package:iitpkd_one/features/dashboard/view_models/providers.dart';
 
-void main() => runApp(const ProviderScope(child: App()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class App extends StatelessWidget {
-  const App({super.key});
+  // Initialize Hive for local caching (shuttle schedules).
+  final hiveService = HiveService();
+  await hiveService.init();
 
-  static final GoRouter _router = GoRouter(
-    routes: <RouteBase>[
-      GoRoute(
-        path: '/',
-        builder: (BuildContext context, GoRouterState state) {
-          return const HomeScreen();
-        },
-      ),
-    ],
+  runApp(
+    ProviderScope(
+      overrides: [
+        // Inject the pre-initialized HiveService instance.
+        hiveServiceProvider.overrideWithValue(hiveService),
+      ],
+      child: const App(),
+    ),
   );
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'IIT-PKD ONE',
-      debugShowCheckedModeBanner: false,
-      routerConfig: _router,
-      themeMode: ThemeMode.light,
-      theme: AppTheme.light,
-    );
-  }
-}
-
-// A demo screen to test the app
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('IIT PKD ONE'),
-      ),
-      body: const Center(
-        child: Text('Hello, World!'),
-      ),
-    );
-  }
 }
