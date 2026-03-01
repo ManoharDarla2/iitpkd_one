@@ -41,135 +41,159 @@ class NoticeCard extends StatelessWidget {
         ? theme.colorScheme.errorContainer.withValues(alpha: 0.15)
         : theme.colorScheme.surfaceContainerLowest;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: cardColor,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: borderColor, width: 3),
-          top: BorderSide(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-            width: 0.5,
+        child: Container(
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+              width: 0.5,
+            ),
           ),
-          right: BorderSide(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-            width: 0.5,
-          ),
-          bottom: BorderSide(
-            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-            width: 0.5,
-          ),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header row: icon + title + badge/time
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: IntrinsicHeight(
+            child: Row(
               children: [
-                // Category icon
-                _CategoryIcon(
-                  category: notice.category,
-                  isCritical: isCritical,
+                // Colored left accent strip
+                Container(
+                  width: 3,
+                  decoration: BoxDecoration(color: borderColor),
                 ),
-                const SizedBox(width: 12),
-
-                // Title and content
+                // Main content
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Title row with badge
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              notice.title,
-                              style: theme.textTheme.titleSmall?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          if (isCritical)
-                            _ImportanceBadge()
-                          else if (postedTimeAgo != null)
-                            Text(
-                              postedTimeAgo!,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
-                              ),
-                            ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-
-                      // Description
-                      Text(
-                        notice.description,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-
-                      // Posted time for critical notices
-                      if (isCritical && postedTimeAgo != null) ...[
-                        const SizedBox(height: 6),
-                        Text(
-                          'Posted $postedTimeAgo',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant
-                                .withValues(alpha: 0.7),
-                          ),
-                        ),
-                      ],
-
-                      // Action buttons for non-critical notices
-                      if (!isCritical &&
-                          (onAddToCalendar != null || onDismiss != null)) ...[
-                        const SizedBox(height: 12),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Header row: icon + title + badge/time
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (onAddToCalendar != null)
-                              FilledButton.tonal(
-                                onPressed: onAddToCalendar,
-                                style: FilledButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8,
+                            // Category icon
+                            _CategoryIcon(
+                              category: notice.category,
+                              isCritical: isCritical,
+                            ),
+                            const SizedBox(width: 12),
+
+                            // Title and content
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Title row with badge
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          notice.title,
+                                          style: theme.textTheme.titleSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      if (isCritical)
+                                        _ImportanceBadge()
+                                      else if (postedTimeAgo != null)
+                                        Text(
+                                          postedTimeAgo!,
+                                          style: theme.textTheme.bodySmall
+                                              ?.copyWith(
+                                                color: theme
+                                                    .colorScheme
+                                                    .onSurfaceVariant,
+                                              ),
+                                        ),
+                                    ],
                                   ),
-                                  textStyle: theme.textTheme.labelMedium,
-                                ),
-                                child: const Text('Add to Calendar'),
-                              ),
-                            if (onAddToCalendar != null && onDismiss != null)
-                              const SizedBox(width: 8),
-                            if (onDismiss != null)
-                              OutlinedButton(
-                                onPressed: onDismiss,
-                                style: OutlinedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8,
+                                  const SizedBox(height: 4),
+
+                                  // Description
+                                  Text(
+                                    notice.description,
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: theme.colorScheme.onSurfaceVariant,
+                                    ),
                                   ),
-                                  textStyle: theme.textTheme.labelMedium,
-                                ),
-                                child: const Text('Dismiss'),
+
+                                  // Posted time for critical notices
+                                  if (isCritical && postedTimeAgo != null) ...[
+                                    const SizedBox(height: 6),
+                                    Text(
+                                      'Posted $postedTimeAgo',
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            color: theme
+                                                .colorScheme
+                                                .onSurfaceVariant
+                                                .withValues(alpha: 0.7),
+                                          ),
+                                    ),
+                                  ],
+
+                                  // Action buttons for non-critical notices
+                                  if (!isCritical &&
+                                      (onAddToCalendar != null ||
+                                          onDismiss != null)) ...[
+                                    const SizedBox(height: 12),
+                                    Row(
+                                      children: [
+                                        if (onAddToCalendar != null)
+                                          FilledButton.tonal(
+                                            onPressed: onAddToCalendar,
+                                            style: FilledButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 16,
+                                                    vertical: 8,
+                                                  ),
+                                              textStyle:
+                                                  theme.textTheme.labelMedium,
+                                            ),
+                                            child: const Text(
+                                              'Add to Calendar',
+                                            ),
+                                          ),
+                                        if (onAddToCalendar != null &&
+                                            onDismiss != null)
+                                          const SizedBox(width: 8),
+                                        if (onDismiss != null)
+                                          OutlinedButton(
+                                            onPressed: onDismiss,
+                                            style: OutlinedButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 16,
+                                                    vertical: 8,
+                                                  ),
+                                              textStyle:
+                                                  theme.textTheme.labelMedium,
+                                            ),
+                                            child: const Text('Dismiss'),
+                                          ),
+                                      ],
+                                    ),
+                                  ],
+                                ],
                               ),
+                            ),
                           ],
                         ),
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
