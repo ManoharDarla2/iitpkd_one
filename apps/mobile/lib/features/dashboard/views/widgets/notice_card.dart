@@ -143,18 +143,22 @@ class NoticeCard extends StatelessWidget {
                                   if (!isCritical &&
                                       (onAddToCalendar != null ||
                                           onDismiss != null)) ...[
-                                    const SizedBox(height: 12),
+                                    const SizedBox(height: 10),
                                     Row(
                                       children: [
                                         if (onAddToCalendar != null)
-                                          FilledButton.tonal(
+                                          FilledButton(
                                             onPressed: onAddToCalendar,
                                             style: FilledButton.styleFrom(
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                    horizontal: 16,
-                                                    vertical: 8,
+                                                    horizontal: 12,
+                                                    vertical: 4,
                                                   ),
+                                              minimumSize: const Size(0, 32),
+                                              tapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
                                               textStyle:
                                                   theme.textTheme.labelMedium,
                                             ),
@@ -164,16 +168,23 @@ class NoticeCard extends StatelessWidget {
                                           ),
                                         if (onAddToCalendar != null &&
                                             onDismiss != null)
-                                          const SizedBox(width: 8),
+                                          const SizedBox(width: 4),
                                         if (onDismiss != null)
-                                          OutlinedButton(
+                                          TextButton(
                                             onPressed: onDismiss,
-                                            style: OutlinedButton.styleFrom(
+                                            style: TextButton.styleFrom(
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                    horizontal: 16,
-                                                    vertical: 8,
+                                                    horizontal: 12,
+                                                    vertical: 4,
                                                   ),
+                                              minimumSize: const Size(0, 32),
+                                              tapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              foregroundColor: theme
+                                                  .colorScheme
+                                                  .onSurfaceVariant,
                                               textStyle:
                                                   theme.textTheme.labelMedium,
                                             ),
