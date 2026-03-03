@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iitpkd_one/features/dashboard/views/dashboard_screen.dart';
+import 'package:iitpkd_one/features/schedule/views/schedule_screen.dart';
 import 'package:iitpkd_one/routes/app_shell.dart';
 
 /// Placeholder screen for tabs that are not yet implemented.
@@ -85,10 +86,7 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/schedule',
-              builder: (context, state) => const _PlaceholderScreen(
-                title: 'Schedule',
-                icon: Icons.calendar_month_rounded,
-              ),
+              builder: (context, state) => const ScheduleScreen(),
             ),
           ],
         ),
