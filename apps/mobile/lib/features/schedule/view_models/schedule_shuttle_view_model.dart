@@ -12,16 +12,16 @@ final scheduleShuttleViewModelProvider = AsyncNotifierProvider<
 
 /// ViewModel that manages shuttle schedule state for the Schedule screen.
 ///
-/// Supports day selection (Today / Tomorrow) and route filtering.
+/// Supports arbitrary date selection and route filtering.
 class ScheduleShuttleViewModel extends AsyncNotifier<List<ShuttleSchedule>> {
-  /// Whether viewing today or tomorrow. true = today, false = tomorrow.
-  bool _isToday = true;
+  /// Currently selected date (defaults to today).
+  DateTime _selectedDate = DateTime.now();
 
   /// Current route filter.
   ShuttleRouteFilter _routeFilter = ShuttleRouteFilter.all;
 
-  /// Current day selection.
-  bool get isToday => _isToday;
+  /// Current selected date.
+  DateTime get selectedDate => _selectedDate;
 
   /// Current route filter.
   ShuttleRouteFilter get routeFilter => _routeFilter;
@@ -31,9 +31,9 @@ class ScheduleShuttleViewModel extends AsyncNotifier<List<ShuttleSchedule>> {
     return _fetchSchedules();
   }
 
-  /// Switches between Today and Tomorrow.
-  Future<void> selectDay({required bool isToday}) async {
-    _isToday = isToday;
+  /// Selects a specific date.
+  Future<void> selectDate(DateTime date) async {
+    _selectedDate = date;
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(_fetchSchedules);
   }
@@ -63,11 +63,8 @@ class ScheduleShuttleViewModel extends AsyncNotifier<List<ShuttleSchedule>> {
     return repo.getSchedules(day: _dayName(), route: _routeFilter);
   }
 
-  /// Returns the day name for the current selection.
+  /// Returns the day name for the selected date.
   String _dayName() {
-    final date = _isToday
-        ? DateTime.now()
-        : DateTime.now().add(const Duration(days: 1));
-    return DateFormat('EEEE').format(date).toLowerCase();
+    return DateFormat('EEEE').format(_selectedDate).toLowerCase();
   }
 }

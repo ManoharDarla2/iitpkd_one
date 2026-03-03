@@ -1,92 +1,133 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-/// Today / Tomorrow toggle bar for shuttle schedules.
+/// A horizontal scrollable date strip showing 7 days.
 ///
-/// Uses a pill-shaped toggle similar to the UI design.
-class DayToggle extends StatelessWidget {
-  const DayToggle({
+/// Displays dates as cards (e.g., "Mon\n3") with today highlighted.
+/// Users can tap any day to select it. Shared between shuttle and mess views.
+class DateStrip extends StatelessWidget {
+  const DateStrip({
     super.key,
-    required this.isToday,
-    required this.onChanged,
+    required this.selectedDate,
+    required this.onDateSelected,
   });
 
-  final bool isToday;
-  final ValueChanged<bool> onChanged;
+  /// The currently selected date.
+  final DateTime selectedDate;
+
+  /// Called when the user taps a date.
+  final ValueChanged<DateTime> onDateSelected;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final today = DateTime.now();
+    final startOfToday = DateTime(today.year, today.month, today.day);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: _ToggleItem(
-              label: 'Today',
-              isSelected: isToday,
-              onTap: () => onChanged(true),
-            ),
-          ),
-          Expanded(
-            child: _ToggleItem(
-              label: 'Tomorrow',
-              isSelected: !isToday,
-              onTap: () => onChanged(false),
-            ),
-          ),
-        ],
+    // Generate 7 days starting from today
+    final dates = List.generate(
+      7,
+      (i) => startOfToday.add(Duration(days: i)),
+    );
+
+    return SizedBox(
+      height: 80,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: dates.length,
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          final date = dates[index];
+          final isSelected = _isSameDay(date, selectedDate);
+          final isToday = _isSameDay(date, startOfToday);
+
+          return _DateCard(
+            date: date,
+            isSelected: isSelected,
+            isToday: isToday,
+            onTap: () => onDateSelected(date),
+          );
+        },
       ),
     );
   }
+
+  bool _isSameDay(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
+  }
 }
 
-class _ToggleItem extends StatelessWidget {
-  const _ToggleItem({
-    required this.label,
+class _DateCard extends StatelessWidget {
+  const _DateCard({
+    required this.date,
     required this.isSelected,
+    required this.isToday,
     required this.onTap,
   });
 
-  final String label;
+  final DateTime date;
   final bool isSelected;
+  final bool isToday;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final dayAbbr = DateFormat('EEE').format(date); // Mon, Tue, ...
+    final dayNum = date.day.toString();
+
+    final bgColor = isSelected
+        ? theme.colorScheme.primary
+        : Colors.transparent;
+    final textColor = isSelected
+        ? theme.colorScheme.onPrimary
+        : theme.colorScheme.onSurfaceVariant;
 
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        width: 52,
         decoration: BoxDecoration(
-          color: isSelected ? theme.colorScheme.surface : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
-                    blurRadius: 4,
-                    offset: const Offset(0, 1),
-                  ),
-                ]
+          color: bgColor,
+          borderRadius: BorderRadius.circular(16),
+          border: isToday && !isSelected
+              ? Border.all(color: theme.colorScheme.primary, width: 1.5)
               : null,
         ),
-        alignment: Alignment.center,
-        child: Text(
-          label,
-          style: theme.textTheme.titleSmall?.copyWith(
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-            color: isSelected
-                ? theme.colorScheme.onSurface
-                : theme.colorScheme.onSurfaceVariant,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              dayAbbr,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: textColor,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.3,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              dayNum,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: textColor,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            if (isToday) ...[
+              const SizedBox(height: 2),
+              Container(
+                width: 5,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? theme.colorScheme.onPrimary
+                      : theme.colorScheme.primary,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ],
+          ],
         ),
       ),
     );
