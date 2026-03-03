@@ -3,7 +3,7 @@ import 'package:iitpkd_one/features/schedule/data/repositories/schedule_shuttle_
 
 /// Horizontal scrollable route filter chips for shuttle schedules.
 ///
-/// Options: All Routes, Nila → Sahyadri, Sahyadri → Nila.
+/// Options: All Routes, Nila → Sahyadri, Sahyadri → Nila, Outside.
 class RouteFilterChips extends StatelessWidget {
   const RouteFilterChips({
     super.key,
@@ -39,6 +39,14 @@ class RouteFilterChips extends StatelessWidget {
               isSelected: selected == ShuttleRouteFilter.sahyadriToNila,
               onTap: () => onChanged(ShuttleRouteFilter.sahyadriToNila),
             ),
+            const SizedBox(width: 8),
+            _FilterChip(
+              label: 'Outside',
+              icon: Icons.open_in_new_rounded,
+              isSelected: selected == ShuttleRouteFilter.outside,
+              useSecondaryColor: true,
+              onTap: () => onChanged(ShuttleRouteFilter.outside),
+            ),
           ],
         ),
       ),
@@ -51,15 +59,24 @@ class _FilterChip extends StatelessWidget {
     required this.label,
     required this.isSelected,
     required this.onTap,
+    this.icon,
+    this.useSecondaryColor = false,
   });
 
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
+  final IconData? icon;
+  final bool useSecondaryColor;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final activeColor =
+        useSecondaryColor ? cs.secondary : cs.primary;
+    final activeOnColor =
+        useSecondaryColor ? cs.onSecondary : cs.onPrimary;
 
     return GestureDetector(
       onTap: onTap,
@@ -67,24 +84,31 @@ class _FilterChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected
-              ? theme.colorScheme.primary
-              : theme.colorScheme.surface,
+          color: isSelected ? activeColor : cs.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected
-                ? theme.colorScheme.primary
-                : theme.colorScheme.outlineVariant,
+            color: isSelected ? activeColor : cs.outlineVariant,
           ),
         ),
-        child: Text(
-          label,
-          style: theme.textTheme.labelLarge?.copyWith(
-            color: isSelected
-                ? theme.colorScheme.onPrimary
-                : theme.colorScheme.onSurfaceVariant,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (icon != null) ...[
+              Icon(
+                icon,
+                size: 14,
+                color: isSelected ? activeOnColor : cs.onSurfaceVariant,
+              ),
+              const SizedBox(width: 4),
+            ],
+            Text(
+              label,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: isSelected ? activeOnColor : cs.onSurfaceVariant,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+              ),
+            ),
+          ],
         ),
       ),
     );
