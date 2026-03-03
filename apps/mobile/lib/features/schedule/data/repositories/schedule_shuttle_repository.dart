@@ -2,7 +2,7 @@ import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart'
 import 'package:iitpkd_one/features/dashboard/data/repositories/shuttle_repository.dart';
 
 /// Route filter options for the schedule shuttle view.
-enum ShuttleRouteFilter { all, nilaToSahyadri, sahyadriToNila }
+enum ShuttleRouteFilter { all, nilaToSahyadri, sahyadriToNila, outside }
 
 /// Repository that wraps [ShuttleRepository] for the schedule screen.
 ///
@@ -51,6 +51,8 @@ class ScheduleShuttleRepository {
                   s.to.toLowerCase().contains('nila'),
             )
             .toList();
+      case ShuttleRouteFilter.outside:
+        return schedules.where((s) => s.isOutsideTrip).toList();
     }
   }
 }
