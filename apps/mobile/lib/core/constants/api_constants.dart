@@ -20,6 +20,10 @@ abstract final class ApiConstants {
   static const String messMenuToday = '$apiVersion/mess/menu/today';
   static const String messMetadata = '$apiVersion/mess/metadata';
 
+  // -- Faculty endpoints --
+  static const String facultyList = '$apiVersion/faculty';
+  static const String facultyDetail = '$apiVersion/faculty'; // append /:slug
+
   // -- Hive box names --
   static const String shuttleCacheBox = 'shuttle_cache';
   static const String shuttleDataKey = 'shuttle_schedules';
