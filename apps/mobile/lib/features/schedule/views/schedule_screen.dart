@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:iitpkd_one/features/schedule/view_models/mess_view_model.dart';
 import 'package:iitpkd_one/features/schedule/view_models/schedule_shuttle_view_model.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/day_toggle.dart';
-import 'package:iitpkd_one/features/schedule/views/widgets/mess_day_selector.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/mess_meal_card.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/mess_week_toggle.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/route_filter_chips.dart';
@@ -25,9 +25,11 @@ class ScheduleScreen extends HookConsumerWidget {
     // Local state: which mode is active
     final scheduleMode = useState(ScheduleMode.shuttle);
 
+    // Shared date selection (used by both shuttle and mess)
+    final selectedDate = useState(DateTime.now());
+
     // Local state for mess sub-view
     final isCurrentWeek = useState(true);
-    final selectedMessDay = useState(MessViewModel.currentDayName());
 
     // Listen for shuttle errors
     ref.listen(scheduleShuttleViewModelProvider, (previous, next) {
@@ -90,13 +92,29 @@ class ScheduleScreen extends HookConsumerWidget {
             onChanged: (mode) => scheduleMode.value = mode,
           ),
 
+          const SizedBox(height: 4),
+
+          // Shared date strip
+          DateStrip(
+            selectedDate: selectedDate.value,
+            onDateSelected: (date) {
+              selectedDate.value = date;
+              // Sync with shuttle VM
+              ref
+                  .read(scheduleShuttleViewModelProvider.notifier)
+                  .selectDate(date);
+            },
+          ),
+
+          const SizedBox(height: 8),
+
           // Content area
           Expanded(
             child: scheduleMode.value == ScheduleMode.shuttle
                 ? _ShuttleSubView()
                 : _MessSubView(
                     isCurrentWeek: isCurrentWeek,
-                    selectedDay: selectedMessDay,
+                    selectedDate: selectedDate.value,
                   ),
           ),
         ],
@@ -136,22 +154,10 @@ class _ShuttleSubView extends ConsumerWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-          // Day toggle (Today / Tomorrow)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8, bottom: 12),
-              child: DayToggle(
-                isToday: viewModel.isToday,
-                onChanged: (isToday) =>
-                    viewModel.selectDay(isToday: isToday),
-              ),
-            ),
-          ),
-
           // Route filter chips
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.only(top: 4, bottom: 12),
               child: RouteFilterChips(
                 selected: viewModel.routeFilter,
                 onChanged: (route) => viewModel.selectRoute(route),
@@ -177,7 +183,7 @@ class _ShuttleSubView extends ConsumerWidget {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'No shuttles scheduled for this selection.',
+                          'No shuttles scheduled for this day.',
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
@@ -202,7 +208,7 @@ class _ShuttleSubView extends ConsumerWidget {
                     }
                     return ScheduleShuttleCard(schedule: sorted[index]);
                   },
-                  childCount: sorted.length + 1, // +1 for bottom padding
+                  childCount: sorted.length + 1,
                 ),
               );
             },
@@ -237,11 +243,11 @@ class _ShuttleSubView extends ConsumerWidget {
 class _MessSubView extends ConsumerWidget {
   const _MessSubView({
     required this.isCurrentWeek,
-    required this.selectedDay,
+    required this.selectedDate,
   });
 
   final ValueNotifier<bool> isCurrentWeek;
-  final ValueNotifier<String> selectedDay;
+  final DateTime selectedDate;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -253,6 +259,10 @@ class _MessSubView extends ConsumerWidget {
         ? currentWeekType
         : (currentWeekType == 'odd' ? 'even' : 'odd');
 
+    // Derive day name from the shared selected date
+    final selectedDayName =
+        DateFormat('EEEE').format(selectedDate).toLowerCase();
+
     return RefreshIndicator(
       onRefresh: () =>
           ref.read(messViewModelProvider.notifier).refreshMenu(),
@@ -262,21 +272,10 @@ class _MessSubView extends ConsumerWidget {
           // Week toggle (This Week / Next Week)
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.only(top: 8, bottom: 12),
+              padding: const EdgeInsets.only(top: 4, bottom: 16),
               child: MessWeekToggle(
                 isCurrentWeek: isCurrentWeek.value,
                 onChanged: (value) => isCurrentWeek.value = value,
-              ),
-            ),
-          ),
-
-          // Day selector (Mon–Sun)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: MessDaySelector(
-                selectedDay: selectedDay.value,
-                onDaySelected: (day) => selectedDay.value = day,
               ),
             ),
           ),
@@ -286,7 +285,7 @@ class _MessSubView extends ConsumerWidget {
             data: (menu) {
               final mealDay = menu.getMealsForDay(
                 displayWeekType,
-                selectedDay.value,
+                selectedDayName,
               );
 
               if (mealDay == null) {
