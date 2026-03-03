@@ -1,6 +1,8 @@
 import 'package:iitpkd_one/core/network/api_response.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/notice.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
+import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
 import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
 import 'package:iitpkd_one/features/schedule/data/models/mess_menu.dart';
 import 'package:iitpkd_one/features/schedule/data/models/mess_metadata.dart';
@@ -47,4 +49,15 @@ abstract interface class ApiClientInterface {
   ///
   /// Returns an updated_at timestamp for cache invalidation.
   Future<ApiResponse<MessMetadata>> getMessMetadata();
+
+  /// GET /api/v1/faculty
+  ///
+  /// Fetches the lightweight list of all faculty members.
+  /// Supports optional [department] filter (e.g., "CSE").
+  Future<ApiResponse<List<FacultyMember>>> getFacultyList({String? department});
+
+  /// GET /api/v1/faculty/:slug
+  ///
+  /// Fetches the full detailed profile of a specific faculty member.
+  Future<ApiResponse<FacultyDetail>> getFacultyDetail({required String slug});
 }
