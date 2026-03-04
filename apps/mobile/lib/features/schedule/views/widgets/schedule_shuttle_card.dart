@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
 
 /// An expandable card displaying a single shuttle schedule entry.
-///
-/// Collapsed: route summary, time chip, outside badge, reminder and expand icon.
-/// Expanded: clean stop-flow UI (static route stops only, no live-tracking cues).
 class ScheduleShuttleCard extends StatefulWidget {
   const ScheduleShuttleCard({super.key, required this.schedule});
 
@@ -184,38 +181,39 @@ class _TimeChip extends StatelessWidget {
     final displayHour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
     final formatted = '${displayHour.toString().padLeft(2, '0')}:$minute';
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-      decoration: BoxDecoration(
-        color: cs.secondaryContainer.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.schedule_rounded,
-            size: 14,
-            color: cs.secondary,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: formatted,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  color: cs.onSurface,
+                  letterSpacing: 0.2,
+                ),
+              ),
+              TextSpan(
+                text: ' $period',
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: cs.onSurface.withValues(alpha: 0.8),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 5),
-          Text(
-            formatted,
-            style: theme.textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: cs.secondary,
-            ),
+        ),
+        Text(
+          'Departure time',
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: cs.onSurfaceVariant,
+            fontWeight: FontWeight.w600,
           ),
-          const SizedBox(width: 4),
-          Text(
-            period,
-            style: theme.textTheme.labelMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: cs.secondary.withValues(alpha: 0.9),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -231,7 +229,7 @@ class _OutsideBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       decoration: BoxDecoration(
-        color: cs.secondaryContainer,
+        color: cs.secondaryContainer.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -411,7 +409,7 @@ class _FlowStopRow extends StatelessWidget {
                       Text(
                         'Outside route',
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: cs.secondary,
+                          color: cs.onSurface,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

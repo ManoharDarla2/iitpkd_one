@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iitpkd_one/features/dashboard/views/dashboard_screen.dart';
+import 'package:iitpkd_one/features/faculty/views/faculty_detail_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_screen.dart';
 import 'package:iitpkd_one/features/schedule/views/schedule_screen.dart';
 import 'package:iitpkd_one/routes/app_shell.dart';
@@ -53,6 +54,16 @@ final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
+    // Faculty detail — pushed full-screen over the nav shell
+    GoRoute(
+      path: '/faculty/:slug',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final slug = state.pathParameters['slug']!;
+        return FacultyDetailScreen(slug: slug);
+      },
+    ),
+
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return AppShell(navigationShell: navigationShell);
