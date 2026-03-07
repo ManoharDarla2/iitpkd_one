@@ -91,7 +91,7 @@ class DashboardScreen extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Greeting
-              GreetingSection(userName: 'Rahul'),
+              GreetingSection(),
 
               // Shuttle Tracker
               ShuttleTrackerSection(),

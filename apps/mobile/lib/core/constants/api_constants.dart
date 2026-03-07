@@ -9,18 +9,34 @@ abstract final class ApiConstants {
 
   // -- Shuttle endpoints --
   static const String shuttleSchedules = '$apiVersion/shuttles';
+  static const String shuttleMetadata = '$apiVersion/shuttles/metadata';
 
   // -- Notice endpoints --
   static const String todayNotices = '$apiVersion/notices/today';
   static const String notices = '$apiVersion/notices';
+
+  // -- Mess endpoints --
+  static const String messMenu = '$apiVersion/mess/menu';
+  static const String messMenuToday = '$apiVersion/mess/menu/today';
+  static const String messMetadata = '$apiVersion/mess/metadata';
+
+  // -- Faculty endpoints --
+  static const String facultyList = '$apiVersion/faculty';
+  static const String facultyDetail = '$apiVersion/faculty'; // append /:slug
 
   // -- Hive box names --
   static const String shuttleCacheBox = 'shuttle_cache';
   static const String shuttleDataKey = 'shuttle_schedules';
   static const String shuttleLastFetchedKey = 'shuttle_last_fetched';
 
+  static const String messCacheBox = 'mess_cache';
+  static const String messDataKey = 'mess_menu';
+  static const String messLastFetchedKey = 'mess_last_fetched';
+  static const String messMetadataKey = 'mess_metadata_updated_at';
+
   // -- Cache durations --
   static const Duration shuttleCacheTtl = Duration(days: 7);
+  static const Duration messCacheTtl = Duration(days: 30);
 
   // -- Mock network delay --
   static const Duration mockNetworkDelay = Duration(milliseconds: 800);
