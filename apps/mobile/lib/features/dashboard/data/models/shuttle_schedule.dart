@@ -10,6 +10,7 @@ class ShuttleSchedule {
   final String to;
   final List<String> via;
   final String time; // "HH:mm" format, e.g. "09:00"
+  final String? arrivalTime; // "HH:mm" format, e.g. "09:25"
   final bool isOutsideTrip;
   final List<String> days;
 
@@ -19,6 +20,7 @@ class ShuttleSchedule {
     required this.to,
     required this.via,
     required this.time,
+    this.arrivalTime,
     required this.isOutsideTrip,
     required this.days,
   });
@@ -30,6 +32,7 @@ class ShuttleSchedule {
       to: json['to'] as String,
       via: (json['via'] as List<dynamic>).cast<String>(),
       time: json['time'] as String,
+      arrivalTime: json['arrival_time'] as String?,
       isOutsideTrip: json['is_outside_trip'] as bool,
       days: (json['days'] as List<dynamic>).cast<String>(),
     );
@@ -42,6 +45,7 @@ class ShuttleSchedule {
       'to': to,
       'via': via,
       'time': time,
+      'arrival_time': arrivalTime,
       'is_outside_trip': isOutsideTrip,
       'days': days,
     };

@@ -24,7 +24,6 @@ class ShuttleItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final minutes = schedule.minutesUntilDeparture;
-    final isSoon = minutes > 0 && minutes <= 30;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -34,7 +33,7 @@ class ShuttleItemTile extends StatelessWidget {
           Icon(
             isNext ? Icons.directions_bus_rounded : Icons.schedule_rounded,
             color: isNext
-                ? theme.colorScheme.primary
+                ? theme.colorScheme.secondary
                 : theme.colorScheme.onSurfaceVariant,
             size: 24,
           ),
@@ -93,19 +92,26 @@ class ShuttleItemTile extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: isSoon
-                    ? const Color(0xFFE8F5E9)
+                color: isNext
+                    ? theme.colorScheme.secondaryContainer.withValues(
+                        alpha: 0.4,
+                      )
                     : theme.colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
-                '$minutes min',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: isSoon
-                      ? const Color(0xFF2E7D32)
-                      : theme.colorScheme.onSurfaceVariant,
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '$minutes min',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: isNext
+                          ? theme.colorScheme.secondary
+                          : theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
               ),
             ),
         ],
