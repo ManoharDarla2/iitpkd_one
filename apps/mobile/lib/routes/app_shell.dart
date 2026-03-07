@@ -39,6 +39,11 @@ class AppShell extends StatelessWidget {
             label: 'Schedule',
           ),
           NavigationDestination(
+            icon: Icon(Icons.school_outlined),
+            selectedIcon: Icon(Icons.school_rounded),
+            label: 'Faculty',
+          ),
+          NavigationDestination(
             icon: Icon(Icons.groups_outlined),
             selectedIcon: Icon(Icons.groups_rounded),
             label: 'Collab',

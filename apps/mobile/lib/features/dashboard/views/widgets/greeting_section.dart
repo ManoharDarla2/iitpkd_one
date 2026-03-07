@@ -2,18 +2,28 @@ import 'package:flutter/material.dart';
 
 /// The greeting section at the top of the dashboard.
 ///
-/// Displays "Hello, {name}" and a contextual subtitle.
-/// When login is implemented, [userName] will come from the auth state.
+/// When [userName] is provided (user logged in), shows "Hello, {name}".
+/// When [userName] is null (not logged in), shows a formal time-of-day
+/// greeting like "Good Morning" without any name.
 class GreetingSection extends StatelessWidget {
   const GreetingSection({super.key, this.userName});
 
-  /// The user's first name. Shows "Hello, Guest" if null.
+  /// The user's first name. Shows a formal time-based greeting if null.
   final String? userName;
+
+  String _timeOfDayGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final displayName = userName ?? 'Guest';
+    final greeting = userName != null
+        ? 'Hello, $userName'
+        : _timeOfDayGreeting();
 
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 24),
@@ -21,7 +31,7 @@ class GreetingSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hello, $displayName',
+            greeting,
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: theme.colorScheme.onSurface,
