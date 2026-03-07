@@ -27,8 +27,7 @@ class ShuttleTrackerSection extends ConsumerWidget {
             Icons.directions_bus_filled_rounded,
             color: theme.colorScheme.primary,
             size: 24,
-          ),
-          trailing: _LiveBadge(),
+          )
         ),
 
         // Content
@@ -62,37 +61,6 @@ class ShuttleTrackerSection extends ConsumerWidget {
               ),
               padding: const EdgeInsets.symmetric(vertical: 12),
             ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-/// Green pulsing "LIVE" badge.
-class _LiveBadge extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          decoration: const BoxDecoration(
-            color: Color(0xFF4CAF50),
-            shape: BoxShape.circle,
-          ),
-        ),
-        const SizedBox(width: 4),
-        Text(
-          'LIVE',
-          style: theme.textTheme.labelMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: const Color(0xFF4CAF50),
-            letterSpacing: 0.5,
           ),
         ),
       ],
