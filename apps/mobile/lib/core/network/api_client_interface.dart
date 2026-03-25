@@ -7,6 +7,7 @@ import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
 import 'package:iitpkd_one/features/schedule/data/models/mess_menu.dart';
 import 'package:iitpkd_one/features/schedule/data/models/mess_metadata.dart';
 import 'package:iitpkd_one/features/schedule/data/models/shuttle_metadata.dart';
+import 'package:iitpkd_one/features/search/data/models/search_result.dart';
 
 /// Abstract interface defining all API endpoints.
 ///
@@ -60,4 +61,26 @@ abstract interface class ApiClientInterface {
   ///
   /// Fetches the full detailed profile of a specific faculty member.
   Future<ApiResponse<FacultyDetail>> getFacultyDetail({required String slug});
+
+  // -- Search endpoints --
+
+  /// GET /api/v1/search?q={query}&category={category}&limit={limit}
+  ///
+  /// Unified search across all campus resource categories.
+  /// [query] is the search term (required, min 1 character).
+  /// [category] filters results to a single category (optional).
+  /// [limit] caps the number of results (default 20).
+  Future<ApiResponse<SearchResult>> search({
+    required String query,
+    String? category,
+    int? limit,
+  });
+
+  /// GET /api/v1/search/suggestions?q={query}
+  ///
+  /// Lightweight prefix-based autocomplete suggestions.
+  /// Returns a short list of matching terms as the user types.
+  Future<ApiResponse<List<String>>> getSearchSuggestions({
+    required String query,
+  });
 }

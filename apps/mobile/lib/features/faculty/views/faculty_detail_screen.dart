@@ -30,7 +30,7 @@ class FacultyDetailScreen extends HookConsumerWidget {
             ),
           ),
           loading: () => const Text('Loading...'),
-          error: (_, __) => const Text('Faculty'),
+          error: (_, _) => const Text('Faculty'),
         ),
         centerTitle: false,
         elevation: 0,
