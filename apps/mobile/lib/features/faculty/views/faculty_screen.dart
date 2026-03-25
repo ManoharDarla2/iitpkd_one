@@ -87,7 +87,7 @@ class FacultyScreen extends HookConsumerWidget {
               onSelected: (dept) => viewModel.filterByDepartment(dept),
             ),
             loading: () => const SizedBox(height: 42),
-            error: (_, __) => const SizedBox(height: 42),
+            error: (_, _) => const SizedBox(height: 42),
           ),
 
           const SizedBox(height: 8),

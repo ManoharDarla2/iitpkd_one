@@ -24,6 +24,10 @@ abstract final class ApiConstants {
   static const String facultyList = '$apiVersion/faculty';
   static const String facultyDetail = '$apiVersion/faculty'; // append /:slug
 
+  // -- Search endpoints --
+  static const String search = '$apiVersion/search';
+  static const String searchSuggestions = '$apiVersion/search/suggestions';
+
   // -- Hive box names --
   static const String shuttleCacheBox = 'shuttle_cache';
   static const String shuttleDataKey = 'shuttle_schedules';
@@ -33,6 +37,10 @@ abstract final class ApiConstants {
   static const String messDataKey = 'mess_menu';
   static const String messLastFetchedKey = 'mess_last_fetched';
   static const String messMetadataKey = 'mess_metadata_updated_at';
+
+  static const String recentSearchesBox = 'recent_searches';
+  static const String recentSearchesKey = 'recent_queries';
+  static const int recentSearchesMaxCount = 10;
 
   // -- Cache durations --
   static const Duration shuttleCacheTtl = Duration(days: 7);

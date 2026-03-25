@@ -12,6 +12,9 @@ import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
 import 'package:iitpkd_one/features/schedule/data/models/mess_menu.dart';
 import 'package:iitpkd_one/features/schedule/data/models/mess_metadata.dart';
 import 'package:iitpkd_one/features/schedule/data/models/shuttle_metadata.dart';
+import 'package:iitpkd_one/features/search/data/models/search_category.dart';
+import 'package:iitpkd_one/features/search/data/models/search_result.dart';
+import 'package:iitpkd_one/features/search/data/models/search_result_item.dart';
 
 /// Mock implementation of [ApiClientInterface] for development.
 ///
@@ -301,10 +304,7 @@ class MockApiClient implements ApiClientInterface {
       orElse: () => _fullMessMenu.first,
     );
 
-    return ApiResponse.success(
-      data: today,
-      message: "Today's menu retrieved",
-    );
+    return ApiResponse.success(data: today, message: "Today's menu retrieved");
   }
 
   @override
@@ -312,10 +312,7 @@ class MockApiClient implements ApiClientInterface {
     await Future<void>.delayed(const Duration(milliseconds: 200));
 
     return ApiResponse.success(
-      data: MessMetadata(
-        updatedAt: DateTime(2026, 1, 10),
-        campus: 'Nila',
-      ),
+      data: MessMetadata(updatedAt: DateTime(2026, 1, 10), campus: 'Nila'),
       message: 'Mess metadata retrieved',
     );
   }
@@ -452,7 +449,10 @@ class MockApiClient implements ApiClientInterface {
           'CS3040: Design and Analysis of Algorithms',
           'CS6010: Kernel Methods in Machine Learning',
         ],
-        researchGroups: ['Computational Biology Group', 'AI & Data Science Lab (Nila Campus)'],
+        researchGroups: [
+          'Computational Biology Group',
+          'AI & Data Science Lab (Nila Campus)',
+        ],
         additionalInformation: {
           'office_hours': 'Tuesday 2 PM - 4 PM',
           'room': 'Academic Block A, Room 215',
@@ -471,7 +471,11 @@ class MockApiClient implements ApiClientInterface {
           email: 'vineeth@iitpkd.ac.in',
           phoneNumber: null,
         ),
-        researchAreas: ['Computer Vision', 'Deep Learning', 'Pattern Recognition'],
+        researchAreas: [
+          'Computer Vision',
+          'Deep Learning',
+          'Pattern Recognition',
+        ],
         biosketch:
             'Dr. Vineeth Balasubramanian is an Assistant Professor specializing in computer vision and deep learning applications. His work focuses on visual recognition and understanding of complex scenes.',
         teaching: [
@@ -498,7 +502,11 @@ class MockApiClient implements ApiClientInterface {
           email: 'krithika@iitpkd.ac.in',
           phoneNumber: null,
         ),
-        researchAreas: ['Computational Fluid Dynamics', 'Thermal Engineering', 'Microfluidics'],
+        researchAreas: [
+          'Computational Fluid Dynamics',
+          'Thermal Engineering',
+          'Microfluidics',
+        ],
         biosketch:
             'Dr. Krithika Ramalingam is an Associate Professor in Mechanical Engineering. Her research focuses on computational modeling of fluid flow and heat transfer in micro-scale systems.',
         teaching: [
@@ -525,7 +533,11 @@ class MockApiClient implements ApiClientInterface {
           email: 'rajesh.nair@iitpkd.ac.in',
           phoneNumber: '+91-4923-226-0002',
         ),
-        researchAreas: ['Quantum Computing', 'Condensed Matter Physics', 'Quantum Information'],
+        researchAreas: [
+          'Quantum Computing',
+          'Condensed Matter Physics',
+          'Quantum Information',
+        ],
         biosketch:
             'Dr. Rajesh Nair is a Professor of Physics and a leading researcher in quantum computing. He has published over 80 papers in reputed journals and leads the Quantum Information Lab at IIT Palakkad.',
         teaching: [
@@ -533,7 +545,10 @@ class MockApiClient implements ApiClientInterface {
           'PH4020: Quantum Mechanics II',
           'PH6030: Quantum Computing',
         ],
-        researchGroups: ['Quantum Information Lab', 'Centre for Quantum Sciences'],
+        researchGroups: [
+          'Quantum Information Lab',
+          'Centre for Quantum Sciences',
+        ],
         additionalInformation: {
           'office_hours': 'Monday & Friday 11 AM - 1 PM',
           'room': 'Nila Campus, Room 401',
@@ -607,7 +622,11 @@ class MockApiClient implements ApiClientInterface {
           email: 'siddharth@iitpkd.ac.in',
           phoneNumber: null,
         ),
-        researchAreas: ['Philosophy of Science', 'Ethics of AI', 'Science and Technology Studies'],
+        researchAreas: [
+          'Philosophy of Science',
+          'Ethics of AI',
+          'Science and Technology Studies',
+        ],
         biosketch:
             'Dr. Siddharth Iyer teaches courses on ethics, philosophy of science, and the societal impact of technology. He holds a PhD from JNU, New Delhi.',
         teaching: [
@@ -640,6 +659,533 @@ class MockApiClient implements ApiClientInterface {
       message: 'Faculty detail retrieved successfully',
     );
   }
+
+  // ---------------------------------------------------------------------------
+  // Search endpoints
+  // ---------------------------------------------------------------------------
+
+  @override
+  Future<ApiResponse<SearchResult>> search({
+    required String query,
+    String? category,
+    int? limit,
+  }) async {
+    await Future<void>.delayed(ApiConstants.mockNetworkDelay);
+
+    final q = query.toLowerCase().trim();
+    if (q.isEmpty) {
+      return ApiResponse.success(
+        data: SearchResult(
+          query: query,
+          category: category,
+          totalCount: 0,
+          results: const [],
+        ),
+        message: 'Empty query',
+      );
+    }
+
+    final maxResults = limit ?? 20;
+
+    // Filter by query (case-insensitive substring match on title + subtitle + description)
+    var filtered = _searchableItems.where((item) {
+      final haystack =
+          '${item.title} ${item.subtitle} ${item.description ?? ''}'
+              .toLowerCase();
+      return haystack.contains(q);
+    });
+
+    // Filter by category if specified
+    if (category != null) {
+      final cat = SearchCategory.fromValue(category);
+      if (cat != null) {
+        filtered = filtered.where((item) => item.category == cat);
+      }
+    }
+
+    final results = filtered.take(maxResults).toList();
+
+    return ApiResponse.success(
+      data: SearchResult(
+        query: query,
+        category: category,
+        totalCount: results.length,
+        results: results,
+      ),
+      message: 'Search results for "$query"',
+    );
+  }
+
+  @override
+  Future<ApiResponse<List<String>>> getSearchSuggestions({
+    required String query,
+  }) async {
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+
+    final q = query.toLowerCase().trim();
+    if (q.isEmpty) {
+      // Return popular/trending suggestions when query is empty.
+      return ApiResponse.success(
+        data: const [
+          '3D Printer',
+          'Laser Cutter',
+          'Soldering Station',
+          'CNC Router',
+          'Electric Drill',
+          'ARC Welder',
+        ],
+        message: 'Popular suggestions',
+      );
+    }
+
+    // Prefix-based matching on searchable item titles.
+    final matches = _searchableItems
+        .where((item) => item.title.toLowerCase().contains(q))
+        .map((item) => item.title)
+        .toSet() // Deduplicate
+        .take(6)
+        .toList();
+
+    return ApiResponse.success(
+      data: matches,
+      message: 'Suggestions for "$query"',
+    );
+  }
+
+  /// Mock searchable items across all categories.
+  static const _searchableItems = <SearchResultItem>[
+    // -- Equipment (Innovation Lab Tools) --
+
+    // Power Tools
+    SearchResultItem(
+      id: 'equip-orbital-sander',
+      category: SearchCategory.equipment,
+      title: 'Orbital Sander',
+      subtitle: 'Bosch GEX 125-1 AE',
+      description:
+          'Random orbital sander for fine surface finishing on wood and metal. Variable speed control with dust collection micro-filter system. Ideal for smoothing and polishing workpieces before painting or coating.',
+      imageUrl: 'https://picsum.photos/seed/orbital-sander/400/300',
+      metadata: {
+        'make': 'Bosch',
+        'model': 'GEX 125-1 AE',
+        'tool_category': 'Power Tools',
+        'location': 'Innovation Lab, Bay 1',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-electric-drill',
+      category: SearchCategory.equipment,
+      title: 'Electric Drill',
+      subtitle: 'Bosch GSB 10RE',
+      description:
+          'Professional-grade impact drill for drilling in wood, metal, and masonry. 500W motor with variable speed and forward/reverse function. Comes with standard chuck key and auxiliary handle.',
+      imageUrl: 'https://picsum.photos/seed/electric-drill/400/300',
+      metadata: {
+        'make': 'Bosch',
+        'model': 'GSB 10RE',
+        'tool_category': 'Power Tools',
+        'location': 'Innovation Lab, Bay 1',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-angle-grinder',
+      category: SearchCategory.equipment,
+      title: 'Angle Grinder',
+      subtitle: 'Bosch GWS 600',
+      description:
+          'Compact angle grinder for cutting, grinding, and polishing metal and stone surfaces. 670W motor with anti-vibration side handle and protective guard. Standard 100mm disc size.',
+      imageUrl: 'https://picsum.photos/seed/angle-grinder/400/300',
+      metadata: {
+        'make': 'Bosch',
+        'model': 'GWS 600',
+        'tool_category': 'Power Tools',
+        'location': 'Innovation Lab, Bay 1',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-jigsaw',
+      category: SearchCategory.equipment,
+      title: 'Jigsaw',
+      subtitle: 'Bosch GST 650',
+      description:
+          'Variable-speed jigsaw for precise curved and straight cuts in wood, metal, and plastic. 450W motor with 4-stage orbital action and SDS blade change system for quick swaps.',
+      imageUrl: 'https://picsum.photos/seed/jigsaw-cutter/400/300',
+      metadata: {
+        'make': 'Bosch',
+        'model': 'GST 650',
+        'tool_category': 'Power Tools',
+        'location': 'Innovation Lab, Bay 1',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-heat-gun',
+      category: SearchCategory.equipment,
+      title: 'Heat Gun',
+      subtitle: 'Bosch GHG 180',
+      description:
+          'Industrial heat gun for shrink wrapping, paint stripping, and bending PVC pipes. Dual temperature settings (60°C and 600°C) with 1800W power output.',
+      imageUrl: 'https://picsum.photos/seed/heat-gun/400/300',
+      metadata: {
+        'make': 'Bosch',
+        'model': 'GHG 180',
+        'tool_category': 'Power Tools',
+        'location': 'Innovation Lab, Bay 2',
+      },
+    ),
+
+    // Electric / CNC Tools
+    SearchResultItem(
+      id: 'equip-cnc-laser-cutter',
+      category: SearchCategory.equipment,
+      title: 'CNC Laser Cutter',
+      subtitle: 'Kavone KL1060',
+      description:
+          'CO2 laser cutting and engraving machine with 1000x600mm work area. Cuts acrylic, MDF, plywood, leather, and fabric with precision. 80W laser tube with Ruida controller and auto-focus.',
+      imageUrl: 'https://picsum.photos/seed/laser-cutter/400/300',
+      metadata: {
+        'make': 'Kavone',
+        'model': 'KL1060',
+        'tool_category': 'Electric Tools',
+        'location': 'Innovation Lab, CNC Zone',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-arc-welder',
+      category: SearchCategory.equipment,
+      title: 'ARC Welder',
+      subtitle: 'Euro GenX MMA 201XP',
+      description:
+          'Inverter-based MMA/ARC welding machine with 200A output. Suitable for mild steel, stainless steel, and cast iron. Features anti-stick, hot start, and arc force control for clean welds.',
+      imageUrl: 'https://picsum.photos/seed/arc-welder/400/300',
+      metadata: {
+        'make': 'Euro',
+        'model': 'GenX MMA 201XP',
+        'tool_category': 'Electric Tools',
+        'location': 'Innovation Lab, Welding Bay',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-cnc-router',
+      category: SearchCategory.equipment,
+      title: 'CNC Router',
+      subtitle: 'BobsCNC Evolution 4',
+      description:
+          'Desktop CNC router for precision milling of wood, acrylic, and soft metals. 450x390mm work area with 85mm Z-axis clearance. Uses standard GRBL firmware compatible with most CAM software.',
+      imageUrl: 'https://picsum.photos/seed/cnc-router/400/300',
+      metadata: {
+        'make': 'BobsCNC',
+        'model': 'Evolution 4',
+        'tool_category': 'Electric Tools',
+        'location': 'Innovation Lab, CNC Zone',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-pcb-mill',
+      category: SearchCategory.equipment,
+      title: 'PCB Milling Machine',
+      subtitle: 'Bantam Tools Desktop PCB Mill',
+      description:
+          'Precision PCB prototyping mill for single and double-sided circuit boards. Software-guided alignment and automatic tool change. Supports FR-1 and FR-4 substrates.',
+      imageUrl: 'https://picsum.photos/seed/pcb-mill/400/300',
+      metadata: {
+        'make': 'Bantam Tools',
+        'model': 'Desktop PCB Milling Machine',
+        'tool_category': 'Electric Tools',
+        'location': 'Innovation Lab, Electronics Bench',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-soldering-station',
+      category: SearchCategory.equipment,
+      title: 'Soldering Station',
+      subtitle: 'Hakko FX-888D',
+      description:
+          'Digital soldering station with 70W ceramic heater for quick heat recovery. Adjustable temperature from 200°C to 480°C. Includes T18 series tip and heat-resistant pad.',
+      imageUrl: 'https://picsum.photos/seed/soldering-station/400/300',
+      metadata: {
+        'make': 'Hakko',
+        'model': 'FX-888D',
+        'tool_category': 'Electric Tools',
+        'location': 'Innovation Lab, Electronics Bench',
+      },
+    ),
+
+    // 3D Tools
+    SearchResultItem(
+      id: 'equip-sla-3d-printer',
+      category: SearchCategory.equipment,
+      title: 'SLA 3D Printer',
+      subtitle: 'Prusa Original SL1',
+      description:
+          'Resin-based stereolithography 3D printer for high-detail prototypes and miniatures. 120x68x150mm build volume with 25-100 micron layer height. Uses 405nm UV LED array for precise curing.',
+      imageUrl: 'https://picsum.photos/seed/sla-printer/400/300',
+      metadata: {
+        'make': 'Prusa',
+        'model': 'Original Prusa SL1',
+        'tool_category': '3D Tools',
+        'location': 'Innovation Lab, 3D Print Station',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-fdm-3d-printer',
+      category: SearchCategory.equipment,
+      title: 'FDM 3D Printer',
+      subtitle: 'Ultimaker 3',
+      description:
+          'Dual-extrusion FDM 3D printer for functional prototypes and production parts. 215x215x200mm build volume with PVA water-soluble support material. Compatible with PLA, ABS, Nylon, CPE, and more.',
+      imageUrl: 'https://picsum.photos/seed/fdm-printer/400/300',
+      metadata: {
+        'make': 'Ultimaker',
+        'model': 'Ultimaker 3',
+        'tool_category': '3D Tools',
+        'location': 'Innovation Lab, 3D Print Station',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-3d-scanner',
+      category: SearchCategory.equipment,
+      title: '3D Scanner',
+      subtitle: 'Creality CR-Scan 01',
+      description:
+          'Portable structured-light 3D scanner for reverse engineering and quality inspection. 0.1mm accuracy with turntable mode for small objects. Exports STL and OBJ formats for direct 3D printing.',
+      imageUrl: 'https://picsum.photos/seed/3d-scanner/400/300',
+      metadata: {
+        'make': 'Creality',
+        'model': 'CR-Scan 01',
+        'tool_category': '3D Tools',
+        'location': 'Innovation Lab, 3D Print Station',
+      },
+    ),
+    SearchResultItem(
+      id: 'equip-3d-pen',
+      category: SearchCategory.equipment,
+      title: '3D Printing Pen',
+      subtitle: '3Doodler Create+',
+      description:
+          'Handheld 3D printing pen for freeform prototyping, repairs, and artistic projects. Works with PLA and ABS filaments at adjustable speeds. Great for quick concept visualization.',
+      imageUrl: 'https://picsum.photos/seed/3d-pen/400/300',
+      metadata: {
+        'make': '3Doodler',
+        'model': 'Create+',
+        'tool_category': '3D Tools',
+        'location': 'Innovation Lab, 3D Print Station',
+      },
+    ),
+
+    // -- People (Faculty) --
+    SearchResultItem(
+      id: 'dr-biju-paul',
+      category: SearchCategory.people,
+      title: 'Dr. Biju Paul',
+      subtitle: 'Associate Professor, CSE',
+      description: 'Research: Network Security, Cryptography, Cloud Computing',
+      metadata: {
+        'slug': 'dr-biju-paul',
+        'department': 'Computer Science and Engineering',
+      },
+    ),
+    SearchResultItem(
+      id: 'dr-sahely-bhadra',
+      category: SearchCategory.people,
+      title: 'Dr. Sahely Bhadra',
+      subtitle: 'Associate Professor, CSE',
+      description: 'Research: Kernel Methods, Optimization, Bioinformatics',
+      imageUrl: 'https://iitpkd.ac.in/sites/default/files/facpic/sahely.jpg',
+      metadata: {
+        'slug': 'dr-sahely-bhadra',
+        'department': 'Computer Science and Engineering',
+      },
+    ),
+    SearchResultItem(
+      id: 'dr-vineeth-balasubramanian',
+      category: SearchCategory.people,
+      title: 'Dr. Vineeth Balasubramanian',
+      subtitle: 'Assistant Professor, CSE',
+      description:
+          'Research: Computer Vision, Deep Learning, Pattern Recognition',
+      metadata: {
+        'slug': 'dr-vineeth-balasubramanian',
+        'department': 'Computer Science and Engineering',
+      },
+    ),
+    SearchResultItem(
+      id: 'dr-krithika-ramalingam',
+      category: SearchCategory.people,
+      title: 'Dr. Krithika Ramalingam',
+      subtitle: 'Associate Professor, ME',
+      description:
+          'Research: Computational Fluid Dynamics, Thermal Engineering',
+      metadata: {
+        'slug': 'dr-krithika-ramalingam',
+        'department': 'Mechanical Engineering',
+      },
+    ),
+    SearchResultItem(
+      id: 'dr-rajesh-nair',
+      category: SearchCategory.people,
+      title: 'Dr. Rajesh Nair',
+      subtitle: 'Professor, Physics',
+      description:
+          'Research: Quantum Computing, Condensed Matter, Quantum Information',
+      metadata: {'slug': 'dr-rajesh-nair', 'department': 'Physics'},
+    ),
+    SearchResultItem(
+      id: 'dr-ananya-sharma',
+      category: SearchCategory.people,
+      title: 'Dr. Ananya Sharma',
+      subtitle: 'Assistant Professor, Chemistry',
+      description: 'Research: Organic Chemistry, Green Chemistry, Catalysis',
+      metadata: {'slug': 'dr-ananya-sharma', 'department': 'Chemistry'},
+    ),
+    SearchResultItem(
+      id: 'dr-priya-menon',
+      category: SearchCategory.people,
+      title: 'Dr. Priya Menon',
+      subtitle: 'Associate Professor, Mathematics',
+      description: 'Research: Number Theory, Algebraic Geometry, Cryptography',
+      metadata: {'slug': 'dr-priya-menon', 'department': 'Mathematics'},
+    ),
+    SearchResultItem(
+      id: 'dr-siddharth-iyer',
+      category: SearchCategory.people,
+      title: 'Dr. Siddharth Iyer',
+      subtitle: 'Assistant Professor, HSS',
+      description: 'Research: Philosophy of Science, Ethics of AI',
+      metadata: {
+        'slug': 'dr-siddharth-iyer',
+        'department': 'Humanities and Social Sciences',
+      },
+    ),
+
+    // -- Labs --
+    SearchResultItem(
+      id: 'lab-cs-programming',
+      category: SearchCategory.labs,
+      title: 'Computer Programming Lab',
+      subtitle: 'B-Block, Room 101, Sahyadri Campus',
+      description:
+          'General purpose programming lab with 60 workstations. Used for CS1010, CS2010 lab sessions.',
+      metadata: {
+        'location': 'B-Block, Room 101',
+        'capacity': '60',
+        'campus': 'Sahyadri',
+      },
+    ),
+    SearchResultItem(
+      id: 'lab-networking',
+      category: SearchCategory.labs,
+      title: 'Networking Lab',
+      subtitle: 'B-Block, Room 102, Sahyadri Campus',
+      description:
+          'Equipped with routers, switches, and packet analyzers for CS4050 Computer Networks coursework.',
+      metadata: {
+        'location': 'B-Block, Room 102',
+        'capacity': '40',
+        'campus': 'Sahyadri',
+      },
+    ),
+    SearchResultItem(
+      id: 'lab-ai-robotics',
+      category: SearchCategory.labs,
+      title: 'AI & Robotics Lab',
+      subtitle: 'A-Block, Room 310, Nila Campus',
+      description:
+          'Research lab with GPU workstations, robotic arms, and sensor kits. Headed by CSE faculty.',
+      metadata: {'location': 'A-Block, Room 310', 'campus': 'Nila'},
+    ),
+    SearchResultItem(
+      id: 'lab-physics',
+      category: SearchCategory.labs,
+      title: 'Physics Lab',
+      subtitle: 'A-Block, Room 201, Nila Campus',
+      description:
+          'Undergraduate physics experiments and demonstrations. Used for PH1010 lab sessions.',
+      metadata: {
+        'location': 'A-Block, Room 201',
+        'capacity': '50',
+        'campus': 'Nila',
+      },
+    ),
+    SearchResultItem(
+      id: 'lab-chemistry',
+      category: SearchCategory.labs,
+      title: 'Chemistry Lab',
+      subtitle: 'A-Block, Room 202, Nila Campus',
+      description:
+          'Wet lab for organic and inorganic experiments. Fume hoods and analytical instruments available.',
+      metadata: {
+        'location': 'A-Block, Room 202',
+        'capacity': '45',
+        'campus': 'Nila',
+      },
+    ),
+    SearchResultItem(
+      id: 'lab-thermal-fluids',
+      category: SearchCategory.labs,
+      title: 'Thermal & Fluid Sciences Lab',
+      subtitle: 'Sahyadri Campus, Room 305',
+      description:
+          'Research lab for computational fluid dynamics and heat transfer experiments.',
+      metadata: {'location': 'Room 305', 'campus': 'Sahyadri'},
+    ),
+    SearchResultItem(
+      id: 'lab-electronics',
+      category: SearchCategory.labs,
+      title: 'Electronics Workshop',
+      subtitle: 'B-Block, Room 201, Sahyadri Campus',
+      description:
+          'Hands-on electronics lab with oscilloscopes, signal generators, and soldering stations.',
+      metadata: {
+        'location': 'B-Block, Room 201',
+        'capacity': '40',
+        'campus': 'Sahyadri',
+      },
+    ),
+
+    // -- Schedules --
+    SearchResultItem(
+      id: 'schedule-shuttle',
+      category: SearchCategory.schedules,
+      title: 'Shuttle Schedule',
+      subtitle: 'Campus bus timings',
+      description:
+          'Daily shuttle service between Nila Campus, Sahyadri Campus, and City Center. Runs on weekdays.',
+      metadata: {
+        'route': 'Nila - Sahyadri - City Center',
+        'frequency': 'Every 30-60 minutes',
+      },
+    ),
+    SearchResultItem(
+      id: 'schedule-mess',
+      category: SearchCategory.schedules,
+      title: 'Mess Menu',
+      subtitle: '14-day rotating meal schedule',
+      description:
+          'Breakfast, lunch, snacks, and dinner menu for Nila Campus mess. Two-week rotation cycle.',
+      metadata: {'campus': 'Nila', 'cycle': '14-day rotation'},
+    ),
+    SearchResultItem(
+      id: 'schedule-library-hours',
+      category: SearchCategory.schedules,
+      title: 'Library Hours',
+      subtitle: 'Central Library timings',
+      description:
+          'Weekdays: 8 AM - 10 PM. Weekends: 9 AM - 6 PM. Extended hours during exam season.',
+      metadata: {
+        'weekday': '8:00 AM - 10:00 PM',
+        'weekend': '9:00 AM - 6:00 PM',
+      },
+    ),
+    SearchResultItem(
+      id: 'schedule-sports',
+      category: SearchCategory.schedules,
+      title: 'Sports Complex Hours',
+      subtitle: 'Gym and courts timings',
+      description:
+          'Gym: 6 AM - 9 PM daily. Badminton courts: slot-based booking via campus portal.',
+      metadata: {'gym': '6:00 AM - 9:00 PM', 'courts': 'Slot-based booking'},
+    ),
+  ];
 
   // ---------------------------------------------------------------------------
   // Helpers
@@ -793,7 +1339,12 @@ class MockApiClient implements ApiClientInterface {
         breakfast: ['Aloo Paratha', 'Curd', 'Pickle', 'Tea/Coffee'],
         lunch: ['Jeera Rice', 'Dal Makhani', 'Paneer Tikka', 'Roti', 'Sweet'],
         snacks: ['Pasta', 'Juice'],
-        dinner: ['Chapati', 'Butter Chicken Gravy (Veg)', 'Rice', 'Gulab Jamun'],
+        dinner: [
+          'Chapati',
+          'Butter Chicken Gravy (Veg)',
+          'Rice',
+          'Gulab Jamun',
+        ],
       ),
     ),
   ];

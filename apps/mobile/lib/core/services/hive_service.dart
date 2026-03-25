@@ -15,6 +15,7 @@ class HiveService {
     await Hive.initFlutter();
     await Hive.openBox<String>(ApiConstants.shuttleCacheBox);
     await Hive.openBox<String>(ApiConstants.messCacheBox);
+    await Hive.openBox<String>(ApiConstants.recentSearchesBox);
     _initialized = true;
   }
 
@@ -108,5 +109,52 @@ class HiveService {
   /// Retrieves the cached metadata `updated_at` timestamp, or null.
   String? getCachedMessMetadataTimestamp() {
     return messBox.get(ApiConstants.messMetadataKey);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Recent searches
+  // ---------------------------------------------------------------------------
+
+  /// Returns the recent searches box.
+  Box<String> get recentSearchesBox =>
+      Hive.box<String>(ApiConstants.recentSearchesBox);
+
+  /// Returns the list of recent search queries, most recent first.
+  List<String> getRecentSearches() {
+    final raw = recentSearchesBox.get(ApiConstants.recentSearchesKey);
+    if (raw == null || raw.isEmpty) return [];
+    return raw.split('\n');
+  }
+
+  /// Adds a query to the front of the recent searches list.
+  /// Deduplicates and caps at [ApiConstants.recentSearchesMaxCount].
+  Future<void> addRecentSearch(String query) async {
+    final trimmed = query.trim();
+    if (trimmed.isEmpty) return;
+
+    final current = getRecentSearches();
+    current.remove(trimmed);
+    current.insert(0, trimmed);
+
+    final capped = current.take(ApiConstants.recentSearchesMaxCount).toList();
+    await recentSearchesBox.put(
+      ApiConstants.recentSearchesKey,
+      capped.join('\n'),
+    );
+  }
+
+  /// Removes a single query from recent searches.
+  Future<void> removeRecentSearch(String query) async {
+    final current = getRecentSearches();
+    current.remove(query.trim());
+    await recentSearchesBox.put(
+      ApiConstants.recentSearchesKey,
+      current.join('\n'),
+    );
+  }
+
+  /// Clears all recent searches.
+  Future<void> clearRecentSearches() async {
+    await recentSearchesBox.delete(ApiConstants.recentSearchesKey);
   }
 }
