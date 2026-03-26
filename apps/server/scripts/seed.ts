@@ -93,6 +93,11 @@ async function insertInChunks<T extends object>(
   }
 }
 
+function isTransactionUnsupportedError(error: unknown): boolean {
+  return error instanceof Error
+    && error.message.includes('No transactions support in neon-http driver');
+}
+
 async function main(): Promise<void> {
   const [facultyJson, messJson, shuttleJson, equipmentJson] = await Promise.all([
     readJsonArray<FacultyRecord>('faculty_details.json'),
@@ -153,17 +158,32 @@ async function main(): Promise<void> {
       description: row.descrption?.trim() ?? '',
     }));
 
-  await db.transaction(async (tx) => {
-    await tx.delete(facultyTable);
-    await tx.delete(messTable);
-    await tx.delete(shuttleTable);
-    await tx.delete(equipmentTable);
+  const runSeedQueries = async (
+    queryClient: Pick<typeof db, 'delete' | 'insert'>,
+  ): Promise<void> => {
+    await queryClient.delete(facultyTable);
+    await queryClient.delete(messTable);
+    await queryClient.delete(shuttleTable);
+    await queryClient.delete(equipmentTable);
 
-    await insertInChunks(facultyRows, (chunk) => tx.insert(facultyTable).values(chunk));
-    await insertInChunks(messRows, (chunk) => tx.insert(messTable).values(chunk));
-    await insertInChunks(shuttleRows, (chunk) => tx.insert(shuttleTable).values(chunk));
-    await insertInChunks(equipmentRows, (chunk) => tx.insert(equipmentTable).values(chunk));
-  });
+    await insertInChunks(facultyRows, (chunk) => queryClient.insert(facultyTable).values(chunk));
+    await insertInChunks(messRows, (chunk) => queryClient.insert(messTable).values(chunk));
+    await insertInChunks(shuttleRows, (chunk) => queryClient.insert(shuttleTable).values(chunk));
+    await insertInChunks(equipmentRows, (chunk) => queryClient.insert(equipmentTable).values(chunk));
+  };
+
+  try {
+    await db.transaction(async (tx) => {
+      await runSeedQueries(tx);
+    });
+  } catch (error) {
+    if (!isTransactionUnsupportedError(error)) {
+      throw error;
+    }
+
+    // Neon HTTP driver does not support transactions, so run sequentially.
+    await runSeedQueries(db);
+  }
 
   console.log('Seed completed successfully.');
   console.log(
