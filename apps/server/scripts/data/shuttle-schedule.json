@@ -1,0 +1,1559 @@
+[
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:30 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:25 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:45 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:20 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:45 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:15 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:50 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:15 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "1:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "1:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "1:45 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "2:15 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "2:45 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "3:20 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "3:45 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "4:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "5:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "5:15 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "5:45 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "6:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "6:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "7:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "7:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:45 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:15 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:45 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:00 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:25 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:45 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:20 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:45 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:15 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:50 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "12:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "12:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "1:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "1:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "1:45 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "2:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "2:45 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "3:20 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "3:45 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "4:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:45 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "6:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "6:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:30 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:30 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:30 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:30 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "1:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "1:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "2:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "2:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "3:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "3:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "4:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "4:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "5:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "5:15 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "5:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "6:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "6:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "7:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "7:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:00 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:00 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:00 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:00 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "12:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "12:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "1:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "1:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "2:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "2:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "3:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "3:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "4:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "4:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "6:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": true
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "6:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:45 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:15 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "1:15 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "2:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "3:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "4:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "5:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "6:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "6:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "7:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "7:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:30 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "9:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "10:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "11:00 PM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "12:00 AM",
+    "via": ["sangraha busstop", "C06 Block", "APJ (D03) Block", "Kedaram Busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:00 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:00 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:30 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:15 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:15 AM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "12:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "12:45 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "1:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "2:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "3:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "4:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "6:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "6:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:00 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "7:30 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "8:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "9:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "10:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "11:15 PM",
+    "via": ["Kedaram Busstop", "APJ (D03) Block", "C06 Block", "sangraha busstop"],
+    "isOutsideTrip": false,
+    "days": ["sunday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila Gate",
+    "to": "Sahyadri",
+    "time": "7:40 AM",
+    "via": ["Palakkad", "Kadamkode", "Manapullykavu", "Maidaan (Govt. Hospital)", "Stadium Bus Stand", "Kalmandapam", "Chandranagar", "Pudussery", "Nila Gate"],
+    "isOutsideTrip": true,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila Gate",
+    "to": "Sahyadri",
+    "time": "7:55 AM",
+    "via": ["Kalleppulley", "Koppam", "Sekharipuram", "Mattumantha", "Malampuza", "Nila Gate"],
+    "isOutsideTrip": true,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Palakkad",
+    "to": "Sahyadri",
+    "time": "8:00 AM",
+    "via": ["Kadamkode", "Manapullykavu", "Maidaan (Govt. Hospital)", "Stadium Bus Stand", "Kalmandapam", "Chandranagar", "Pudussery", "Nila Gate"],
+    "isOutsideTrip": true,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:10 PM",
+    "via": ["Nila Gate", "Pudussery", "Kadamkode", "Manapullykavu", "Maidaan (Govt. Hospital)", "Stadium Bus Stand", "Palakkad", "Chandranagar", "Pudussery"],
+    "isOutsideTrip": true,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Kinar Stop",
+    "time": "5:10 PM",
+    "via": ["Nila Gate", "Pudussery", "Kadamkode", "Manapullykavu", "Maidaan (Govt. Hospital)", "Stadium Bus Stand", "Palakkad", "Chandranagar", "Pudussery"],
+    "isOutsideTrip": true,
+    "days": ["friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila",
+    "time": "5:20 PM",
+    "via": ["Nila Manogata", "Malampuzha Road", "Mattumantha", "Sekharipuram", "Koppam", "Kalleppulley", "Chandranagar", "Pudussery"],
+    "isOutsideTrip": true,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:15 AM",
+    "via": ["Wise Park Junction", "Nila Manogata"],
+    "isOutsideTrip": true,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Nila Manogata",
+    "time": "6:15 PM",
+    "via": ["Nila Gate", "Wise Park Junction"],
+    "isOutsideTrip": true,
+    "days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Sahyadri",
+    "to": "Saraswati",
+    "time": "1:00 PM",
+    "via": ["Nila Gate", "Pudussery", "Kadamkode", "Manapullykavu", "Maidaan (Govt. Hospital)", "Stadium Bus Stand", "Palakkad", "Chandranagar", "Pudussery", "Nila"],
+    "isOutsideTrip": true,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  },
+  {
+    "from": "Nila",
+    "to": "Sahyadri",
+    "time": "8:45 AM",
+    "via": ["Wise Park Junction", "Nila Manogata"],
+    "isOutsideTrip": true,
+    "days": ["saturday", "monday(holiday)", "tuesday(holiday)", "wednesday(holiday)", "thursday(holiday)", "friday(holiday)"],
+    "isMultipleBuses": false
+  }
+]
