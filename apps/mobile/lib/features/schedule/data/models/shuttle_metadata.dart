@@ -10,15 +10,14 @@ class ShuttleMetadata {
 
   factory ShuttleMetadata.fromJson(Map<String, dynamic> json) {
     return ShuttleMetadata(
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      updatedAt: DateTime.parse(
+        (json['updated_at'] ?? json['updatedAt']) as String,
+      ),
       version: json['version'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'updated_at': updatedAt.toIso8601String(),
-      'version': version,
-    };
+    return {'updated_at': updatedAt.toIso8601String(), 'version': version};
   }
 }

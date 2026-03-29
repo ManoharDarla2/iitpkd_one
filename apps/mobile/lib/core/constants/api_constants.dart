@@ -1,8 +1,11 @@
 /// Central location for all API endpoint paths and configuration.
 abstract final class ApiConstants {
   /// Base URL for the backend server.
-  /// Change this when deploying to staging/production.
-  static const String baseUrl = 'https://api.iitpkd.ac.in';
+  /// Override using: --dart-define=API_BASE_URL=http://host:port
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://10.32.11.107:3000',
+  );
 
   /// API version prefix.
   static const String apiVersion = '/api/v1';

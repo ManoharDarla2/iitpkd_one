@@ -87,6 +87,8 @@ class SearchCategoryChips extends StatelessWidget {
   IconData _categoryIcon(SearchCategory category) {
     return switch (category) {
       SearchCategory.equipment => Icons.build_rounded,
+      SearchCategory.faculty => Icons.person_rounded,
+      SearchCategory.schedule => Icons.schedule_rounded,
       SearchCategory.people => Icons.person_rounded,
       SearchCategory.labs => Icons.science_rounded,
       SearchCategory.schedules => Icons.schedule_rounded,

@@ -23,7 +23,7 @@ class FacultyMember {
       name: json['name'] as String,
       designation: json['designation'] as String,
       department: json['department'] as String,
-      imageUrl: json['image_url'] as String?,
+      imageUrl: (json['image_url'] ?? json['imageUrl']) as String?,
     );
   }
 

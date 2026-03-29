@@ -312,7 +312,7 @@ class MockApiClient implements ApiClientInterface {
     await Future<void>.delayed(const Duration(milliseconds: 200));
 
     return ApiResponse.success(
-      data: MessMetadata(updatedAt: DateTime(2026, 1, 10), campus: 'Nila'),
+      data: MessMetadata(updatedAt: DateTime(2026, 1, 10), version: 'mock-v1'),
       message: 'Mess metadata retrieved',
     );
   }
