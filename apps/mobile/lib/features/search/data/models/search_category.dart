@@ -5,6 +5,8 @@
 /// backend support are ready.
 enum SearchCategory {
   equipment('equipment', 'Equipment'),
+  faculty('faculty', 'Faculty'),
+  schedule('schedule', 'Schedule'),
   people('people', 'People'),
   labs('labs', 'Labs'),
   schedules('schedules', 'Schedules');

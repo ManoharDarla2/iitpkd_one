@@ -20,7 +20,7 @@ class SearchResult {
     return SearchResult(
       query: json['query'] as String,
       category: json['category'] as String?,
-      totalCount: json['total_count'] as int,
+      totalCount: (json['total_count'] ?? json['totalCount']) as int,
       results: (json['results'] as List<dynamic>)
           .map((e) => SearchResultItem.fromJson(e as Map<String, dynamic>))
           .toList(),

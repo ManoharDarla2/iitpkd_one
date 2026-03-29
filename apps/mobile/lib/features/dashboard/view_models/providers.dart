@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iitpkd_one/core/network/api_client_interface.dart';
-import 'package:iitpkd_one/core/network/mock_api_client.dart';
+import 'package:iitpkd_one/core/network/real_api_client.dart';
 import 'package:iitpkd_one/core/services/hive_service.dart';
 import 'package:iitpkd_one/features/dashboard/data/repositories/notice_repository.dart';
 import 'package:iitpkd_one/features/dashboard/data/repositories/shuttle_repository.dart';
@@ -14,7 +14,7 @@ import 'package:iitpkd_one/features/dashboard/data/repositories/shuttle_reposito
 /// Provides the API client implementation.
 /// Override this in tests or when the real server is ready.
 final apiClientProvider = Provider<ApiClientInterface>(
-  (ref) => MockApiClient(),
+  (ref) => RealApiClient(),
 );
 
 /// Provides the Hive service for local caching.

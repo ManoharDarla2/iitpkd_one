@@ -15,11 +15,19 @@ class Meals {
   });
 
   factory Meals.fromJson(Map<String, dynamic> json) {
+    List<String> parseMeal(String key) {
+      final raw = json[key];
+      if (raw is List<dynamic>) {
+        return raw.cast<String>();
+      }
+      return const [];
+    }
+
     return Meals(
-      breakfast: (json['breakfast'] as List<dynamic>).cast<String>(),
-      lunch: (json['lunch'] as List<dynamic>).cast<String>(),
-      snacks: (json['snacks'] as List<dynamic>).cast<String>(),
-      dinner: (json['dinner'] as List<dynamic>).cast<String>(),
+      breakfast: parseMeal('breakfast'),
+      lunch: parseMeal('lunch'),
+      snacks: parseMeal('snacks'),
+      dinner: parseMeal('dinner'),
     );
   }
 
@@ -50,18 +58,14 @@ class MealDay {
 
   factory MealDay.fromJson(Map<String, dynamic> json) {
     return MealDay(
-      weekType: json['week_type'] as String,
+      weekType: (json['week_type'] ?? json['weekType']) as String,
       day: json['day'] as String,
       meals: Meals.fromJson(json['meals'] as Map<String, dynamic>),
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'week_type': weekType,
-      'day': day,
-      'meals': meals.toJson(),
-    };
+    return {'week_type': weekType, 'day': day, 'meals': meals.toJson()};
   }
 
   /// Serializes a list of [MealDay] to a JSON string for Hive storage.

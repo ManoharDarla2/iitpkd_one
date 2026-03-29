@@ -34,7 +34,7 @@ class SearchResultItem {
       title: json['title'] as String,
       subtitle: json['subtitle'] as String,
       description: json['description'] as String?,
-      imageUrl: json['image_url'] as String?,
+      imageUrl: (json['image_url'] ?? json['imageUrl']) as String?,
       metadata: json['metadata'] != null
           ? Map<String, String>.from(json['metadata'] as Map)
           : const {},

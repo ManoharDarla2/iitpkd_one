@@ -101,7 +101,8 @@ class SearchScreen extends HookConsumerWidget {
         recentSearchesVM.addSearch(query);
       }
 
-      if (item.category == SearchCategory.people) {
+      if (item.category == SearchCategory.faculty ||
+          item.category == SearchCategory.people) {
         final slug = item.metadata['slug'];
         if (slug != null) {
           context.push('/faculty/$slug');

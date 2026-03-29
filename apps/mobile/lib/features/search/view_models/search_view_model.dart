@@ -19,6 +19,18 @@ class SearchViewModel extends AsyncNotifier<SearchResult?> {
   /// The currently selected category filter (null = all).
   SearchCategory? _currentCategory;
 
+  String? _toBackendCategory(SearchCategory? category) {
+    if (category == null) return null;
+    return switch (category) {
+      SearchCategory.equipment => 'equipment',
+      SearchCategory.faculty => 'faculty',
+      SearchCategory.schedule => 'schedule',
+      SearchCategory.people => 'faculty',
+      SearchCategory.labs => 'schedule',
+      SearchCategory.schedules => 'schedule',
+    };
+  }
+
   /// Returns the current query.
   String get currentQuery => _currentQuery;
 
@@ -47,7 +59,7 @@ class SearchViewModel extends AsyncNotifier<SearchResult?> {
       final repo = ref.read(searchRepositoryProvider);
       return repo.search(
         query: _currentQuery,
-        category: _currentCategory?.value,
+        category: _toBackendCategory(_currentCategory),
       );
     });
   }
@@ -65,7 +77,7 @@ class SearchViewModel extends AsyncNotifier<SearchResult?> {
         final repo = ref.read(searchRepositoryProvider);
         return repo.search(
           query: _currentQuery,
-          category: _currentCategory?.value,
+          category: _toBackendCategory(_currentCategory),
         );
       });
     }
