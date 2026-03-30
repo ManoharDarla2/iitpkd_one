@@ -10,6 +10,8 @@ class DateStrip extends StatelessWidget {
     super.key,
     required this.selectedDate,
     required this.onDateSelected,
+    this.horizontalPadding = 16,
+    this.height = 80,
   });
 
   /// The currently selected date.
@@ -18,22 +20,23 @@ class DateStrip extends StatelessWidget {
   /// Called when the user taps a date.
   final ValueChanged<DateTime> onDateSelected;
 
+  final double horizontalPadding;
+
+  final double height;
+
   @override
   Widget build(BuildContext context) {
     final today = DateTime.now();
     final startOfToday = DateTime(today.year, today.month, today.day);
 
     // Generate 7 days starting from today
-    final dates = List.generate(
-      7,
-      (i) => startOfToday.add(Duration(days: i)),
-    );
+    final dates = List.generate(7, (i) => startOfToday.add(Duration(days: i)));
 
     return SizedBox(
-      height: 80,
+      height: height,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
         itemCount: dates.length,
         separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
@@ -76,9 +79,7 @@ class _DateCard extends StatelessWidget {
     final dayAbbr = DateFormat('EEE').format(date); // Mon, Tue, ...
     final dayNum = date.day.toString();
 
-    final bgColor = isSelected
-        ? theme.colorScheme.primary
-        : Colors.transparent;
+    final bgColor = isSelected ? theme.colorScheme.primary : Colors.transparent;
     final textColor = isSelected
         ? theme.colorScheme.onPrimary
         : theme.colorScheme.onSurfaceVariant;
