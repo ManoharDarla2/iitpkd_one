@@ -11,19 +11,30 @@ import 'package:iitpkd_one/features/schedule/views/widgets/route_filter_chips.da
 import 'package:iitpkd_one/features/schedule/views/widgets/schedule_mode_switcher.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/schedule_shuttle_card.dart';
 
+enum ScheduleEntryMode { shuttle, mess }
+
 /// The main Schedule screen with Shuttle and Mess Menu modes.
 ///
 /// Uses [HookConsumerWidget] for local UI state (hooks) and
 /// Riverpod (for global state management).
 class ScheduleScreen extends HookConsumerWidget {
-  const ScheduleScreen({super.key});
+  const ScheduleScreen({
+    super.key,
+    this.initialMode = ScheduleEntryMode.shuttle,
+  });
+
+  final ScheduleEntryMode initialMode;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
     // Local state: which mode is active
-    final scheduleMode = useState(ScheduleMode.shuttle);
+    final scheduleMode = useState(
+      initialMode == ScheduleEntryMode.mess
+          ? ScheduleMode.messMenu
+          : ScheduleMode.shuttle,
+    );
 
     // Shared date selection (used by both shuttle and mess)
     final selectedDate = useState(DateTime.now());
@@ -178,8 +189,9 @@ class _ShuttleSubView extends ConsumerWidget {
                         Icon(
                           Icons.directions_bus_outlined,
                           size: 48,
-                          color: theme.colorScheme.onSurfaceVariant
-                              .withValues(alpha: 0.5),
+                          color: theme.colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.5,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         Text(
@@ -196,20 +208,15 @@ class _ShuttleSubView extends ConsumerWidget {
 
               // Sort by departure time
               final sorted = [...schedules]
-                ..sort(
-                  (a, b) => a.todayDateTime.compareTo(b.todayDateTime),
-                );
+                ..sort((a, b) => a.todayDateTime.compareTo(b.todayDateTime));
 
               return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    if (index == sorted.length) {
-                      return const SizedBox(height: 24);
-                    }
-                    return ScheduleShuttleCard(schedule: sorted[index]);
-                  },
-                  childCount: sorted.length + 1,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  if (index == sorted.length) {
+                    return const SizedBox(height: 24);
+                  }
+                  return ScheduleShuttleCard(schedule: sorted[index]);
+                }, childCount: sorted.length + 1),
               );
             },
             loading: () => const SliverFillRemaining(
@@ -241,10 +248,7 @@ class _ShuttleSubView extends ConsumerWidget {
 // =============================================================================
 
 class _MessSubView extends ConsumerWidget {
-  const _MessSubView({
-    required this.isCurrentWeek,
-    required this.selectedDate,
-  });
+  const _MessSubView({required this.isCurrentWeek, required this.selectedDate});
 
   final ValueNotifier<bool> isCurrentWeek;
   final DateTime selectedDate;
@@ -260,12 +264,12 @@ class _MessSubView extends ConsumerWidget {
         : (currentWeekType == 'odd' ? 'even' : 'odd');
 
     // Derive day name from the shared selected date
-    final selectedDayName =
-        DateFormat('EEEE').format(selectedDate).toLowerCase();
+    final selectedDayName = DateFormat(
+      'EEEE',
+    ).format(selectedDate).toLowerCase();
 
     return RefreshIndicator(
-      onRefresh: () =>
-          ref.read(messViewModelProvider.notifier).refreshMenu(),
+      onRefresh: () => ref.read(messViewModelProvider.notifier).refreshMenu(),
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
@@ -298,8 +302,9 @@ class _MessSubView extends ConsumerWidget {
                         Icon(
                           Icons.restaurant_outlined,
                           size: 48,
-                          color: theme.colorScheme.onSurfaceVariant
-                              .withValues(alpha: 0.5),
+                          color: theme.colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.5,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         Text(
