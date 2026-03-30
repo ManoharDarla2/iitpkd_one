@@ -64,6 +64,11 @@ final appRouter = GoRouter(
         return FacultyDetailScreen(slug: slug);
       },
     ),
+    GoRoute(
+      path: '/faculty',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const FacultyScreen(),
+    ),
 
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
@@ -81,32 +86,28 @@ final appRouter = GoRouter(
           ],
         ),
 
+        // Schedule
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/schedule',
+              builder: (context, state) {
+                final mode = state.uri.queryParameters['mode'];
+                final initialMode = mode == 'mess'
+                    ? ScheduleEntryMode.mess
+                    : ScheduleEntryMode.shuttle;
+                return ScheduleScreen(initialMode: initialMode);
+              },
+            ),
+          ],
+        ),
+
         // Search
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: '/search',
               builder: (context, state) => const SearchScreen(),
-            ),
-          ],
-        ),
-
-        // Schedule
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/schedule',
-              builder: (context, state) => const ScheduleScreen(),
-            ),
-          ],
-        ),
-
-        // Faculty
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/faculty',
-              builder: (context, state) => const FacultyScreen(),
             ),
           ],
         ),
@@ -119,6 +120,19 @@ final appRouter = GoRouter(
               builder: (context, state) => const _PlaceholderScreen(
                 title: 'Collab',
                 icon: Icons.groups_rounded,
+              ),
+            ),
+          ],
+        ),
+
+        // Competitions
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/competitions',
+              builder: (context, state) => const _PlaceholderScreen(
+                title: 'Competitions',
+                icon: Icons.emoji_events_rounded,
               ),
             ),
           ],

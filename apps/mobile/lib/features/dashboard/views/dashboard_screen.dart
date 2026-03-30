@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/dashboard/view_models/notice_view_model.dart';
 import 'package:iitpkd_one/features/dashboard/view_models/shuttle_view_model.dart';
 import 'package:iitpkd_one/features/dashboard/views/widgets/greeting_section.dart';
-import 'package:iitpkd_one/features/dashboard/views/widgets/notice_section.dart';
+import 'package:iitpkd_one/features/dashboard/views/widgets/quick_actions_section.dart';
 import 'package:iitpkd_one/features/dashboard/views/widgets/shuttle_tracker_section.dart';
+import 'package:iitpkd_one/features/dashboard/views/widgets/todays_mess_preview_section.dart';
+import 'package:iitpkd_one/features/schedule/view_models/mess_view_model.dart';
 
 /// The main dashboard screen — the home tab of the app.
 ///
 /// Uses [HookConsumerWidget] to combine flutter_hooks (for local UI state)
 /// with Riverpod (for global state management).
 ///
-/// Listens to shuttle and notice view models for error snackbars.
+/// Listens to shuttle and mess view models for error snackbars.
 class DashboardScreen extends HookConsumerWidget {
   const DashboardScreen({super.key});
 
@@ -30,9 +31,9 @@ class DashboardScreen extends HookConsumerWidget {
       }
     });
 
-    ref.listen(noticeViewModelProvider, (previous, next) {
+    ref.listen(messViewModelProvider, (previous, next) {
       if (next.hasError && previous?.hasError != true) {
-        _showErrorSnackbar(context, 'Failed to load updates');
+        _showErrorSnackbar(context, 'Failed to load mess menu');
       }
     });
 
@@ -80,7 +81,7 @@ class DashboardScreen extends HookConsumerWidget {
           // Refresh both sections in parallel
           await Future.wait([
             ref.read(shuttleViewModelProvider.notifier).refreshSchedules(),
-            ref.read(noticeViewModelProvider.notifier).refreshNotices(),
+            ref.read(messViewModelProvider.notifier).refreshMenu(),
           ]);
         },
         child: SingleChildScrollView(
@@ -96,10 +97,15 @@ class DashboardScreen extends HookConsumerWidget {
               // Shuttle Tracker
               ShuttleTrackerSection(),
 
-              SizedBox(height: 28),
+              SizedBox(height: 20),
 
-              // Real-time Updates
-              NoticeSection(),
+              // Today's Mess Menu preview
+              TodaysMessPreviewSection(),
+
+              SizedBox(height: 20),
+
+              // Quick actions
+              QuickActionsSection(),
 
               // Bottom padding for navigation bar clearance
               SizedBox(height: 24),
