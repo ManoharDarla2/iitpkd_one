@@ -57,6 +57,11 @@ final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
+    GoRoute(
+      path: '/search',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const SearchScreen(),
+    ),
     // Faculty detail — pushed full-screen over the nav shell
     GoRoute(
       path: '/faculty/:slug',
@@ -71,7 +76,6 @@ final appRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const FacultyScreen(),
     ),
-
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return AppShell(navigationShell: navigationShell);
@@ -112,16 +116,6 @@ final appRouter = GoRouter(
                   builder: (context, state) => const MessMenuScreen(),
                 ),
               ],
-            ),
-          ],
-        ),
-
-        // Search
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/search',
-              builder: (context, state) => const SearchScreen(),
             ),
           ],
         ),
