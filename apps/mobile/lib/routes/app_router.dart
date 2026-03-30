@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:iitpkd_one/features/dashboard/views/dashboard_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_detail_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_screen.dart';
+import 'package:iitpkd_one/features/schedule/views/mess_menu_screen.dart';
 import 'package:iitpkd_one/features/schedule/views/schedule_screen.dart';
+import 'package:iitpkd_one/features/schedule/views/shuttle_schedule_screen.dart';
 import 'package:iitpkd_one/features/search/views/search_screen.dart';
 import 'package:iitpkd_one/routes/app_shell.dart';
 
@@ -86,7 +88,7 @@ final appRouter = GoRouter(
           ],
         ),
 
-        // Schedule
+        // Schedule Hub
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -98,6 +100,18 @@ final appRouter = GoRouter(
                     : ScheduleEntryMode.shuttle;
                 return ScheduleScreen(initialMode: initialMode);
               },
+              routes: [
+                GoRoute(
+                  path: 'shuttle',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => const ShuttleScheduleScreen(),
+                ),
+                GoRoute(
+                  path: 'mess',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => const MessMenuScreen(),
+                ),
+              ],
             ),
           ],
         ),

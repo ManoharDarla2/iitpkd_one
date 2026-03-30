@@ -46,7 +46,7 @@ class ShuttleTrackerSection extends ConsumerWidget {
           width: double.infinity,
           child: FilledButton.tonalIcon(
             onPressed: () {
-              context.go('/schedule?mode=shuttle');
+              context.go('/schedule/shuttle');
             },
             icon: const Icon(Icons.calendar_month_outlined, size: 18),
             label: const Text('See Full Schedule'),
