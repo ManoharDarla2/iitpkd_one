@@ -28,15 +28,17 @@ class SearchBarField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Material(
-        color: theme.colorScheme.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(12),
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(18),
+        elevation: 1,
+        shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.08),
         clipBehavior: Clip.antiAlias,
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-              width: 0.5,
+              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+              width: 0.8,
             ),
           ),
           child: TextField(
@@ -50,12 +52,12 @@ class SearchBarField extends StatelessWidget {
               hintText: 'Search campus...',
               hintStyle: theme.textTheme.bodyLarge?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant.withValues(
-                  alpha: 0.5,
+                  alpha: 0.65,
                 ),
               ),
               prefixIcon: Icon(
                 Icons.search_rounded,
-                color: theme.colorScheme.onSurfaceVariant,
+                color: theme.colorScheme.primary,
               ),
               suffixIcon: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
@@ -75,7 +77,7 @@ class SearchBarField extends StatelessWidget {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
-                vertical: 14,
+                vertical: 16,
               ),
             ),
           ),

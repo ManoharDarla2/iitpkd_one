@@ -104,8 +104,9 @@ class FacultyScreen extends HookConsumerWidget {
                         Icon(
                           Icons.school_outlined,
                           size: 48,
-                          color: theme.colorScheme.onSurfaceVariant
-                              .withValues(alpha: 0.5),
+                          color: theme.colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.5,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         Text(
@@ -123,7 +124,7 @@ class FacultyScreen extends HookConsumerWidget {
                   onRefresh: () => viewModel.refreshFacultyList(),
                   child: ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.only(bottom: 24),
+                    padding: const EdgeInsets.only(bottom: 24, top: 2),
                     itemCount: faculty.length,
                     itemBuilder: (context, index) {
                       final member = faculty[index];
