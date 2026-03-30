@@ -21,17 +21,19 @@ class SearchResultTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       child: Material(
-        color: theme.colorScheme.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(12),
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        elevation: 1,
+        shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.06),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-                width: 0.5,
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+                width: 0.8,
               ),
             ),
             padding: const EdgeInsets.all(14),
@@ -46,8 +48,8 @@ class SearchResultTile extends StatelessWidget {
                     color: _categoryColor(
                       item.category,
                       theme,
-                    ).withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(10),
+                    ).withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: hasImage
                       ? ClipRRect(

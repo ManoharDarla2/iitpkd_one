@@ -13,60 +13,71 @@ class FacultyDetailHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Column(
-      children: [
-        const SizedBox(height: 16),
-        // Avatar
-        CircleAvatar(
-          radius: 48,
-          backgroundColor: theme.colorScheme.primaryContainer,
-          backgroundImage: detail.imageUrl != null
-              ? NetworkImage(detail.imageUrl!)
-              : null,
-          child: detail.imageUrl == null
-              ? Text(
-                  _initials(detail.name),
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    color: theme.colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )
-              : null,
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.85),
+            theme.colorScheme.secondaryContainer.withValues(alpha: 0.7),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        const SizedBox(height: 16),
-
-        // Name
-        Text(
-          detail.name,
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: theme.colorScheme.primary,
+        borderRadius: BorderRadius.circular(22),
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 48,
+            backgroundColor: theme.colorScheme.surface,
+            backgroundImage: detail.imageUrl != null
+                ? NetworkImage(detail.imageUrl!)
+                : null,
+            child: detail.imageUrl == null
+                ? Text(
+                    _initials(detail.name),
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
+                : null,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 4),
-
-        // Designation
-        Text(
-          detail.designation,
-          style: theme.textTheme.bodyLarge?.copyWith(
-            color: theme.colorScheme.secondary,
-            fontWeight: FontWeight.w500,
+          const SizedBox(height: 14),
+          Text(
+            detail.name,
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 4),
-
-        // Department
-        Text(
-          detail.department,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
+          const SizedBox(height: 4),
+          Text(
+            detail.designation,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onPrimaryContainer.withValues(
+                alpha: 0.9,
+              ),
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 16),
-      ],
+          const SizedBox(height: 4),
+          Text(
+            detail.department,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onPrimaryContainer.withValues(
+                alpha: 0.78,
+              ),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 
