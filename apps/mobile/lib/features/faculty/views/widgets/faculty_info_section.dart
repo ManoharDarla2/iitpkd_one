@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
+import 'package:iitpkd_one/shared/widgets/markdown_card.dart';
 
 /// Displays the detailed information sections of a faculty profile.
 ///
@@ -62,13 +63,7 @@ class FacultyInfoSection extends StatelessWidget {
               theme: theme,
             ),
             const SizedBox(height: 8),
-            Text(
-              detail.biosketch!,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                height: 1.5,
-              ),
-            ),
+            MarkdownCard(data: detail.biosketch!),
             const SizedBox(height: 20),
           ],
 
@@ -80,33 +75,7 @@ class FacultyInfoSection extends StatelessWidget {
               theme: theme,
             ),
             const SizedBox(height: 8),
-            ...detail.teaching.map(
-              (course) => Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: Icon(
-                        Icons.circle,
-                        size: 6,
-                        color: theme.colorScheme.primary.withValues(alpha: 0.6),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        course,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            MarkdownCard(data: _toMarkdown(detail.teaching)),
             const SizedBox(height: 20),
           ],
 
@@ -118,36 +87,7 @@ class FacultyInfoSection extends StatelessWidget {
               theme: theme,
             ),
             const SizedBox(height: 8),
-            ...detail.publications.map(
-              (pub) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: Icon(
-                        Icons.circle,
-                        size: 6,
-                        color: theme.colorScheme.secondary.withValues(
-                          alpha: 0.6,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        pub,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface,
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            MarkdownCard(data: _toMarkdown(detail.publications)),
             const SizedBox(height: 20),
           ],
 
@@ -236,6 +176,22 @@ class FacultyInfoSection extends StatelessWidget {
         .split('_')
         .map((w) => '${w[0].toUpperCase()}${w.substring(1)}')
         .join(' ');
+  }
+
+  String _toMarkdown(List<String> items) {
+    if (items.length == 1) {
+      return items.first.trim();
+    }
+
+    return items
+        .map((item) {
+          final trimmed = item.trim();
+          if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+            return trimmed;
+          }
+          return '- $trimmed';
+        })
+        .join('\n');
   }
 }
 

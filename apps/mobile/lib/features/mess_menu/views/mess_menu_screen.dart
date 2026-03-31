@@ -30,9 +30,15 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
     final selectedDayName = DateFormat(
       'EEEE',
     ).format(_selectedDate).toLowerCase();
+    final selectedDateLabel = DateFormat('EEE, d MMM').format(_selectedDate);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Mess Menu'), centerTitle: false),
+      appBar: AppBar(
+        title: const Text('Mess Menu'),
+        centerTitle: false,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+      ),
       body: RefreshIndicator(
         onRefresh: () => ref.read(messViewModelProvider.notifier).refreshMenu(),
         child: CustomScrollView(
@@ -40,10 +46,10 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
           slivers: [
             SliverToBoxAdapter(
               child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-                padding: const EdgeInsets.all(14),
+                margin: const EdgeInsets.fromLTRB(16, 12, 16, 10),
+                padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(22),
                   gradient: LinearGradient(
                     colors: [
                       cs.secondaryContainer.withValues(alpha: 0.72),
@@ -52,12 +58,28 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
+                  border: Border.all(
+                    color: cs.outlineVariant.withValues(alpha: 0.45),
+                  ),
                 ),
-                child: DateStrip(
-                  selectedDate: _selectedDate,
-                  horizontalPadding: 0,
-                  onDateSelected: (date) =>
-                      setState(() => _selectedDate = date),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Plan meals for $selectedDateLabel',
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: cs.onSecondaryContainer,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    DateStrip(
+                      selectedDate: _selectedDate,
+                      horizontalPadding: 0,
+                      onDateSelected: (date) =>
+                          setState(() => _selectedDate = date),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -80,10 +102,18 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
                   return SliverFillRemaining(
                     hasScrollBody: false,
                     child: Center(
-                      child: Text(
-                        'No menu available for this day.',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: cs.onSurfaceVariant,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.all(18),
+                        decoration: BoxDecoration(
+                          color: cs.surfaceContainerLow,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Text(
+                          'No menu available for this day.',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: cs.onSurfaceVariant,
+                          ),
                         ),
                       ),
                     ),
@@ -92,7 +122,16 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
                 return SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 22),
-                    child: MessMealCard(mealDay: mealDay),
+                    child: Column(
+                      children: [
+                        _SelectedDayPill(
+                          weekType: displayWeekType,
+                          dayName: selectedDayName,
+                        ),
+                        const SizedBox(height: 10),
+                        MessMealCard(mealDay: mealDay),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -118,6 +157,39 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SelectedDayPill extends StatelessWidget {
+  const _SelectedDayPill({required this.weekType, required this.dayName});
+
+  final String weekType;
+  final String dayName;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primaryContainer.withValues(alpha: 0.65),
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: Text(
+            '${dayName[0].toUpperCase()}${dayName.substring(1)} · ${weekType[0].toUpperCase()}${weekType.substring(1)} week',
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: theme.colorScheme.onPrimaryContainer,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
       ),
     );

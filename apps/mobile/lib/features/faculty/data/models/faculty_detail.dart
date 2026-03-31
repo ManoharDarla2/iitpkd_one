@@ -36,6 +36,8 @@ class FacultyDetail {
 
   factory FacultyDetail.fromJson(Map<String, dynamic> json) {
     final email = json['email'] as String?;
+    final teachingRaw = json['teaching'];
+    final publicationsRaw = json['publications'];
 
     return FacultyDetail(
       slug: json['slug'] as String,
@@ -54,14 +56,11 @@ class FacultyDetail {
               .toList() ??
           [],
       biosketch: json['biosketch'] as String?,
-      teaching: json['teaching'] is List<dynamic>
-          ? (json['teaching'] as List<dynamic>).map((e) => e as String).toList()
-          : ((json['teaching'] as String?)
-                    ?.split('\n')
-                    .map((e) => e.trim())
-                    .where((e) => e.isNotEmpty)
-                    .toList() ??
-                []),
+      teaching: teachingRaw is List<dynamic>
+          ? teachingRaw.map((e) => e as String).toList()
+          : (teachingRaw is String && teachingRaw.trim().isNotEmpty)
+          ? [teachingRaw.trim()]
+          : [],
       researchGroups:
           (json['research_groups'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -73,16 +72,11 @@ class FacultyDetail {
               (key, value) => MapEntry(key, '$value'),
             )
           : null,
-      publications: json['publications'] is List<dynamic>
-          ? (json['publications'] as List<dynamic>)
-                .map((e) => e as String)
-                .toList()
-          : ((json['publications'] as String?)
-                    ?.split('\n')
-                    .map((e) => e.trim())
-                    .where((e) => e.isNotEmpty)
-                    .toList() ??
-                []),
+      publications: publicationsRaw is List<dynamic>
+          ? publicationsRaw.map((e) => e as String).toList()
+          : (publicationsRaw is String && publicationsRaw.trim().isNotEmpty)
+          ? [publicationsRaw.trim()]
+          : [],
     );
   }
 
