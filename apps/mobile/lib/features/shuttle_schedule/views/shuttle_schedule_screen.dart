@@ -4,6 +4,7 @@ import 'package:iitpkd_one/features/schedule/view_models/schedule_shuttle_view_m
 import 'package:iitpkd_one/features/schedule/views/widgets/day_toggle.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/route_filter_chips.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/schedule_shuttle_card.dart';
+import 'package:iitpkd_one/shared/widgets/main_tab_app_bar.dart';
 
 class ShuttleScheduleScreen extends ConsumerStatefulWidget {
   const ShuttleScheduleScreen({super.key});
@@ -24,7 +25,10 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
     final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Shuttle Schedule'), centerTitle: false),
+      appBar: const MainTabAppBar(
+        title: 'Shuttle Schedule',
+        subtitle: 'Live by route and day',
+      ),
       body: RefreshIndicator(
         onRefresh: () => viewModel.refreshSchedules(),
         child: CustomScrollView(
@@ -32,10 +36,10 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
           slivers: [
             SliverToBoxAdapter(
               child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                margin: const EdgeInsets.fromLTRB(16, 12, 16, 10),
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(22),
                   gradient: LinearGradient(
                     colors: [
                       cs.primaryContainer.withValues(alpha: 0.7),
@@ -44,14 +48,30 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
+                  border: Border.all(
+                    color: cs.outlineVariant.withValues(alpha: 0.45),
+                  ),
                 ),
-                child: DateStrip(
-                  selectedDate: _selectedDate,
-                  horizontalPadding: 0,
-                  onDateSelected: (date) {
-                    setState(() => _selectedDate = date);
-                    viewModel.selectDate(date);
-                  },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Choose your travel day',
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: cs.onPrimaryContainer,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    DateStrip(
+                      selectedDate: _selectedDate,
+                      horizontalPadding: 0,
+                      onDateSelected: (date) {
+                        setState(() => _selectedDate = date);
+                        viewModel.selectDate(date);
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),

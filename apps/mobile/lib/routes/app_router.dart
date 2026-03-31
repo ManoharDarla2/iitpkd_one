@@ -7,6 +7,7 @@ import 'package:iitpkd_one/features/mess_menu/views/mess_menu_screen.dart';
 import 'package:iitpkd_one/features/search/views/search_screen.dart';
 import 'package:iitpkd_one/features/shuttle_schedule/views/shuttle_schedule_screen.dart';
 import 'package:iitpkd_one/routes/app_shell.dart';
+import 'package:iitpkd_one/shared/widgets/main_tab_app_bar.dart';
 
 /// Placeholder screen for tabs that are not yet implemented.
 class _PlaceholderScreen extends StatelessWidget {
@@ -20,24 +21,55 @@ class _PlaceholderScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: false),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 48,
-              color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              '$title — Coming Soon',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+      appBar: MainTabAppBar(
+        title: title,
+        subtitle: 'Fresh updates landing soon',
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Center(
+          child: Container(
+            width: double.infinity,
+            constraints: const BoxConstraints(maxWidth: 420),
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              gradient: LinearGradient(
+                colors: [
+                  theme.colorScheme.primaryContainer.withValues(alpha: 0.52),
+                  theme.colorScheme.surfaceContainerLow,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border.all(
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
               ),
             ),
-          ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, size: 54, color: theme.colorScheme.primary),
+                const SizedBox(height: 14),
+                Text(
+                  '$title is getting a full redesign',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'We are crafting better layouts, smarter data blocks, and smoother interactions for this tab.',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
