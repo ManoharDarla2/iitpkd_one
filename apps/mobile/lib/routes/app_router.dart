@@ -3,10 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:iitpkd_one/features/dashboard/views/dashboard_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_detail_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_screen.dart';
-import 'package:iitpkd_one/features/schedule/views/mess_menu_screen.dart';
-import 'package:iitpkd_one/features/schedule/views/schedule_screen.dart';
-import 'package:iitpkd_one/features/schedule/views/shuttle_schedule_screen.dart';
+import 'package:iitpkd_one/features/mess_menu/views/mess_menu_screen.dart';
 import 'package:iitpkd_one/features/search/views/search_screen.dart';
+import 'package:iitpkd_one/features/shuttle_schedule/views/shuttle_schedule_screen.dart';
 import 'package:iitpkd_one/routes/app_shell.dart';
 
 /// Placeholder screen for tabs that are not yet implemented.
@@ -62,6 +61,11 @@ final appRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const SearchScreen(),
     ),
+    GoRoute(
+      path: '/schedules/mess',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const MessMenuScreen(),
+    ),
     // Faculty detail — pushed full-screen over the nav shell
     GoRoute(
       path: '/faculty/:slug',
@@ -92,30 +96,12 @@ final appRouter = GoRouter(
           ],
         ),
 
-        // Schedule Hub
+        // Shuttle Schedule (main bottom tab)
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/schedule',
-              builder: (context, state) {
-                final mode = state.uri.queryParameters['mode'];
-                final initialMode = mode == 'mess'
-                    ? ScheduleEntryMode.mess
-                    : ScheduleEntryMode.shuttle;
-                return ScheduleScreen(initialMode: initialMode);
-              },
-              routes: [
-                GoRoute(
-                  path: 'shuttle',
-                  parentNavigatorKey: _rootNavigatorKey,
-                  builder: (context, state) => const ShuttleScheduleScreen(),
-                ),
-                GoRoute(
-                  path: 'mess',
-                  parentNavigatorKey: _rootNavigatorKey,
-                  builder: (context, state) => const MessMenuScreen(),
-                ),
-              ],
+              path: '/schedules/shuttle',
+              builder: (context, state) => const ShuttleScheduleScreen(),
             ),
           ],
         ),

@@ -21,9 +21,10 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
     final shuttleAsync = ref.watch(scheduleShuttleViewModelProvider);
     final viewModel = ref.read(scheduleShuttleViewModelProvider.notifier);
     final theme = Theme.of(context);
+    final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Shuttle Schedule')),
+      appBar: AppBar(title: const Text('Shuttle Schedule'), centerTitle: false),
       body: RefreshIndicator(
         onRefresh: () => viewModel.refreshSchedules(),
         child: CustomScrollView(
@@ -31,11 +32,18 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
           slivers: [
             SliverToBoxAdapter(
               child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+                margin: const EdgeInsets.fromLTRB(16, 12, 16, 8),
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  color: theme.colorScheme.surfaceContainerLow,
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    colors: [
+                      cs.primaryContainer.withValues(alpha: 0.7),
+                      cs.surfaceContainerLow,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                 ),
                 child: DateStrip(
                   selectedDate: _selectedDate,
@@ -65,7 +73,7 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
                       child: Text(
                         'No shuttles scheduled for this day.',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
+                          color: cs.onSurfaceVariant,
                         ),
                       ),
                     ),
@@ -85,7 +93,13 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
               },
               loading: () => const SliverFillRemaining(
                 hasScrollBody: false,
-                child: Center(child: CircularProgressIndicator()),
+                child: Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2.5),
+                  ),
+                ),
               ),
               error: (_, _) => SliverFillRemaining(
                 hasScrollBody: false,

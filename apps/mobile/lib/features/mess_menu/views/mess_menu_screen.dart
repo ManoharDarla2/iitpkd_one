@@ -21,6 +21,7 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
   Widget build(BuildContext context) {
     final messAsync = ref.watch(messViewModelProvider);
     final theme = Theme.of(context);
+    final cs = theme.colorScheme;
 
     final currentWeekType = MessViewModel.currentWeekType();
     final displayWeekType = _isCurrentWeek
@@ -31,7 +32,7 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
     ).format(_selectedDate).toLowerCase();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Mess Menu')),
+      appBar: AppBar(title: const Text('Mess Menu'), centerTitle: false),
       body: RefreshIndicator(
         onRefresh: () => ref.read(messViewModelProvider.notifier).refreshMenu(),
         child: CustomScrollView(
@@ -39,11 +40,18 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
           slivers: [
             SliverToBoxAdapter(
               child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+                margin: const EdgeInsets.fromLTRB(16, 12, 16, 8),
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  color: theme.colorScheme.surfaceContainerLow,
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    colors: [
+                      cs.secondaryContainer.withValues(alpha: 0.72),
+                      cs.surfaceContainerLow,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                 ),
                 child: DateStrip(
                   selectedDate: _selectedDate,
@@ -75,7 +83,7 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
                       child: Text(
                         'No menu available for this day.',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
+                          color: cs.onSurfaceVariant,
                         ),
                       ),
                     ),
@@ -90,7 +98,13 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
               },
               loading: () => const SliverFillRemaining(
                 hasScrollBody: false,
-                child: Center(child: CircularProgressIndicator()),
+                child: Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2.5),
+                  ),
+                ),
               ),
               error: (_, _) => SliverFillRemaining(
                 hasScrollBody: false,

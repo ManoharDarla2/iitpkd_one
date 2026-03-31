@@ -47,7 +47,7 @@ class TodaysMessPreviewSection extends ConsumerWidget {
         SizedBox(
           width: double.infinity,
           child: FilledButton.icon(
-            onPressed: () => context.go('/schedule/mess'),
+            onPressed: () => context.push('/schedules/mess'),
             icon: const Icon(Icons.menu_book_rounded),
             label: const Text('Open Full Mess Menu'),
             style: FilledButton.styleFrom(
