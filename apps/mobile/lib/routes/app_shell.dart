@@ -41,11 +41,13 @@ class _BumpedBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final bottomInset = MediaQuery.of(context).padding.bottom;
-    const barHeight = 84.0;
-    const notchRadius = 38.0;
+    const baseHeight = 72.0;
+    const bumpRise = 18.0;
+    const bumpWidth = 116.0;
+    const actionSize = 62.0;
 
     return SizedBox(
-      height: barHeight + bottomInset,
+      height: baseHeight + bottomInset + bumpRise,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -54,10 +56,14 @@ class _BumpedBottomBar extends StatelessWidget {
               painter: _BumpBarPainter(
                 color: cs.surface,
                 shadowColor: cs.shadow.withValues(alpha: 0.12),
-                notchRadius: notchRadius,
+                bumpRise: bumpRise,
+                bumpWidth: bumpWidth,
               ),
               child: Padding(
-                padding: EdgeInsets.only(bottom: bottomInset),
+                padding: EdgeInsets.only(
+                  top: bumpRise + 8,
+                  bottom: bottomInset + 8,
+                ),
                 child: Row(
                   children: [
                     Expanded(
@@ -78,7 +84,7 @@ class _BumpedBottomBar extends StatelessWidget {
                         onTap: () => onTabTap(1),
                       ),
                     ),
-                    const SizedBox(width: 90),
+                    const SizedBox(width: 88),
                     Expanded(
                       child: _BottomTab(
                         icon: Icons.groups_outlined,
@@ -105,13 +111,13 @@ class _BumpedBottomBar extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            top: -34,
+            top: 4,
             child: Center(
               child: GestureDetector(
                 onTap: onCenterAction,
                 child: Container(
-                  width: 68,
-                  height: 68,
+                  width: actionSize,
+                  height: actionSize,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: cs.primary,
@@ -124,7 +130,7 @@ class _BumpedBottomBar extends StatelessWidget {
                     ],
                   ),
                   child: Icon(
-                    Icons.qr_code_scanner_rounded,
+                    Icons.search_rounded,
                     color: cs.onPrimary,
                     size: 30,
                   ),
@@ -188,43 +194,43 @@ class _BumpBarPainter extends CustomPainter {
   _BumpBarPainter({
     required this.color,
     required this.shadowColor,
-    required this.notchRadius,
+    required this.bumpRise,
+    required this.bumpWidth,
   });
 
   final Color color;
   final Color shadowColor;
-  final double notchRadius;
+  final double bumpRise;
+  final double bumpWidth;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final notchCenterX = size.width / 2;
-    final notchHalf = notchRadius + 12;
-    const cornerRadius = 0.0;
-    const topY = 0.0;
+    final centerX = size.width / 2;
+    final halfBump = bumpWidth / 2;
+    final topY = bumpRise;
+
     final path = Path()
-      ..moveTo(0, topY + cornerRadius)
-      ..lineTo(0, size.height)
+      ..moveTo(0, topY)
+      ..lineTo(centerX - halfBump, topY)
+      ..cubicTo(
+        centerX - halfBump * 0.72,
+        topY,
+        centerX - halfBump * 0.34,
+        0,
+        centerX,
+        0,
+      )
+      ..cubicTo(
+        centerX + halfBump * 0.34,
+        0,
+        centerX + halfBump * 0.72,
+        topY,
+        centerX + halfBump,
+        topY,
+      )
+      ..lineTo(size.width, topY)
       ..lineTo(size.width, size.height)
-      ..lineTo(size.width, topY + cornerRadius)
-      ..lineTo(notchCenterX + notchHalf, topY + cornerRadius)
-      ..quadraticBezierTo(
-        notchCenterX + notchRadius * 0.85,
-        topY + cornerRadius,
-        notchCenterX + notchRadius * 0.58,
-        topY - notchRadius * 0.2,
-      )
-      ..arcToPoint(
-        Offset(notchCenterX - notchRadius * 0.58, topY - notchRadius * 0.2),
-        radius: Radius.circular(notchRadius),
-        clockwise: false,
-      )
-      ..quadraticBezierTo(
-        notchCenterX - notchRadius * 0.85,
-        topY + cornerRadius,
-        notchCenterX - notchHalf,
-        topY + cornerRadius,
-      )
-      ..lineTo(0, topY + cornerRadius)
+      ..lineTo(0, size.height)
       ..close();
 
     canvas.drawShadow(path, shadowColor, 8, true);
@@ -242,6 +248,7 @@ class _BumpBarPainter extends CustomPainter {
   bool shouldRepaint(covariant _BumpBarPainter oldDelegate) {
     return oldDelegate.color != color ||
         oldDelegate.shadowColor != shadowColor ||
-        oldDelegate.notchRadius != notchRadius;
+        oldDelegate.bumpRise != bumpRise ||
+        oldDelegate.bumpWidth != bumpWidth;
   }
 }
