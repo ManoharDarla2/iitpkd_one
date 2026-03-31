@@ -34,7 +34,7 @@ class QuickActionsSection extends StatelessWidget {
                 icon: Icons.calendar_month_rounded,
                 title: 'Schedule',
                 subtitle: 'Campus timings',
-                onTap: () => context.go('/schedule/shuttle'),
+                onTap: () => context.go('/schedules/shuttle'),
               ),
             ),
           ],
