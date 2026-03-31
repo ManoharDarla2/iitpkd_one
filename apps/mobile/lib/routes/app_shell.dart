@@ -11,6 +11,7 @@ class AppShell extends StatelessWidget {
     final currentIndex = navigationShell.currentIndex;
 
     return Scaffold(
+      extendBody: true,
       body: navigationShell,
       bottomNavigationBar: _BumpedBottomBar(
         currentIndex: currentIndex,
@@ -42,9 +43,9 @@ class _BumpedBottomBar extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     final bottomInset = MediaQuery.of(context).padding.bottom;
     const baseHeight = 72.0;
-    const bumpRise = 18.0;
+    const bumpRise = 22.0;
     const bumpWidth = 116.0;
-    const actionSize = 62.0;
+    const actionSize = 64.0;
 
     return SizedBox(
       height: baseHeight + bottomInset + bumpRise,
@@ -111,7 +112,7 @@ class _BumpedBottomBar extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            top: 4,
+            top: 8,
             child: Center(
               child: GestureDetector(
                 onTap: onCenterAction,
@@ -167,24 +168,33 @@ class _BottomTab extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 14),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(selected ? activeIcon : icon, color: color, size: 24),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: theme.textTheme.labelSmall?.copyWith(
-                color: color,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final compact = constraints.maxHeight < 44;
+          final iconSize = compact ? 20.0 : 22.0;
+          final labelStyle = theme.textTheme.labelSmall?.copyWith(
+            color: color,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+            fontSize: compact ? 10 : null,
+            height: 1,
+          );
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(selected ? activeIcon : icon, color: color, size: iconSize),
+              SizedBox(height: compact ? 2 : 3),
+              Flexible(
+                child: Text(
+                  label,
+                  style: labelStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -233,12 +243,21 @@ class _BumpBarPainter extends CustomPainter {
       ..lineTo(0, size.height)
       ..close();
 
-    canvas.drawShadow(path, shadowColor, 8, true);
+    final ambientShadow = Paint()
+      ..color = shadowColor.withValues(alpha: 0.22)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10);
+    canvas.save();
+    canvas.translate(0, 3);
+    canvas.drawPath(path, ambientShadow);
+    canvas.restore();
+
+    canvas.drawShadow(path, shadowColor.withValues(alpha: 0.16), 10, false);
+    canvas.drawShadow(path, shadowColor.withValues(alpha: 0.08), 4, false);
     final paint = Paint()..color = color;
     canvas.drawPath(path, paint);
 
     final stroke = Paint()
-      ..color = Colors.black.withValues(alpha: 0.05)
+      ..color = Colors.black.withValues(alpha: 0.10)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.8;
     canvas.drawPath(path, stroke);
