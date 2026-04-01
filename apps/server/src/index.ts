@@ -1,6 +1,7 @@
 import { Elysia } from 'elysia';
 import { openapi } from '@elysiajs/openapi';
 
+import { competitionController } from './modules/competition/competition.controller';
 import { facultyController } from './modules/faculty/faculty.controller';
 import { messController } from './modules/mess/mess.controller';
 import { searchController } from './modules/search/search.controller';
@@ -21,6 +22,7 @@ const app = new Elysia()
         { name: 'Faculty' },
         { name: 'Mess' },
         { name: 'Shuttles' },
+        { name: 'Competitions' },
         { name: 'Search' },
       ],
     },
@@ -34,6 +36,7 @@ const app = new Elysia()
       .use(facultyController)
       .use(messController)
       .use(shuttleController)
+      .use(competitionController)
       .use(searchController),
   )
   .listen(3000);
