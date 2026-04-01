@@ -31,6 +31,9 @@ abstract final class ApiConstants {
   static const String search = '$apiVersion/search';
   static const String searchSuggestions = '$apiVersion/search/suggestions';
 
+  // -- Competition endpoints --
+  static const String competitions = '$apiVersion/competitions';
+
   // -- Hive box names --
   static const String shuttleCacheBox = 'shuttle_cache';
   static const String shuttleDataKey = 'shuttle_schedules';
