@@ -1,6 +1,7 @@
 import 'package:iitpkd_one/core/network/api_response.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/notice.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
 import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
 import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
 import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
@@ -83,4 +84,9 @@ abstract interface class ApiClientInterface {
   Future<ApiResponse<List<String>>> getSearchSuggestions({
     required String query,
   });
+
+  /// GET /api/v1/competitions
+  ///
+  /// Fetches currently available competition opportunities.
+  Future<ApiResponse<List<Competition>>> getCompetitions();
 }

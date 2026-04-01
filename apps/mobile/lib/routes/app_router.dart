@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iitpkd_one/features/competitions/views/competitions_screen.dart';
 import 'package:iitpkd_one/features/dashboard/views/dashboard_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_detail_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_screen.dart';
@@ -156,10 +157,7 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/competitions',
-              builder: (context, state) => const _PlaceholderScreen(
-                title: 'Competitions',
-                icon: Icons.emoji_events_rounded,
-              ),
+              builder: (context, state) => const CompetitionsScreen(),
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:iitpkd_one/core/constants/api_constants.dart';
 import 'package:iitpkd_one/core/network/api_client_interface.dart';
 import 'package:iitpkd_one/core/network/api_response.dart';
+import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/notice.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/notice_location.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
@@ -749,6 +750,43 @@ class MockApiClient implements ApiClientInterface {
     return ApiResponse.success(
       data: matches,
       message: 'Suggestions for "$query"',
+    );
+  }
+
+  @override
+  Future<ApiResponse<List<Competition>>> getCompetitions() async {
+    await Future<void>.delayed(ApiConstants.mockNetworkDelay);
+
+    return ApiResponse.success(
+      data: [
+        Competition(
+          websiteUrl: 'https://www.droneexpo.in/',
+          title: 'Drone Expo 2026',
+          applyLink: 'https://www.droneexpo.in/visitor-registration',
+          deadline: DateTime(2026, 4, 17),
+        ),
+        Competition(
+          websiteUrl:
+              'https://www.ursc.gov.in/IRoC-U2026/events.jsp#skipmaincontent',
+          title: 'ISRO Robotics Challenge 2026',
+          applyLink:
+              'https://www.ursc.gov.in/IRoC-U2026/events.jsp#skipmaincontent',
+          deadline: DateTime(2026, 4, 2),
+        ),
+        Competition(
+          websiteUrl: 'https://www.safmc.com.sg/about-the-competition/',
+          title: 'Singapore Amazing Flying Machine Competition',
+          applyLink: 'https://www.safmc.com.sg/registration/',
+          deadline: DateTime(2026, 2, 27),
+        ),
+        Competition(
+          websiteUrl: 'https://roboclub.technoxian.com/',
+          title: 'Technoxian World Robotics Championship 10.0',
+          applyLink: 'https://roboclub.technoxian.com/',
+          deadline: DateTime(2026, 4, 7),
+        ),
+      ],
+      message: 'Competitions retrieved successfully',
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:iitpkd_one/core/constants/api_constants.dart';
 import 'package:iitpkd_one/core/network/api_client_interface.dart';
 import 'package:iitpkd_one/core/network/api_response.dart';
 import 'package:iitpkd_one/core/network/mock_api_client.dart';
+import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/notice.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
 import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
@@ -235,6 +236,20 @@ class RealApiClient implements ApiClientInterface {
       return _parseEnvelope<List<String>>(json, (data) {
         final list = (data as List<dynamic>).cast<String>();
         return list;
+      });
+    } catch (e) {
+      return ApiResponse.error(error: e.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<Competition>>> getCompetitions() async {
+    try {
+      final json = await _getJson(ApiConstants.competitions);
+
+      return _parseEnvelope<List<Competition>>(json, (data) {
+        final list = (data as List<dynamic>).cast<Map<String, dynamic>>();
+        return list.map(Competition.fromJson).toList();
       });
     } catch (e) {
       return ApiResponse.error(error: e.toString());
