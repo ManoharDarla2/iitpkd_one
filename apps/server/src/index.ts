@@ -7,6 +7,8 @@ import { messController } from './modules/mess/mess.controller';
 import { searchController } from './modules/search/search.controller';
 import { shuttleController } from './modules/shuttle/shuttle.controller';
 
+const port = Number(process.env.PORT ?? 3000);
+
 const app = new Elysia()
   .use(openapi({
     path: '/docs',
@@ -39,6 +41,9 @@ const app = new Elysia()
       .use(competitionController)
       .use(searchController),
   )
-  .listen(3000);
+  .listen({
+    port,
+    hostname: '0.0.0.0',
+  });
 
 console.log(`Innovation Lab API running at http://${app.server?.hostname}:${app.server?.port}`);
