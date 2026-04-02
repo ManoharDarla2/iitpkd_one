@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QuickActionsSection extends StatelessWidget {
   const QuickActionsSection({super.key});
@@ -71,7 +72,133 @@ class QuickActionsSection extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 8),
+          const _MapActionTile(),
         ],
+      ),
+    );
+  }
+}
+
+class _MapActionTile extends StatelessWidget {
+  const _MapActionTile();
+
+  static final Uri _campusMapUri = Uri.parse(
+    'https://iit-pkd-map.netlify.app/',
+  );
+
+  Future<void> _openCampusMap(BuildContext context) async {
+    final openedExternally = await launchUrl(
+      _campusMapUri,
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (openedExternally) {
+      return;
+    }
+
+    final openedInApp = await launchUrl(
+      _campusMapUri,
+      mode: LaunchMode.inAppBrowserView,
+    );
+
+    if (!openedInApp && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Unable to open the campus map right now.'),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => _openCampusMap(context),
+        child: Ink(
+          height: 110,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.5)),
+            image: const DecorationImage(
+              image: AssetImage('assets/images/map_bg.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withValues(alpha: 0.08),
+                  Colors.black.withValues(alpha: 0.58),
+                ],
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: [
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: cs.primaryContainer.withValues(alpha: 0.9),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      Icons.map_rounded,
+                      size: 20,
+                      color: cs.onPrimaryContainer,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Interactive Campus Map',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Open in your browser',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: Colors.white.withValues(alpha: 0.92),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Icon(
+                    Icons.open_in_new_rounded,
+                    size: 20,
+                    color: Colors.white.withValues(alpha: 0.95),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
