@@ -15,10 +15,10 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final shuttleAsync = ref.watch(shuttleViewModelProvider);
+    ref.watch(messViewModelProvider);
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
-    final shuttleAsync = ref.watch(shuttleViewModelProvider);
-    final messAsync = ref.watch(messViewModelProvider);
 
     ref.listen(shuttleViewModelProvider, (previous, next) {
       if (next.hasError && previous?.hasError != true) {
@@ -35,10 +35,16 @@ class DashboardScreen extends ConsumerWidget {
     return Scaffold(
       appBar: const MainTabAppBar(
         title: 'IITPKD One',
-        subtitle: 'Campus pulse, one place',
+        subtitle: 'Your campus control center',
       ),
-      body: ColoredBox(
-        color: cs.surface,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [cs.surface, cs.surfaceContainerLowest, cs.surface],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: RefreshIndicator(
           onRefresh: () async {
             await Future.wait([
@@ -49,67 +55,26 @@ class DashboardScreen extends ConsumerWidget {
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    16,
-                    10,
-                    16,
-                    mainTabBottomPadding(context, extra: 12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const _HomeHeroCard(),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _InsightCard(
-                              title: 'Next Shuttle',
-                              icon: Icons.directions_bus_filled_rounded,
-                              value: _nextShuttleText(shuttleAsync),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: _InsightCard(
-                              title: 'Current Meal',
-                              icon: Icons.restaurant_rounded,
-                              value: _currentMealText(messAsync),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
-                      const ShuttleTrackerSection(),
-                      const SizedBox(height: 12),
-                      const TodaysMessPreviewSection(),
-                      const SizedBox(height: 12),
-                      const QuickActionsSection(),
-                      const SizedBox(height: 10),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: cs.surfaceContainerLow,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: cs.outlineVariant.withValues(alpha: 0.5),
-                          ),
-                        ),
-                        child: Text(
-                          'Pull down to refresh live shuttle and mess updates.',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: cs.onSurfaceVariant,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+              SliverPadding(
+                padding: EdgeInsets.fromLTRB(
+                  16,
+                  10,
+                  16,
+                  mainTabBottomPadding(context, extra: 6),
+                ),
+                sliver: SliverList.list(
+                  children: [
+                    _HeroPanel(
+                      nextShuttle: _nextShuttleLabel(shuttleAsync),
+                      activeMeal: _activeMealLabel(),
+                    ),
+                    const SizedBox(height: 12),
+                    const ShuttleTrackerSection(),
+                    const SizedBox(height: 12),
+                    const TodaysMessPreviewSection(),
+                    const SizedBox(height: 12),
+                    const QuickActionsSection(),
+                  ],
                 ),
               ),
             ],
@@ -119,65 +84,79 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  static void _showErrorSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
-    );
-  }
-
-  static String _nextShuttleText(
+  static String _nextShuttleLabel(
     AsyncValue<List<ShuttleSchedule>> shuttleAsync,
   ) {
     return shuttleAsync.when(
       data: (schedules) {
         final upcoming =
-            schedules.where((s) => s.isUpcoming && !s.isOutsideTrip).toList()
+            schedules
+                .where((item) => item.isUpcoming && !item.isOutsideTrip)
+                .toList()
               ..sort((a, b) => a.todayDateTime.compareTo(b.todayDateTime));
-        if (upcoming.isEmpty) return 'No upcoming trips';
+        if (upcoming.isEmpty) {
+          return 'No upcoming trips';
+        }
         final next = upcoming.first;
-        return '${next.time} - ${next.from}';
+        return '${next.time} ${next.from}';
       },
-      loading: () => 'Checking schedule...',
-      error: (_, _) => 'Schedule unavailable',
+      loading: () => 'Updating...',
+      error: (_, _) => 'Unavailable',
     );
   }
 
-  static String _currentMealText(AsyncValue<dynamic> messAsync) {
-    return messAsync.when(
-      data: (_) {
-        final hour = DateTime.now().hour;
-        if (hour < 10) return 'Breakfast';
-        if (hour < 15) return 'Lunch';
-        if (hour < 18) return 'Snacks';
-        return 'Dinner';
-      },
-      loading: () => 'Fetching menu...',
-      error: (_, _) => 'Menu unavailable',
+  static String _activeMealLabel() {
+    final hour = DateTime.now().hour;
+    if (hour < 10) return 'Breakfast';
+    if (hour < 15) return 'Lunch';
+    if (hour < 18) return 'Snacks';
+    return 'Dinner';
+  }
+
+  static void _showErrorSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
     );
   }
 }
 
-class _HomeHeroCard extends StatelessWidget {
-  const _HomeHeroCard();
+class _HeroPanel extends StatelessWidget {
+  const _HeroPanel({required this.nextShuttle, required this.activeMeal});
+
+  final String nextShuttle;
+  final String activeMeal;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final hour = DateTime.now().hour;
+    final greeting = hour < 12
+        ? 'Good morning'
+        : hour < 17
+        ? 'Good afternoon'
+        : 'Good evening';
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(26),
         gradient: LinearGradient(
           colors: [
-            cs.primaryContainer.withValues(alpha: 0.88),
-            cs.secondaryContainer.withValues(alpha: 0.74),
+            cs.primary.withValues(alpha: 0.94),
+            cs.tertiary.withValues(alpha: 0.86),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: cs.primary.withValues(alpha: 0.2),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,24 +164,45 @@ class _HomeHeroCard extends StatelessWidget {
           Text(
             DateFormat('EEEE, d MMMM').format(DateTime.now()),
             style: theme.textTheme.labelLarge?.copyWith(
+              color: cs.onPrimary.withValues(alpha: 0.9),
               fontWeight: FontWeight.w700,
-              color: cs.onSecondaryContainer,
             ),
           ),
-          const SizedBox(height: 7),
+          const SizedBox(height: 8),
           Text(
-            'Welcome back',
+            '$greeting.',
             style: theme.textTheme.headlineSmall?.copyWith(
+              color: cs.onPrimary,
               fontWeight: FontWeight.w800,
-              color: cs.onSecondaryContainer,
             ),
           ),
           const SizedBox(height: 5),
           Text(
-            'Track shuttles, check meals, and jump into campus essentials quickly.',
+            'Everything you need for campus movement and meals, in one place.',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: cs.onSecondaryContainer.withValues(alpha: 0.9),
+              color: cs.onPrimary.withValues(alpha: 0.9),
+              height: 1.35,
             ),
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Expanded(
+                child: _HeroMetric(
+                  icon: Icons.directions_bus_rounded,
+                  title: 'Next Shuttle',
+                  value: nextShuttle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _HeroMetric(
+                  icon: Icons.restaurant_rounded,
+                  title: 'Current Meal',
+                  value: activeMeal,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -210,15 +210,15 @@ class _HomeHeroCard extends StatelessWidget {
   }
 }
 
-class _InsightCard extends StatelessWidget {
-  const _InsightCard({
-    required this.title,
+class _HeroMetric extends StatelessWidget {
+  const _HeroMetric({
     required this.icon,
+    required this.title,
     required this.value,
   });
 
-  final String title;
   final IconData icon;
+  final String title;
   final String value;
 
   @override
@@ -227,37 +227,31 @@ class _InsightCard extends StatelessWidget {
     final cs = theme.colorScheme;
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(11),
       decoration: BoxDecoration(
-        color: cs.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.55)),
+        color: Colors.white.withValues(alpha: 0.16),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(icon, size: 18, color: cs.primary),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  title,
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          Icon(icon, size: 18, color: cs.onPrimary),
           const SizedBox(height: 7),
+          Text(
+            title,
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: cs.onPrimary.withValues(alpha: 0.92),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 2),
           Text(
             value,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: cs.onSurfaceVariant,
-              height: 1.3,
+              color: cs.onPrimary,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],

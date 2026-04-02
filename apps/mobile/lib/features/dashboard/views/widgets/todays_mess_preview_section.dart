@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
 import 'package:iitpkd_one/features/schedule/view_models/mess_view_model.dart';
-import 'package:iitpkd_one/shared/widgets/section_header.dart';
 
 class TodaysMessPreviewSection extends ConsumerWidget {
   const TodaysMessPreviewSection({super.key});
@@ -12,107 +11,123 @@ class TodaysMessPreviewSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final messAsync = ref.watch(messViewModelProvider);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionHeader(
-          title: 'Today\'s Mess Menu',
-          icon: Icon(
-            Icons.restaurant_menu_rounded,
-            color: Theme.of(context).colorScheme.primary,
-            size: 24,
-          ),
-        ),
-        messAsync.when(
-          data: (menu) {
-            final mealDay = menu.getMealsForDay(
-              MessViewModel.currentWeekType(),
-              DateFormat('EEEE').format(DateTime.now()).toLowerCase(),
-            );
-            if (mealDay == null) {
-              return _EmptyMessCard(
-                message: 'Menu is not available for today yet.',
-              );
-            }
-
-            return _MealPreviewCard(mealDay: mealDay);
-          },
-          loading: () => const _LoadingMessCard(),
-          error: (_, _) => const _EmptyMessCard(
-            message: 'Unable to load menu at the moment.',
-          ),
-        ),
-        const SizedBox(height: 10),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton.icon(
-            onPressed: () => context.push('/schedules/mess'),
-            icon: const Icon(Icons.menu_book_rounded),
-            label: const Text('Open Full Mess Menu'),
-            style: FilledButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _MealPreviewCard extends StatelessWidget {
-  const _MealPreviewCard({required this.mealDay});
-
-  final MealDay mealDay;
-
-  @override
-  Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final slot = _activeSlot();
-    final items = _slotItems(slot, mealDay);
+    final cs = theme.colorScheme;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: theme.colorScheme.outlineVariant, width: 0.8),
+        color: cs.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.55)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(
-                slot.label,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
+              _HeaderIcon(icon: Icons.restaurant_rounded),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Today\'s Mess',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
-              const Spacer(),
-              Text(
-                slot.time,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
+              TextButton(
+                onPressed: () => context.push('/schedules/mess'),
+                child: const Text('Full Menu'),
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
+          messAsync.when(
+            data: (menu) {
+              final mealDay = menu.getMealsForDay(
+                MessViewModel.currentWeekType(),
+                DateFormat('EEEE').format(DateTime.now()).toLowerCase(),
+              );
+              if (mealDay == null) {
+                return const _EmptyCard(
+                  message: 'Menu is not available for today yet.',
+                );
+              }
+              return _MealCard(mealDay: mealDay);
+            },
+            loading: () => const _LoadingCard(),
+            error: (_, _) =>
+                const _EmptyCard(message: 'Unable to load menu at the moment.'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MealCard extends StatelessWidget {
+  const _MealCard({required this.mealDay});
+
+  final MealDay mealDay;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+    final slot = _activeSlot();
+    final items = _slotItems(slot.label, mealDay);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            cs.secondaryContainer.withValues(alpha: 0.8),
+            cs.surfaceContainerLow,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: cs.surface.withValues(alpha: 0.72),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  slot.label,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: cs.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Text(slot.time, style: theme.textTheme.labelMedium),
+            ],
+          ),
+          const SizedBox(height: 9),
           if (items.isEmpty)
             Text(
               'No items listed for this meal.',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+                color: cs.onSurfaceVariant,
               ),
             )
           else
             for (final item in items.take(4))
               Padding(
-                padding: const EdgeInsets.only(bottom: 6),
+                padding: const EdgeInsets.only(bottom: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -121,7 +136,7 @@ class _MealPreviewCard extends StatelessWidget {
                       width: 5,
                       height: 5,
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primary,
+                        color: cs.primary,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -137,16 +152,16 @@ class _MealPreviewCard extends StatelessWidget {
     );
   }
 
-  _MealSlot _activeSlot() {
+  static _MealSlot _activeSlot() {
     final hour = DateTime.now().hour;
-    if (hour < 10) return const _MealSlot('Breakfast', '7:30 - 9:00 AM');
-    if (hour < 15) return const _MealSlot('Lunch', '12:00 - 2:00 PM');
-    if (hour < 18) return const _MealSlot('Snacks', '4:30 - 5:30 PM');
-    return const _MealSlot('Dinner', '7:30 - 9:00 PM');
+    if (hour < 10) return const _MealSlot('Breakfast', '7:30-9:00 AM');
+    if (hour < 15) return const _MealSlot('Lunch', '12:00-2:00 PM');
+    if (hour < 18) return const _MealSlot('Snacks', '4:30-5:30 PM');
+    return const _MealSlot('Dinner', '7:30-9:00 PM');
   }
 
-  List<String> _slotItems(_MealSlot slot, MealDay mealDay) {
-    switch (slot.label) {
+  static List<String> _slotItems(String slot, MealDay mealDay) {
+    switch (slot) {
       case 'Breakfast':
         return mealDay.meals.breakfast;
       case 'Lunch':
@@ -159,47 +174,75 @@ class _MealPreviewCard extends StatelessWidget {
   }
 }
 
-class _LoadingMessCard extends StatelessWidget {
-  const _LoadingMessCard();
+class _HeaderIcon extends StatelessWidget {
+  const _HeaderIcon({required this.icon});
+
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
+    return Container(
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(
+        color: cs.primaryContainer,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Icon(icon, color: cs.onPrimaryContainer, size: 18),
+    );
+  }
+}
+
+class _LoadingCard extends StatelessWidget {
+  const _LoadingCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       width: double.infinity,
-      height: 120,
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(18),
+        color: theme.colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(14),
       ),
-      child: const Center(
-        child: SizedBox(
-          width: 24,
-          height: 24,
-          child: CircularProgressIndicator(strokeWidth: 2.2),
-        ),
+      child: const Row(
+        children: [
+          SizedBox(
+            width: 18,
+            height: 18,
+            child: CircularProgressIndicator(strokeWidth: 2.2),
+          ),
+          SizedBox(width: 10),
+          Text('Loading mess menu...'),
+        ],
       ),
     );
   }
 }
 
-class _EmptyMessCard extends StatelessWidget {
-  const _EmptyMessCard({required this.message});
+class _EmptyCard extends StatelessWidget {
+  const _EmptyCard({required this.message});
 
   final String message;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(18),
+        color: theme.colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Text(
         message,
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
         ),
       ),
     );
