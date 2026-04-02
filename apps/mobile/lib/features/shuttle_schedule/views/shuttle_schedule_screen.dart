@@ -4,6 +4,7 @@ import 'package:iitpkd_one/features/schedule/view_models/schedule_shuttle_view_m
 import 'package:iitpkd_one/features/schedule/views/widgets/day_toggle.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/route_filter_chips.dart';
 import 'package:iitpkd_one/features/schedule/views/widgets/schedule_shuttle_card.dart';
+import 'package:iitpkd_one/routes/app_shell.dart';
 import 'package:iitpkd_one/shared/widgets/main_tab_app_bar.dart';
 
 class ShuttleScheduleScreen extends ConsumerStatefulWidget {
@@ -23,6 +24,7 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
     final viewModel = ref.read(scheduleShuttleViewModelProvider.notifier);
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final bottomPadding = mainTabBottomPadding(context, extra: 10);
 
     return Scaffold(
       appBar: const MainTabAppBar(
@@ -105,7 +107,7 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
                   itemCount: sorted.length + 1,
                   itemBuilder: (context, index) {
                     if (index == sorted.length) {
-                      return const SizedBox(height: 20);
+                      return SizedBox(height: bottomPadding);
                     }
                     return ScheduleShuttleCard(schedule: sorted[index]);
                   },

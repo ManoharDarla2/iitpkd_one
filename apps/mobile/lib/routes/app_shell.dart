@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+const double _kBottomBarBaseHeight = 72;
+const double _kBottomBarBumpRise = 22;
+const double _kBottomBarBumpWidth = 116;
+const double _kBottomBarActionSize = 64;
+
+const double kMainBottomNavOverlayHeight =
+    _kBottomBarBaseHeight + _kBottomBarBumpRise;
+
+double mainTabBottomPadding(BuildContext context, {double extra = 0}) {
+  return kMainBottomNavOverlayHeight +
+      MediaQuery.of(context).padding.bottom +
+      extra;
+}
+
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.navigationShell});
 
@@ -42,13 +56,9 @@ class _BumpedBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final bottomInset = MediaQuery.of(context).padding.bottom;
-    const baseHeight = 72.0;
-    const bumpRise = 22.0;
-    const bumpWidth = 116.0;
-    const actionSize = 64.0;
 
     return SizedBox(
-      height: baseHeight + bottomInset + bumpRise,
+      height: _kBottomBarBaseHeight + bottomInset + _kBottomBarBumpRise,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -57,12 +67,12 @@ class _BumpedBottomBar extends StatelessWidget {
               painter: _BumpBarPainter(
                 color: cs.surface,
                 shadowColor: cs.shadow.withValues(alpha: 0.12),
-                bumpRise: bumpRise,
-                bumpWidth: bumpWidth,
+                bumpRise: _kBottomBarBumpRise,
+                bumpWidth: _kBottomBarBumpWidth,
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: bumpRise + 8,
+                  top: _kBottomBarBumpRise + 8,
                   bottom: bottomInset + 8,
                 ),
                 child: Row(
@@ -117,8 +127,8 @@ class _BumpedBottomBar extends StatelessWidget {
               child: GestureDetector(
                 onTap: onCenterAction,
                 child: Container(
-                  width: actionSize,
-                  height: actionSize,
+                  width: _kBottomBarActionSize,
+                  height: _kBottomBarActionSize,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: cs.primary,

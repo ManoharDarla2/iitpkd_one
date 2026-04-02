@@ -27,7 +27,12 @@ class _PlaceholderScreen extends StatelessWidget {
         subtitle: 'Fresh updates landing soon',
       ),
       body: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: EdgeInsets.fromLTRB(
+          18,
+          18,
+          18,
+          mainTabBottomPadding(context, extra: 18),
+        ),
         child: Center(
           child: Container(
             width: double.infinity,
