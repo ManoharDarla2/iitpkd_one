@@ -9,9 +9,9 @@ const double _kBottomBarActionSize = 64;
 const double kMainBottomNavOverlayHeight =
     _kBottomBarBaseHeight + _kBottomBarBumpRise;
 
+
 double mainTabBottomPadding(BuildContext context, {double extra = 0}) {
-  return kMainBottomNavOverlayHeight +
-      MediaQuery.of(context).padding.bottom +
+  return MediaQuery.of(context).padding.bottom +
       extra;
 }
 
