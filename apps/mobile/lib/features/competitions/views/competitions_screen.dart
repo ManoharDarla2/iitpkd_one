@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
 import 'package:iitpkd_one/features/competitions/view_models/competition_view_model.dart';
+import 'package:iitpkd_one/routes/app_shell.dart';
 import 'package:iitpkd_one/shared/widgets/main_tab_app_bar.dart';
 
 class CompetitionsScreen extends ConsumerWidget {
@@ -14,6 +15,7 @@ class CompetitionsScreen extends ConsumerWidget {
     final viewModel = ref.read(competitionViewModelProvider.notifier);
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final bottomPadding = mainTabBottomPadding(context, extra: 10);
 
     ref.listen(competitionViewModelProvider, (previous, next) {
       if (next.hasError && previous?.hasError != true) {
@@ -53,7 +55,7 @@ class CompetitionsScreen extends ConsumerWidget {
 
             return ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(14, 12, 14, 24),
+              padding: EdgeInsets.fromLTRB(14, 12, 14, bottomPadding),
               itemCount: competitions.length + 1,
               itemBuilder: (context, index) {
                 if (index == 0) {

@@ -4,7 +4,7 @@ abstract final class ApiConstants {
   /// Override using: --dart-define=API_BASE_URL=http://host:port
   static const String baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://10.32.11.107:3000',
+    defaultValue: 'https://innovationlab-api-7z6lz.ondigitalocean.app',
   );
 
   /// API version prefix.
