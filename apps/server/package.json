@@ -2,15 +2,25 @@
   "name": "server",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "bun run scripts/seed.ts"
   },
   "dependencies": {
     "@elysiajs/openapi": "^1.4.14",
-    "elysia": "latest"
+    "@sinclair/typebox": "^0.34.8",
+    "better-auth": "^1.6.2",
+    "dotenv": "^17.4.1",
+    "drizzle-orm": "^0.45.2",
+    "drizzle-typebox": "^0.3.3",
+    "elysia": "latest",
+    "pg": "^8.20.0"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.21.0"
   },
   "module": "src/index.js"
 }

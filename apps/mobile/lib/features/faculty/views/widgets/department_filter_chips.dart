@@ -23,10 +23,8 @@ class DepartmentFilterChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return SizedBox(
-      height: 42,
+      height: 46,
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -34,22 +32,10 @@ class DepartmentFilterChips extends StatelessWidget {
           // "All" chip
           Padding(
             padding: const EdgeInsets.only(right: 8),
-            child: FilterChip(
-              label: const Text('All'),
-              selected: selected == null,
-              onSelected: (_) => onSelected(null),
-              selectedColor: theme.colorScheme.secondaryContainer.withValues(
-                alpha: 0.3,
-              ),
-              checkmarkColor: theme.colorScheme.secondary,
-              labelStyle: TextStyle(
-                color: selected == null
-                    ? theme.colorScheme.secondary
-                    : theme.colorScheme.onSurfaceVariant,
-                fontWeight: selected == null
-                    ? FontWeight.w600
-                    : FontWeight.normal,
-              ),
+            child: _DeptChip(
+              label: 'All',
+              isSelected: selected == null,
+              onTap: () => onSelected(null),
             ),
           ),
           // Department chips
@@ -57,20 +43,10 @@ class DepartmentFilterChips extends StatelessWidget {
             final isSelected = selected == dept;
             return Padding(
               padding: const EdgeInsets.only(right: 8),
-              child: FilterChip(
-                label: Text(_abbreviate(dept)),
-                selected: isSelected,
-                onSelected: (_) => onSelected(dept),
-                selectedColor: theme.colorScheme.secondaryContainer.withValues(
-                  alpha: 0.3,
-                ),
-                checkmarkColor: theme.colorScheme.secondary,
-                labelStyle: TextStyle(
-                  color: isSelected
-                      ? theme.colorScheme.secondary
-                      : theme.colorScheme.onSurfaceVariant,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                ),
+              child: _DeptChip(
+                label: _abbreviate(dept),
+                isSelected: isSelected,
+                onTap: () => onSelected(dept),
               ),
             );
           }),
@@ -87,5 +63,48 @@ class DepartmentFilterChips extends StatelessWidget {
       'Humanities and Social Sciences': 'HSS',
     };
     return abbreviations[dept] ?? dept;
+  }
+}
+
+class _DeptChip extends StatelessWidget {
+  const _DeptChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    return InkWell(
+      borderRadius: BorderRadius.circular(24),
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: isSelected ? cs.secondaryContainer : cs.surface,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: isSelected
+                ? cs.secondary.withValues(alpha: 0.4)
+                : cs.outlineVariant,
+          ),
+        ),
+        child: Text(
+          label,
+          style: theme.textTheme.labelLarge?.copyWith(
+            color: isSelected ? cs.secondary : cs.onSurfaceVariant,
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+          ),
+        ),
+      ),
+    );
   }
 }

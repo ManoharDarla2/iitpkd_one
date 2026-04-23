@@ -6,11 +6,7 @@ import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
 /// Shows avatar, name, designation, and department.
 /// Taps trigger navigation to the detail screen.
 class FacultyCard extends StatelessWidget {
-  const FacultyCard({
-    super.key,
-    required this.faculty,
-    required this.onTap,
-  });
+  const FacultyCard({super.key, required this.faculty, required this.onTap});
 
   final FacultyMember faculty;
   final VoidCallback onTap;
@@ -22,17 +18,19 @@ class FacultyCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Material(
-        color: theme.colorScheme.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(12),
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        elevation: 1,
+        shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.06),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
-                width: 0.5,
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
+                width: 0.8,
               ),
             ),
             padding: const EdgeInsets.all(14),
@@ -83,8 +81,9 @@ class FacultyCard extends StatelessWidget {
                           vertical: 3,
                         ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.primaryContainer
-                              .withValues(alpha: 0.4),
+                          color: theme.colorScheme.primaryContainer.withValues(
+                            alpha: 0.4,
+                          ),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
@@ -102,7 +101,9 @@ class FacultyCard extends StatelessWidget {
                 // Chevron
                 Icon(
                   Icons.chevron_right_rounded,
-                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                  color: theme.colorScheme.onSurfaceVariant.withValues(
+                    alpha: 0.5,
+                  ),
                 ),
               ],
             ),

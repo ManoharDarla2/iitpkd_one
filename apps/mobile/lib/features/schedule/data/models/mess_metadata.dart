@@ -4,21 +4,20 @@
 /// to decide whether to re-fetch the full 14-day menu.
 class MessMetadata {
   final DateTime updatedAt;
-  final String campus;
+  final String version;
 
-  const MessMetadata({required this.updatedAt, required this.campus});
+  const MessMetadata({required this.updatedAt, required this.version});
 
   factory MessMetadata.fromJson(Map<String, dynamic> json) {
     return MessMetadata(
-      updatedAt: DateTime.parse(json['updated_at'] as String),
-      campus: json['campus'] as String,
+      updatedAt: DateTime.parse(
+        (json['updated_at'] ?? json['updatedAt']) as String,
+      ),
+      version: (json['version'] ?? '') as String,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'updated_at': updatedAt.toIso8601String(),
-      'campus': campus,
-    };
+    return {'updated_at': updatedAt.toIso8601String(), 'version': version};
   }
 }

@@ -1,0 +1,266 @@
+[
+  {
+    "title": "ORBITAL SANDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3704.jpg",
+    "make": "Bosch",
+    "model": "GEX 125-1 AE",
+    "type": "power-tools",
+    "descrption": "A compact orbital sander used for smooth finishing on wood and painted surfaces with low vibration and good control."
+  },
+  {
+    "title": "ANGLE GRINDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3696.jpg",
+    "make": "Bosch",
+    "model": "",
+    "type": "power-tools",
+    "descrption": "A handheld grinder suitable for cutting, grinding, and surface cleanup on metal, tile, and other tough materials."
+  },
+  {
+    "title": "ELECTRIC DRILL",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3715.jpg",
+    "make": "Bosch",
+    "model": "GSB 10RE",
+    "type": "power-tools",
+    "descrption": "A reliable corded drill for drilling holes and light hammer-drill work in wood, metal, and masonry."
+  },
+  {
+    "title": "ELECTRIC PLANER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3713.jpg",
+    "make": "Bosch",
+    "model": "GHO 26-82 D",
+    "type": "power-tools",
+    "descrption": "A woodworking planer used to flatten and trim wooden surfaces with consistent depth and clean finish."
+  },
+  {
+    "title": "MARBLE CUTTER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3706.jpg",
+    "make": "Bosch",
+    "model": "",
+    "type": "power-tools",
+    "descrption": "A high-speed cutting tool built for straight and controlled cuts in marble, stone, and tiles."
+  },
+  {
+    "title": "WOOD ROUTER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3695.jpg",
+    "make": "Makita",
+    "model": "",
+    "type": "power-tools",
+    "descrption": "A precision routing tool for edge profiling, grooving, and shaping wood components in detail work."
+  },
+  {
+    "title": "JIGSAW",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3722.jpg",
+    "make": "Bosch",
+    "model": "GST 650",
+    "type": "power-tools",
+    "descrption": "A versatile saw designed for curved and straight cuts on wood, plastic, and thin sheet materials."
+  },
+  {
+    "title": "HEAT GUN",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3724.jpg",
+    "make": "Makita",
+    "model": "",
+    "type": "power-tools",
+    "descrption": "A controlled hot-air tool used for paint stripping, shrink fitting, drying, and softening adhesives."
+  },
+  {
+    "title": "CNC LASER CUTTER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3676.jpg",
+    "make": "Kavone",
+    "model": "KL1060",
+    "type": "electric-tools",
+    "descrption": "A computer-controlled laser system for fast and precise cutting or engraving of acrylic, plywood, and sheet material."
+  },
+  {
+    "title": "CNC MILLING MACHINE",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3678.jpg",
+    "make": "Tormach",
+    "model": "PCNC 770",
+    "type": "electric-tools",
+    "descrption": "A programmable milling machine for accurate machining of metal and engineering plastics for prototype parts."
+  },
+  {
+    "title": "DRILL PRESS",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3684.jpg",
+    "make": "EIFCO",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A stationary drilling machine that provides vertical, repeatable, and accurate hole making in workshop materials."
+  },
+  {
+    "title": "SHARP WINDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3690.jpg",
+    "make": "Trishul",
+    "model": "TWM-1D",
+    "type": "electric-tools",
+    "descrption": "A bench-mounted grinding and sharpening unit used to restore cutting edges on tools and workshop blades."
+  },
+  {
+    "title": "METAL CUT-OFF SAW",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3734.jpg",
+    "make": "Bosch",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A heavy-duty chop saw meant for quick, straight cuts in metal bars, pipes, and structural sections."
+  },
+  {
+    "title": "POWER HACKSAW",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3737.jpg",
+    "make": "EIFCO",
+    "model": "Atlas",
+    "type": "electric-tools",
+    "descrption": "A motorized hacksaw for repetitive metal cutting jobs where consistent feed and cut quality are needed."
+  },
+  {
+    "title": "BANDSAW",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3740.jpg",
+    "make": "Makita",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A continuous-blade saw used for straight or curved cuts in wood and other stock with smooth cutting action."
+  },
+  {
+    "title": "THICKNESS PLANER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3743.jpg",
+    "make": "Makita",
+    "model": "2012NB",
+    "type": "electric-tools",
+    "descrption": "A planer designed to reduce wood pieces to uniform thickness while maintaining parallel and smooth surfaces."
+  },
+  {
+    "title": "TABLE SAW",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3744.jpg",
+    "make": "Makita",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A workshop table saw for precise rip and cross cuts in timber sheets, planks, and joinery stock."
+  },
+  {
+    "title": "BELT & DISC SANDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3751.jpg",
+    "make": "",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A dual sanding station combining belt and disc surfaces for rapid shaping, deburring, and fine finishing."
+  },
+  {
+    "title": "BENCH DRILL PRESS",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3756.jpg",
+    "make": "Makita",
+    "model": "TB131",
+    "type": "electric-tools",
+    "descrption": "A compact bench-mounted drilling setup for controlled drilling tasks on small to medium workpieces."
+  },
+  {
+    "title": "BENCH GRINDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3759.jpg",
+    "make": "Bosch",
+    "model": "GBG 6",
+    "type": "electric-tools",
+    "descrption": "A fixed grinder used for edge sharpening, metal cleanup, and surface preparation in daily fabrication work."
+  },
+  {
+    "title": "ARC WELDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3780.jpg",
+    "make": "Euro",
+    "model": "GenX MMA 201XP",
+    "type": "electric-tools",
+    "descrption": "An MMA arc welding machine suitable for strong welded joints in steel fabrication and repair operations."
+  },
+  {
+    "title": "TIG WELDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3773.jpg",
+    "make": "Ador",
+    "model": "Champ T400",
+    "type": "electric-tools",
+    "descrption": "A TIG welding unit for clean, high-quality weld beads on stainless steel and precision metal components."
+  },
+  {
+    "title": "TIG WELDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3766.jpg",
+    "make": "Ador",
+    "model": "Champ TIG 300AD",
+    "type": "electric-tools",
+    "descrption": "A controlled TIG system optimized for accurate heat input and neat weld finishes on critical joints."
+  },
+  {
+    "title": "MIG WELDER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3770.jpg",
+    "make": "Ador",
+    "model": "Champ MIG 400",
+    "type": "electric-tools",
+    "descrption": "A wire-feed MIG welder built for productive welding on medium to thick metal sections."
+  },
+  {
+    "title": "CNC PLASMA CUTTER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3784.jpg",
+    "make": "SVP Laser",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A CNC plasma table for rapid profile cutting of conductive metal sheets with programmable accuracy."
+  },
+  {
+    "title": "CNC ROUTER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3829.jpg",
+    "make": "",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A computer-controlled router for carving, pocketing, and contouring wood, foam, and composite panels."
+  },
+  {
+    "title": "MINI LATHE",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3911.jpg",
+    "make": "",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "A small turning machine used for facing, threading, and cylindrical shaping of compact metal parts."
+  },
+  {
+    "title": "PAINT BOOTH",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3906.jpg",
+    "make": "Cleantek",
+    "model": "",
+    "type": "electric-tools",
+    "descrption": "An enclosed spray area with controlled airflow to achieve cleaner paint finishes and safer coating operations."
+  },
+  {
+    "title": "AIR COMPRESSOR",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3909.jpg",
+    "make": "Elgi",
+    "model": "TS15E LD",
+    "type": "electric-tools",
+    "descrption": "A compressed air supply system that powers pneumatic tools and supports cleaning and spray applications."
+  },
+  {
+    "title": "SLA 3D PRINTER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3802.jpg",
+    "make": "Prusa",
+    "model": "Original Prusa SL1",
+    "type": "3d-tools",
+    "descrption": "A resin-based 3D printer capable of producing high-detail parts with smooth surfaces and fine feature quality."
+  },
+  {
+    "title": "CURING AND WASHING STATION",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3802.jpg",
+    "make": "Prusa",
+    "model": "Original Prusa CW1",
+    "type": "3d-tools",
+    "descrption": "A post-processing station for resin prints that washes uncured resin and performs controlled UV curing."
+  },
+  {
+    "title": "FDM 3D PRINTER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3822.jpg",
+    "make": "Ultimaker",
+    "model": "Ultimaker 3",
+    "type": "3d-tools",
+    "descrption": "A filament-based 3D printer suited for functional prototypes, concept models, and iterative part development."
+  },
+  {
+    "title": "3D SCANNER",
+    "images": "https://csquare.netlify.app/assets/Facilities/_SON3886.jpg",
+    "make": "Shining 3D",
+    "model": "",
+    "type": "3d-tools",
+    "descrption": "A non-contact scanning device for capturing object geometry and converting it into editable 3D digital models."
+  }
+]

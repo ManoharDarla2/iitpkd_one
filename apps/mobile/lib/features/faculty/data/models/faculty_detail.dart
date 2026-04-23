@@ -35,36 +35,48 @@ class FacultyDetail {
   });
 
   factory FacultyDetail.fromJson(Map<String, dynamic> json) {
+    final email = json['email'] as String?;
+    final teachingRaw = json['teaching'];
+    final publicationsRaw = json['publications'];
+
     return FacultyDetail(
       slug: json['slug'] as String,
       name: json['name'] as String,
       designation: json['designation'] as String,
       department: json['department'] as String,
-      imageUrl: json['image_url'] as String?,
+      imageUrl: (json['image_url'] ?? json['imageUrl']) as String?,
       contact: json['contact'] != null
           ? FacultyContact.fromJson(json['contact'] as Map<String, dynamic>)
-          : null,
-      researchAreas: (json['research_areas'] as List<dynamic>?)
+          : (email != null && email.isNotEmpty
+                ? FacultyContact(email: email, phoneNumber: null)
+                : null),
+      researchAreas:
+          (json['research_areas'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           [],
       biosketch: json['biosketch'] as String?,
-      teaching: (json['teaching'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      researchGroups: (json['research_groups'] as List<dynamic>?)
+      teaching: teachingRaw is List<dynamic>
+          ? teachingRaw.map((e) => e as String).toList()
+          : (teachingRaw is String && teachingRaw.trim().isNotEmpty)
+          ? [teachingRaw.trim()]
+          : [],
+      researchGroups:
+          (json['research_groups'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           [],
       additionalInformation:
-          (json['additional_information'] as Map<String, dynamic>?)?.map(
-        (key, value) => MapEntry(key, value as String),
-      ),
-      publications: (json['publications'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
+          json['additional_information'] is Map<String, dynamic>
+          ? (json['additional_information'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(key, '$value'),
+            )
+          : null,
+      publications: publicationsRaw is List<dynamic>
+          ? publicationsRaw.map((e) => e as String).toList()
+          : (publicationsRaw is String && publicationsRaw.trim().isNotEmpty)
+          ? [publicationsRaw.trim()]
+          : [],
     );
   }
 

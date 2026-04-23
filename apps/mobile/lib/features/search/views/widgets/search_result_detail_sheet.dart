@@ -191,15 +191,19 @@ class SearchResultDetailSheet extends StatelessWidget {
   Color _categoryColor(ThemeData theme) {
     return switch (item.category) {
       SearchCategory.equipment => theme.colorScheme.tertiary,
+      SearchCategory.faculty => theme.colorScheme.primary,
+      SearchCategory.schedule => theme.colorScheme.secondary,
       SearchCategory.people => theme.colorScheme.primary,
       SearchCategory.labs => theme.colorScheme.secondary,
-      SearchCategory.schedules => theme.colorScheme.primary,
+      SearchCategory.schedules => theme.colorScheme.secondary,
     };
   }
 
   IconData _categoryIcon() {
     return switch (item.category) {
       SearchCategory.equipment => Icons.build_rounded,
+      SearchCategory.faculty => Icons.person_rounded,
+      SearchCategory.schedule => Icons.schedule_rounded,
       SearchCategory.people => Icons.person_rounded,
       SearchCategory.labs => Icons.science_rounded,
       SearchCategory.schedules => Icons.schedule_rounded,

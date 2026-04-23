@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
 import 'package:iitpkd_one/features/dashboard/view_models/shuttle_view_model.dart';
-import 'package:iitpkd_one/features/dashboard/views/widgets/shuttle_item_tile.dart';
-import 'package:iitpkd_one/shared/widgets/section_header.dart';
 
-/// The Shuttle Tracker section of the dashboard.
-///
-/// Shows the next 2 upcoming shuttle departures with a "LIVE" indicator
-/// and a "See Full Schedule" link button.
 class ShuttleTrackerSection extends ConsumerWidget {
   const ShuttleTrackerSection({super.key});
 
@@ -16,59 +11,53 @@ class ShuttleTrackerSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final shuttleAsync = ref.watch(shuttleViewModelProvider);
     final theme = Theme.of(context);
+    final cs = theme.colorScheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Section header
-        SectionHeader(
-          title: 'Shuttle Tracker',
-          icon: Icon(
-            Icons.directions_bus_filled_rounded,
-            color: theme.colorScheme.primary,
-            size: 24,
-          )
-        ),
-
-        // Content
-        shuttleAsync.when(
-          data: (schedules) => _ShuttleContent(schedules: schedules),
-          loading: () => const _ShuttleLoadingState(),
-          error: (error, _) => _ShuttleErrorState(
-            onRetry: () =>
-                ref.read(shuttleViewModelProvider.notifier).refreshSchedules(),
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
+      decoration: BoxDecoration(
+        color: cs.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.55)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              _HeaderIcon(icon: Icons.route_rounded),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Shuttle Live Board',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () => context.go('/schedules/shuttle'),
+                child: const Text('View All'),
+              ),
+            ],
           ),
-        ),
-
-        const SizedBox(height: 8),
-
-        // See Full Schedule button
-        SizedBox(
-          width: double.infinity,
-          child: OutlinedButton.icon(
-            onPressed: () {
-              // TODO: Navigate to full schedule screen
-            },
-            icon: const Icon(Icons.calendar_month_outlined, size: 18),
-            label: const Text('See Full Schedule'),
-            style: OutlinedButton.styleFrom(
-              side: BorderSide(
-                color: theme.colorScheme.outline.withValues(alpha: 0.5),
-                strokeAlign: BorderSide.strokeAlignInside,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: const EdgeInsets.symmetric(vertical: 12),
+          const SizedBox(height: 8),
+          shuttleAsync.when(
+            data: (schedules) => _ShuttleContent(schedules: schedules),
+            loading: () => const _LoadingState(),
+            error: (_, _) => _ErrorState(
+              onRetry: () {
+                ref.read(shuttleViewModelProvider.notifier).refreshSchedules();
+              },
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
-/// Displays the top 2 upcoming shuttles in a card.
 class _ShuttleContent extends StatelessWidget {
   const _ShuttleContent({required this.schedules});
 
@@ -76,121 +65,256 @@ class _ShuttleContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get the next 2 upcoming departures
-    final upcoming = schedules.where((s) => s.isUpcoming).toList()
-      ..sort((a, b) => a.todayDateTime.compareTo(b.todayDateTime));
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
 
-    final displaySchedules = upcoming.take(2).toList();
+    final upcoming =
+        schedules
+            .where((item) => item.isUpcoming && !item.isOutsideTrip)
+            .toList()
+          ..sort((a, b) => a.todayDateTime.compareTo(b.todayDateTime));
 
-    if (displaySchedules.isEmpty) {
-      return Card(
-        margin: EdgeInsets.zero,
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Center(
-            child: Text(
-              'No more shuttles scheduled for today.',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ),
-        ),
+    if (upcoming.isEmpty) {
+      return _EmptyState(
+        message: 'No upcoming campus shuttle right now.',
+        actionLabel: 'Open Full Schedule',
+        onTap: () => context.go('/schedules/shuttle'),
       );
     }
 
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.outlineVariant,
-          width: 0.5,
+    final primary = upcoming.first;
+    final secondary = upcoming.skip(1).take(2).toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(13),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                cs.primaryContainer.withValues(alpha: 0.85),
+                cs.surfaceContainerLow,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  _TagChip(
+                    text: primary.minutesUntilDeparture > 0
+                        ? 'In ${primary.minutesUntilDeparture} min'
+                        : 'Departing now',
+                  ),
+                  const Spacer(),
+                  Text(
+                    primary.time,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(
+                '${primary.from} -> ${primary.to}',
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              if (primary.via.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(
+                  'Via ${primary.via.join(', ')}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: cs.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        if (secondary.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          Text(
+            'Next departures',
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: cs.onSurfaceVariant,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 6),
+          for (final bus in secondary)
+            Container(
+              margin: const EdgeInsets.only(bottom: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                color: cs.surfaceContainerLowest,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${bus.from} -> ${bus.to}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    bus.time,
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: cs.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ],
+    );
+  }
+}
+
+class _HeaderIcon extends StatelessWidget {
+  const _HeaderIcon({required this.icon});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
+    return Container(
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(
+        color: cs.primaryContainer,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Icon(icon, color: cs.onPrimaryContainer, size: 18),
+    );
+  }
+}
+
+class _TagChip extends StatelessWidget {
+  const _TagChip({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+      decoration: BoxDecoration(
+        color: cs.primary.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        text,
+        style: theme.textTheme.labelMedium?.copyWith(
+          color: cs.primary,
+          fontWeight: FontWeight.w700,
         ),
       ),
-      child: Column(
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: const Row(
         children: [
-          for (int i = 0; i < displaySchedules.length; i++) ...[
-            ShuttleItemTile(schedule: displaySchedules[i], isNext: i == 0),
-            if (i < displaySchedules.length - 1)
-              Divider(
-                height: 1,
-                indent: 52,
-                endIndent: 16,
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-          ],
+          SizedBox(
+            width: 18,
+            height: 18,
+            child: CircularProgressIndicator(strokeWidth: 2.2),
+          ),
+          SizedBox(width: 10),
+          Text('Loading shuttle updates...'),
         ],
       ),
     );
   }
 }
 
-/// Loading skeleton for shuttle section.
-class _ShuttleLoadingState extends StatelessWidget {
-  const _ShuttleLoadingState();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: theme.colorScheme.outlineVariant, width: 0.5),
-      ),
-      child: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 32),
-        child: Center(
-          child: SizedBox(
-            width: 24,
-            height: 24,
-            child: CircularProgressIndicator(strokeWidth: 2.5),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Error state with retry button for shuttle section.
-class _ShuttleErrorState extends StatelessWidget {
-  const _ShuttleErrorState({required this.onRetry});
+class _ErrorState extends StatelessWidget {
+  const _ErrorState({required this.onRetry});
 
   final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    return _EmptyState(
+      message: 'Failed to load shuttle schedules.',
+      actionLabel: 'Retry',
+      onTap: onRetry,
+    );
+  }
+}
 
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 0,
-      color: theme.colorScheme.errorContainer.withValues(alpha: 0.3),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Icon(
-              Icons.error_outline_rounded,
-              color: theme.colorScheme.error,
-              size: 28,
+class _EmptyState extends StatelessWidget {
+  const _EmptyState({
+    required this.message,
+    required this.actionLabel,
+    required this.onTap,
+  });
+
+  final String message;
+  final String actionLabel;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            message,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: cs.onSurfaceVariant,
             ),
-            const SizedBox(height: 8),
-            Text(
-              'Failed to load shuttle schedules',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onErrorContainer,
-              ),
-            ),
-            const SizedBox(height: 12),
-            FilledButton.tonal(onPressed: onRetry, child: const Text('Retry')),
-          ],
-        ),
+          ),
+          const SizedBox(height: 8),
+          FilledButton.tonal(onPressed: onTap, child: Text(actionLabel)),
+        ],
       ),
     );
   }

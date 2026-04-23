@@ -21,10 +21,8 @@ class SearchCategoryChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return SizedBox(
-      height: 42,
+      height: 46,
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -32,22 +30,11 @@ class SearchCategoryChips extends StatelessWidget {
           // "All" chip
           Padding(
             padding: const EdgeInsets.only(right: 8),
-            child: FilterChip(
-              label: const Text('All'),
-              selected: selected == null,
-              onSelected: (_) => onSelected(null),
-              selectedColor: theme.colorScheme.secondaryContainer.withValues(
-                alpha: 0.3,
-              ),
-              checkmarkColor: theme.colorScheme.secondary,
-              labelStyle: TextStyle(
-                color: selected == null
-                    ? theme.colorScheme.secondary
-                    : theme.colorScheme.onSurfaceVariant,
-                fontWeight: selected == null
-                    ? FontWeight.w600
-                    : FontWeight.normal,
-              ),
+            child: _ModernFilterChip(
+              label: 'All',
+              icon: Icons.apps_rounded,
+              isSelected: selected == null,
+              onTap: () => onSelected(null),
             ),
           ),
           // Category chips
@@ -55,27 +42,11 @@ class SearchCategoryChips extends StatelessWidget {
             final isSelected = selected == category;
             return Padding(
               padding: const EdgeInsets.only(right: 8),
-              child: FilterChip(
-                avatar: Icon(
-                  _categoryIcon(category),
-                  size: 16,
-                  color: isSelected
-                      ? theme.colorScheme.secondary
-                      : theme.colorScheme.onSurfaceVariant,
-                ),
-                label: Text(category.label),
-                selected: isSelected,
-                onSelected: (_) => onSelected(isSelected ? null : category),
-                selectedColor: theme.colorScheme.secondaryContainer.withValues(
-                  alpha: 0.3,
-                ),
-                checkmarkColor: theme.colorScheme.secondary,
-                labelStyle: TextStyle(
-                  color: isSelected
-                      ? theme.colorScheme.secondary
-                      : theme.colorScheme.onSurfaceVariant,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                ),
+              child: _ModernFilterChip(
+                label: category.label,
+                icon: _categoryIcon(category),
+                isSelected: isSelected,
+                onTap: () => onSelected(isSelected ? null : category),
               ),
             );
           }),
@@ -87,9 +58,67 @@ class SearchCategoryChips extends StatelessWidget {
   IconData _categoryIcon(SearchCategory category) {
     return switch (category) {
       SearchCategory.equipment => Icons.build_rounded,
+      SearchCategory.faculty => Icons.person_rounded,
+      SearchCategory.schedule => Icons.schedule_rounded,
       SearchCategory.people => Icons.person_rounded,
       SearchCategory.labs => Icons.science_rounded,
       SearchCategory.schedules => Icons.schedule_rounded,
     };
+  }
+}
+
+class _ModernFilterChip extends StatelessWidget {
+  const _ModernFilterChip({
+    required this.label,
+    required this.icon,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final String label;
+  final IconData icon;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    return InkWell(
+      borderRadius: BorderRadius.circular(24),
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: isSelected ? cs.primaryContainer : cs.surface,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: isSelected
+                ? cs.primary.withValues(alpha: 0.35)
+                : cs.outlineVariant,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 15,
+              color: isSelected ? cs.primary : cs.onSurfaceVariant,
+            ),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: isSelected ? cs.primary : cs.onSurfaceVariant,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

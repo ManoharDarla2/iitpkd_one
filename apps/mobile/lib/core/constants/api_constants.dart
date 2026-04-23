@@ -1,8 +1,11 @@
 /// Central location for all API endpoint paths and configuration.
 abstract final class ApiConstants {
   /// Base URL for the backend server.
-  /// Change this when deploying to staging/production.
-  static const String baseUrl = 'https://api.iitpkd.ac.in';
+  /// Override using: --dart-define=API_BASE_URL=http://host:port
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'https://innovationlab-api-7z6lz.ondigitalocean.app',
+  );
 
   /// API version prefix.
   static const String apiVersion = '/api/v1';
@@ -27,6 +30,9 @@ abstract final class ApiConstants {
   // -- Search endpoints --
   static const String search = '$apiVersion/search';
   static const String searchSuggestions = '$apiVersion/search/suggestions';
+
+  // -- Competition endpoints --
+  static const String competitions = '$apiVersion/competitions';
 
   // -- Hive box names --
   static const String shuttleCacheBox = 'shuttle_cache';

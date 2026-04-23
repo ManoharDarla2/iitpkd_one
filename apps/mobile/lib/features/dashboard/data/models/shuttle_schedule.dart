@@ -12,6 +12,7 @@ class ShuttleSchedule {
   final String time; // "HH:mm" format, e.g. "09:00"
   final String? arrivalTime; // "HH:mm" format, e.g. "09:25"
   final bool isOutsideTrip;
+  final bool isMultipleBuses;
   final List<String> days;
 
   const ShuttleSchedule({
@@ -22,18 +23,22 @@ class ShuttleSchedule {
     required this.time,
     this.arrivalTime,
     required this.isOutsideTrip,
+    this.isMultipleBuses = false,
     required this.days,
   });
 
   factory ShuttleSchedule.fromJson(Map<String, dynamic> json) {
     return ShuttleSchedule(
-      id: json['id'] as String,
+      id: '${json['id']}',
       from: json['from'] as String,
       to: json['to'] as String,
       via: (json['via'] as List<dynamic>).cast<String>(),
       time: json['time'] as String,
-      arrivalTime: json['arrival_time'] as String?,
-      isOutsideTrip: json['is_outside_trip'] as bool,
+      arrivalTime: (json['arrival_time'] ?? json['arrivalTime']) as String?,
+      isOutsideTrip: (json['is_outside_trip'] ?? json['isOutsideTrip']) as bool,
+      isMultipleBuses:
+          (json['is_multiple_buses'] ?? json['isMultipleBuses'] ?? false)
+              as bool,
       days: (json['days'] as List<dynamic>).cast<String>(),
     );
   }
@@ -47,31 +52,86 @@ class ShuttleSchedule {
       'time': time,
       'arrival_time': arrivalTime,
       'is_outside_trip': isOutsideTrip,
+      'is_multiple_buses': isMultipleBuses,
       'days': days,
     };
   }
 
   /// Parses the [time] string ("HH:mm") into a [DateTime] for today.
+  /// Also supports 12-hour values like "09:00 PM".
   DateTime get todayDateTime {
-    final parts = time.split(':');
+    final parsed = _parseHourMinute(time);
     final now = DateTime.now();
-    return DateTime(
-      now.year,
-      now.month,
-      now.day,
-      int.parse(parts[0]),
-      int.parse(parts[1]),
-    );
+
+    if (parsed == null) {
+      return DateTime(now.year, now.month, now.day);
+    }
+
+    return DateTime(now.year, now.month, now.day, parsed.$1, parsed.$2);
   }
 
   /// Calculates the number of minutes until this shuttle departs.
   /// Returns negative values if the departure time has already passed.
   int get minutesUntilDeparture {
+    if (_parseHourMinute(time) == null) {
+      return -1;
+    }
+
     return todayDateTime.difference(DateTime.now()).inMinutes;
   }
 
   /// Whether this shuttle hasn't departed yet today.
   bool get isUpcoming => minutesUntilDeparture > 0;
+
+  (int, int)? _parseHourMinute(String input) {
+    final normalized = input.trim().toUpperCase().replaceAll('.', ':');
+
+    final twelveHour = RegExp(
+      r'^(\d{1,2}):(\d{2})\s*([AP]M)$',
+    ).firstMatch(normalized);
+    if (twelveHour != null) {
+      final hour = int.tryParse(twelveHour.group(1)!);
+      final minute = int.tryParse(twelveHour.group(2)!);
+      final meridiem = twelveHour.group(3)!;
+
+      if (hour == null ||
+          minute == null ||
+          hour < 1 ||
+          hour > 12 ||
+          minute < 0 ||
+          minute > 59) {
+        return null;
+      }
+
+      var hour24 = hour % 12;
+      if (meridiem == 'PM') {
+        hour24 += 12;
+      }
+
+      return (hour24, minute);
+    }
+
+    final twentyFourHour = RegExp(
+      r'^(\d{1,2}):(\d{2})$',
+    ).firstMatch(normalized);
+    if (twentyFourHour != null) {
+      final hour = int.tryParse(twentyFourHour.group(1)!);
+      final minute = int.tryParse(twentyFourHour.group(2)!);
+
+      if (hour == null ||
+          minute == null ||
+          hour < 0 ||
+          hour > 23 ||
+          minute < 0 ||
+          minute > 59) {
+        return null;
+      }
+
+      return (hour, minute);
+    }
+
+    return null;
+  }
 
   /// Whether this shuttle runs on the given day (lowercase, e.g. "monday").
   bool runsOnDay(String day) => days.contains(day.toLowerCase());
