@@ -1,7 +1,7 @@
 import { and, desc, eq } from 'drizzle-orm';
 
-import { db } from '../../db/db';
-import { facultyTable } from '../../db/schema';
+import { tursoDb as db } from '../../db';
+import { facultyTable } from '../../db/turso/schema';
 
 type FacultyListFilters = {
   department?: string;

@@ -1,7 +1,7 @@
-import { and, arrayContains, desc, eq, sql } from 'drizzle-orm';
+import { and, desc, eq, like, sql } from 'drizzle-orm';
 
-import { db } from '../../db/db';
-import { shuttleTable } from '../../db/schema';
+import {tursoDb as db } from '../../db';
+import { shuttleTable } from '../../db/turso/schema';
 
 type ShuttleFilters = {
   day?: string;
@@ -14,7 +14,7 @@ export class ShuttleService {
     const clauses = [];
 
     if (filters.day) {
-      clauses.push(arrayContains(shuttleTable.days, [filters.day.toLowerCase()]));
+      clauses.push(like(shuttleTable.days, `%${filters.day.toLowerCase()}%`));
     }
 
     if (filters.from) {

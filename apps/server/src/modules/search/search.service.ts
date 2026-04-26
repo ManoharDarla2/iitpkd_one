@@ -1,7 +1,7 @@
-import { and, arrayOverlaps, eq, ilike, or } from 'drizzle-orm';
+import { and, eq, ilike, or } from 'drizzle-orm';
 
-import { db } from '../../db/db';
-import { equipmentTable, facultyTable, messTable, shuttleTable } from '../../db/schema';
+import { tursoDb as db } from '../../db';
+import { equipmentTable, facultyTable, messTable, shuttleTable } from '../../db/turso/schema';
 
 type SearchCategory = 'equipment' | 'faculty' | 'schedule';
 
@@ -175,7 +175,7 @@ export class SearchService {
             ilike(shuttleTable.to, `%${filters.q}%`),
             ilike(shuttleTable.time, `%${filters.q}%`),
           ),
-          ...(matchedDay ? [arrayOverlaps(shuttleTable.days, [matchedDay])] : []),
+          ...(matchedDay ? [ilike(shuttleTable.days, `%${matchedDay}%`)] : []),
         ))
         .limit(filters.limit * 2);
 

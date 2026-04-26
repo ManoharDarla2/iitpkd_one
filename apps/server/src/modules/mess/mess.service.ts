@@ -1,7 +1,7 @@
 import { and, desc, eq, sql } from 'drizzle-orm';
 
-import { db } from '../../db/db';
-import { messTable } from '../../db/schema';
+import { tursoDb as db } from '../../db';
+import { messTable } from '../../db/turso/schema';
 
 type WeekType = 'odd' | 'even';
 
