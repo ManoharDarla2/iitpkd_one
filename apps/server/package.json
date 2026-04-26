@@ -3,8 +3,10 @@
   "version": "1.0.50",
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:generate:neon": "drizzle-kit generate --config=drizzle.neon.config.ts",
+    "db:generate:turso": "drizzle-kit generate --config=drizzle.turso.config.ts",
+    "db:migrate:neon": "drizzle-kit migrate --config=drizzle.neon.config.ts",
+    "db:migrate:turso": "drizzle-kit migrate --config=drizzle.turso.config.ts",
     "db:seed": "bun run scripts/seed.ts"
   },
   "dependencies": {

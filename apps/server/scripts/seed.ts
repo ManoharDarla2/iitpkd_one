@@ -2,13 +2,13 @@ import 'dotenv/config';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-import { db } from '../src/db/db';
+import { db } from '../src/db/turso';
 import {
   equipmentTable,
   facultyTable,
   messTable,
   shuttleTable,
-} from '../src/db/schema';
+} from '../src/db/turso/schema';
 
 type FacultyRecord = {
   name: string;
@@ -152,7 +152,6 @@ async function main(): Promise<void> {
       type: row.type?.trim() ?? '',
       description: row.descrption?.trim() ?? '',
     }));
-
 
   await db.transaction(async (tx) => {
     await tx.delete(facultyTable);
