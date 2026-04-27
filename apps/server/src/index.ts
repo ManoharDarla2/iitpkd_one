@@ -13,7 +13,7 @@ const port = Number(process.env.PORT ?? 3000);
 
 const app = new Elysia()
   .use(cors({
-    origin: ['http://localhost:3001'],
+    origin: ['http://localhost:4173'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -38,19 +38,24 @@ const app = new Elysia()
       ],
     },
   }))
-  .group('/api/v1', (api) =>
+  .group('/api', (api) =>
     api
-      .get('/', () => ({
-        success: true,
-        message: 'Innovation Lab API is healthy',
-      }))
+      // Authentication routes (login, register, etc.) that don't require authentication
       .use(authController)
-      .use(facultyController)
-      .use(messController)
-      .use(shuttleController)
-      .use(competitionController)
-      .use(searchController),
-  )
+
+      // Versioned API routes
+      .group('/v1', (v1) =>
+        v1
+        .get('/', () => ({
+          success: true,
+          message: 'Innovation Lab API is healthy',
+        }))
+        .use(facultyController)
+        .use(messController)
+        .use(shuttleController)
+        .use(competitionController)
+        .use(searchController),
+  ))
   .listen({
     port,
     hostname: '0.0.0.0',
