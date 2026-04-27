@@ -10,7 +10,14 @@ export const auth = betterAuth({
     provider: 'pg',
     schema
   }),
-  trustedOrigins: ['http://localhost:4173'],
+  trustedOrigins: process.env.NODE_ENV === 'development'
+    ? ['http://localhost:3000']
+    : [
+        process.env.PUBLIC_APP_URL!,
+        process.env.PUBLIC_APP_URL!.replace(/\/$/, ''),
+        ...(process.env.ALLOWED_ORIGINS?.split(',') ?? []),
+      ],
+      
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -21,5 +28,5 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 7,
     updateAge: 60 * 60 * 24,
   },
-  baseURL: process.env.PUBLIC_URL || 'http://localhost:3000',
+  baseURL: process.env.PUBLIC_APP_URL || 'http://localhost:3000',
 });

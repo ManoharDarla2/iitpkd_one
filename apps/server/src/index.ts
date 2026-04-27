@@ -13,7 +13,9 @@ const port = Number(process.env.PORT ?? 3000);
 
 const app = new Elysia()
   .use(cors({
-    origin: ['http://localhost:4173'],
+    origin: process.env.NODE_ENV === 'development'
+      ? ['http://localhost:4173']
+      : [ ...(process.env.ALLOWED_ORIGINS?.split(',') ?? [])],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
