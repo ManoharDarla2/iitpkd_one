@@ -10,6 +10,7 @@
     "db:seed": "bun run scripts/seed.ts"
   },
   "dependencies": {
+    "@elysiajs/cors": "^0.8.0",
     "@elysiajs/openapi": "^1.4.14",
     "@libsql/client": "^0.17.3",
     "@neondatabase/serverless": "^1.1.0",

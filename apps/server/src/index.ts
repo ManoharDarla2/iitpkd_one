@@ -1,6 +1,8 @@
 import { Elysia } from 'elysia';
+import { cors } from '@elysiajs/cors';
 import { openapi } from '@elysiajs/openapi';
 
+import { authController } from './modules/auth/auth.controller';
 import { competitionController } from './modules/competition/competition.controller';
 import { facultyController } from './modules/faculty/faculty.controller';
 import { messController } from './modules/mess/mess.controller';
@@ -10,6 +12,12 @@ import { shuttleController } from './modules/shuttle/shuttle.controller';
 const port = Number(process.env.PORT ?? 3000);
 
 const app = new Elysia()
+  .use(cors({
+    origin: ['http://localhost:3001'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }))
   .use(openapi({
     path: '/docs',
     specPath: '/docs/json',
@@ -21,6 +29,7 @@ const app = new Elysia()
         description: 'Backend API for shuttle, mess, faculty and search modules.',
       },
       tags: [
+        { name: 'Auth' },
         { name: 'Faculty' },
         { name: 'Mess' },
         { name: 'Shuttles' },
@@ -35,6 +44,7 @@ const app = new Elysia()
         success: true,
         message: 'Innovation Lab API is healthy',
       }))
+      .use(authController)
       .use(facultyController)
       .use(messController)
       .use(shuttleController)
