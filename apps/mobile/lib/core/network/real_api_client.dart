@@ -4,9 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:iitpkd_one/core/constants/api_constants.dart';
 import 'package:iitpkd_one/core/network/api_client_interface.dart';
 import 'package:iitpkd_one/core/network/api_response.dart';
-import 'package:iitpkd_one/core/network/mock_api_client.dart';
 import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
-import 'package:iitpkd_one/features/dashboard/data/models/notice.dart';
 import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
 import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
 import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
@@ -17,12 +15,10 @@ import 'package:iitpkd_one/features/schedule/data/models/shuttle_metadata.dart';
 import 'package:iitpkd_one/features/search/data/models/search_result.dart';
 
 class RealApiClient implements ApiClientInterface {
-  RealApiClient({http.Client? httpClient, MockApiClient? mockClient})
-    : _httpClient = httpClient ?? http.Client(),
-      _mockClient = mockClient ?? MockApiClient();
+  RealApiClient({http.Client? httpClient})
+    : _httpClient = httpClient ?? http.Client();
 
   final http.Client _httpClient;
-  final MockApiClient _mockClient;
 
   Uri _uri(String path, [Map<String, String>? queryParameters]) {
     final base = Uri.parse(ApiConstants.baseUrl);
@@ -79,13 +75,11 @@ class RealApiClient implements ApiClientInterface {
       return ApiResponse.success(data: parser(json['data']), message: message);
     } catch (e) {
       return ApiResponse.error(error: 'Response parse error: $e');
-    }
+}
   }
 
   @override
-  Future<ApiResponse<List<ShuttleSchedule>>> getShuttleSchedules({
-    String? day,
-  }) async {
+  Future<ApiResponse<List<ShuttleSchedule>>> getShuttleSchedules({String? day}) async {
     try {
       final json = await _getJson(
         ApiConstants.shuttleSchedules,
@@ -112,16 +106,6 @@ class RealApiClient implements ApiClientInterface {
     } catch (e) {
       return ApiResponse.error(error: e.toString());
     }
-  }
-
-  @override
-  Future<ApiResponse<List<Notice>>> getTodayNotices() {
-    return _mockClient.getTodayNotices();
-  }
-
-  @override
-  Future<ApiResponse<List<Notice>>> getNotices({String? dateFilter}) {
-    return _mockClient.getNotices(dateFilter: dateFilter);
   }
 
   @override

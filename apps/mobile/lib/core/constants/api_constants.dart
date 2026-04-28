@@ -14,10 +14,6 @@ abstract final class ApiConstants {
   static const String shuttleSchedules = '$apiVersion/shuttles';
   static const String shuttleMetadata = '$apiVersion/shuttles/metadata';
 
-  // -- Notice endpoints --
-  static const String todayNotices = '$apiVersion/notices/today';
-  static const String notices = '$apiVersion/notices';
-
   // -- Mess endpoints --
   static const String messMenu = '$apiVersion/mess/menu';
   static const String messMenuToday = '$apiVersion/mess/menu/today';
@@ -51,7 +47,4 @@ abstract final class ApiConstants {
   // -- Cache durations --
   static const Duration shuttleCacheTtl = Duration(days: 7);
   static const Duration messCacheTtl = Duration(days: 30);
-
-  // -- Mock network delay --
-  static const Duration mockNetworkDelay = Duration(milliseconds: 800);
 }
