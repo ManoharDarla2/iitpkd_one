@@ -1,11 +1,9 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 /// Central location for all API endpoint paths and configuration.
 abstract final class ApiConstants {
   /// Base URL for the backend server.
-  /// Override using: --dart-define=API_BASE_URL=http://host:port
-  static const String baseUrl = String.fromEnvironment(
-    'API_BASE_URL',
-    defaultValue: 'https://innovationlab-api-7z6lz.ondigitalocean.app',
-  );
+  static final String baseUrl = dotenv.env['API_BASE_URL'] ?? 'http://10.128.7.80:3000';
 
   /// API version prefix.
   static const String apiVersion = '/api/v1';
