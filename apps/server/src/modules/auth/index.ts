@@ -10,13 +10,17 @@ export const auth = betterAuth({
     provider: 'pg',
     schema
   }),
-  trustedOrigins: process.env.NODE_ENV === 'development'
-    ? ['http://localhost:3000']
-    : [
-        process.env.PUBLIC_APP_URL!,
-        process.env.PUBLIC_APP_URL!.replace(/\/$/, ''),
-        ...(process.env.ALLOWED_ORIGINS?.split(',') ?? []),
-      ],
+  trustedOrigins: [
+    ...(process.env.NODE_ENV === 'development'
+      ? ['http://localhost:3000']
+      : []),
+    process.env.PUBLIC_APP_URL!,
+    process.env.PUBLIC_APP_URL!.replace(/\/$/, ''),
+    ...(process.env.ALLOWED_ORIGINS?.split(',') ?? []),
+    ...(process.env.MOBILE_APP_SCHEME
+      ? [process.env.MOBILE_APP_SCHEME]
+      : []),
+  ],
       
   socialProviders: {
     google: {

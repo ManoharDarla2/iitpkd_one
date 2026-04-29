@@ -15,7 +15,12 @@ const app = new Elysia()
   .use(cors({
     origin: process.env.NODE_ENV === 'development'
       ? ['http://localhost:4173']
-      : [ ...(process.env.ALLOWED_ORIGINS?.split(',') ?? [])],
+      : [ 
+        ...(process.env.ALLOWED_ORIGINS?.split(',') ?? []),
+        ...(process.env.MOBILE_APP_SCHEME
+        ? [process.env.MOBILE_APP_SCHEME]
+        : []),
+      ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
