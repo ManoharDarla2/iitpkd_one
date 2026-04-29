@@ -5,6 +5,7 @@ import 'package:iitpkd_one/features/dashboard/views/dashboard_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_detail_screen.dart';
 import 'package:iitpkd_one/features/faculty/views/faculty_screen.dart';
 import 'package:iitpkd_one/features/mess_menu/views/mess_menu_screen.dart';
+import 'package:iitpkd_one/features/profile/views/profile_screen.dart';
 import 'package:iitpkd_one/features/search/views/search_screen.dart';
 import 'package:iitpkd_one/features/shuttle_schedule/views/shuttle_schedule_screen.dart';
 import 'package:iitpkd_one/routes/app_shell.dart';
@@ -163,6 +164,16 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/competitions',
               builder: (context, state) => const CompetitionsScreen(),
+            ),
+          ],
+        ),
+
+        // Profile
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/profile',
+              builder: (context, state) => const ProfileScreen(),
             ),
           ],
         ),

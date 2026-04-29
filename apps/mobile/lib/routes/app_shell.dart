@@ -114,6 +114,15 @@ class _BumpedBottomBar extends StatelessWidget {
                         onTap: () => onTabTap(3),
                       ),
                     ),
+                    Expanded(
+                      child: _BottomTab(
+                        icon: Icons.person_outline,
+                        activeIcon: Icons.person_rounded,
+                        label: 'Profile',
+                        selected: currentIndex == 4,
+                        onTap: () => onTabTap(4),
+                      ),
+                    ),
                   ],
                 ),
               ),
