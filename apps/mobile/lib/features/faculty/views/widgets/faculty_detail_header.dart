@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
 
 /// Hero header section for the faculty detail screen.
 ///

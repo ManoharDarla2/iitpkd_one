@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
+import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
 
 /// Represents the full 14-day rotating mess menu.
 ///
@@ -22,10 +22,7 @@ class MessMenu {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'campus': campus,
-      'days': days.map((d) => d.toJson()).toList(),
-    };
+    return {'campus': campus, 'days': days.map((d) => d.toJson()).toList()};
   }
 
   /// Returns meals for a specific [weekType] ("odd"/"even") and [day].

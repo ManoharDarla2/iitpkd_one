@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
-import 'package:iitpkd_one/shared/widgets/markdown_card.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
+import 'package:ilab_connect/shared/widgets/markdown_card.dart';
 
 /// Displays the detailed information sections of a faculty profile.
 ///

@@ -1,12 +1,13 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
-import 'package:iitpkd_one/features/schedule/data/models/mess_menu.dart';
-import 'package:iitpkd_one/features/schedule/view_models/providers.dart';
+import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
+import 'package:ilab_connect/features/schedule/data/models/mess_menu.dart';
+import 'package:ilab_connect/features/schedule/view_models/providers.dart';
 
 /// Riverpod provider for the mess view model.
-final messViewModelProvider =
-    AsyncNotifierProvider<MessViewModel, MessMenu>(MessViewModel.new);
+final messViewModelProvider = AsyncNotifierProvider<MessViewModel, MessMenu>(
+  MessViewModel.new,
+);
 
 /// ViewModel that manages mess menu state for the Schedule screen.
 ///

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
+import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
 
 /// Displays a single day's mess menu as a vertical timeline.
 ///
@@ -94,10 +94,10 @@ class _MealTimelineNode extends StatelessWidget {
 
     // Color palette for each meal slot
     final mealColors = [
-      theme.colorScheme.secondary,          // Breakfast - warm orange
-      theme.colorScheme.primary,            // Lunch - peacock green
-      theme.colorScheme.tertiary,           // Snacks - purple-ish
-      theme.colorScheme.primaryContainer,   // Dinner - deep teal
+      theme.colorScheme.secondary, // Breakfast - warm orange
+      theme.colorScheme.primary, // Lunch - peacock green
+      theme.colorScheme.tertiary, // Snacks - purple-ish
+      theme.colorScheme.primaryContainer, // Dinner - deep teal
     ];
     final accentColor = mealColors[meal.gradientIndex];
 

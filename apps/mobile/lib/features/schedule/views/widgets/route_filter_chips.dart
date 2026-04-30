@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iitpkd_one/features/schedule/data/repositories/schedule_shuttle_repository.dart';
+import 'package:ilab_connect/features/schedule/data/repositories/schedule_shuttle_repository.dart';
 
 /// Horizontal scrollable route filter chips for shuttle schedules.
 ///
@@ -73,10 +73,8 @@ class _FilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
-    final activeColor =
-        useSecondaryColor ? cs.secondary : cs.primary;
-    final activeOnColor =
-        useSecondaryColor ? cs.onSecondary : cs.onPrimary;
+    final activeColor = useSecondaryColor ? cs.secondary : cs.primary;
+    final activeOnColor = useSecondaryColor ? cs.onSecondary : cs.onPrimary;
 
     return GestureDetector(
       onTap: onTap,

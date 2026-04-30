@@ -1,4 +1,4 @@
-package `in`.ac.iitpkd.innovationlab.iitpkdone.iitpkd_one
+package `in`.ac.iitpkd.ilab.connect
 
 import io.flutter.embedding.android.FlutterActivity
 

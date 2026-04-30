@@ -1,13 +1,13 @@
-import 'package:iitpkd_one/core/network/api_response.dart';
-import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
-import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
-import 'package:iitpkd_one/features/schedule/data/models/meal_day.dart';
-import 'package:iitpkd_one/features/schedule/data/models/mess_menu.dart';
-import 'package:iitpkd_one/features/schedule/data/models/mess_metadata.dart';
-import 'package:iitpkd_one/features/schedule/data/models/shuttle_metadata.dart';
-import 'package:iitpkd_one/features/search/data/models/search_result.dart';
+import 'package:ilab_connect/core/network/api_response.dart';
+import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:ilab_connect/features/competitions/data/models/competition.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_member.dart';
+import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
+import 'package:ilab_connect/features/schedule/data/models/mess_menu.dart';
+import 'package:ilab_connect/features/schedule/data/models/mess_metadata.dart';
+import 'package:ilab_connect/features/schedule/data/models/shuttle_metadata.dart';
+import 'package:ilab_connect/features/search/data/models/search_result.dart';
 
 /// Abstract interface defining all API endpoints.
 abstract interface class ApiClientInterface {

@@ -1,14 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
-import 'package:iitpkd_one/features/schedule/data/repositories/schedule_shuttle_repository.dart';
-import 'package:iitpkd_one/features/schedule/view_models/providers.dart';
+import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:ilab_connect/features/schedule/data/repositories/schedule_shuttle_repository.dart';
+import 'package:ilab_connect/features/schedule/view_models/providers.dart';
 
 /// Riverpod provider for the schedule shuttle view model.
-final scheduleShuttleViewModelProvider = AsyncNotifierProvider<
-  ScheduleShuttleViewModel,
-  List<ShuttleSchedule>
->(ScheduleShuttleViewModel.new);
+final scheduleShuttleViewModelProvider =
+    AsyncNotifierProvider<ScheduleShuttleViewModel, List<ShuttleSchedule>>(
+      ScheduleShuttleViewModel.new,
+    );
 
 /// ViewModel that manages shuttle schedule state for the Schedule screen.
 ///

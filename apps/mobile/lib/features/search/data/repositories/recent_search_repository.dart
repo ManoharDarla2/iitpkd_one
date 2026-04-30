@@ -1,4 +1,4 @@
-import 'package:iitpkd_one/core/services/hive_service.dart';
+import 'package:ilab_connect/core/services/hive_service.dart';
 
 /// Repository that manages recent search queries via Hive.
 ///

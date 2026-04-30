@@ -1,5 +1,5 @@
-import 'package:iitpkd_one/core/network/api_client_interface.dart';
-import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
+import 'package:ilab_connect/core/network/api_client_interface.dart';
+import 'package:ilab_connect/features/competitions/data/models/competition.dart';
 
 class CompetitionRepository {
   CompetitionRepository({required ApiClientInterface apiClient})

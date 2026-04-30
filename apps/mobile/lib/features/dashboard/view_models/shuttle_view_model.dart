@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
-import 'package:iitpkd_one/features/dashboard/view_models/providers.dart';
+import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:ilab_connect/features/dashboard/view_models/providers.dart';
 
 /// Riverpod provider for the shuttle view model.
 final shuttleViewModelProvider =

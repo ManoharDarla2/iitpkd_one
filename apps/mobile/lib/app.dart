@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/core/theme/app_theme.dart';
-import 'package:iitpkd_one/routes/app_router.dart';
+import 'package:ilab_connect/core/theme/app_theme.dart';
+import 'package:ilab_connect/routes/app_router.dart';
 
 /// Root application widget.
 ///

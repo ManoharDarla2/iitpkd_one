@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iitpkd_one/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
 
 /// An expandable card displaying a single shuttle schedule entry.
 class ScheduleShuttleCard extends StatefulWidget {
@@ -103,7 +103,9 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: cs.surfaceContainerHighest.withValues(alpha: 0.22),
+                        color: cs.surfaceContainerHighest.withValues(
+                          alpha: 0.22,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -127,7 +129,9 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 6,
+                                  ),
                                   child: Icon(
                                     Icons.arrow_forward_rounded,
                                     size: 14,
@@ -235,11 +239,7 @@ class _OutsideBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.open_in_new_rounded,
-            size: 11,
-            color: cs.secondary,
-          ),
+          Icon(Icons.open_in_new_rounded, size: 11, color: cs.secondary),
           const SizedBox(width: 4),
           Text(
             'Outside',
@@ -279,11 +279,7 @@ class _RouteStopsFlow extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.route_rounded,
-                  size: 15,
-                  color: cs.onSurfaceVariant,
-                ),
+                Icon(Icons.route_rounded, size: 15, color: cs.onSurfaceVariant),
                 const SizedBox(width: 6),
                 Text(
                   'Route stops',

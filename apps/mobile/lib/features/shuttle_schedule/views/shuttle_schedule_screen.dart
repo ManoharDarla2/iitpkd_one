@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/schedule/view_models/schedule_shuttle_view_model.dart';
-import 'package:iitpkd_one/features/schedule/views/widgets/day_toggle.dart';
-import 'package:iitpkd_one/features/schedule/views/widgets/route_filter_chips.dart';
-import 'package:iitpkd_one/features/schedule/views/widgets/schedule_shuttle_card.dart';
-import 'package:iitpkd_one/routes/app_shell.dart';
-import 'package:iitpkd_one/shared/widgets/main_tab_app_bar.dart';
+import 'package:ilab_connect/features/schedule/view_models/schedule_shuttle_view_model.dart';
+import 'package:ilab_connect/features/schedule/views/widgets/day_toggle.dart';
+import 'package:ilab_connect/features/schedule/views/widgets/route_filter_chips.dart';
+import 'package:ilab_connect/features/schedule/views/widgets/schedule_shuttle_card.dart';
+import 'package:ilab_connect/routes/app_shell.dart';
+import 'package:ilab_connect/shared/widgets/main_tab_app_bar.dart';
 
 class ShuttleScheduleScreen extends ConsumerStatefulWidget {
   const ShuttleScheduleScreen({super.key});

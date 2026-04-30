@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/faculty/view_models/faculty_detail_view_model.dart';
-import 'package:iitpkd_one/features/faculty/views/widgets/faculty_contact_row.dart';
-import 'package:iitpkd_one/features/faculty/views/widgets/faculty_detail_header.dart';
-import 'package:iitpkd_one/features/faculty/views/widgets/faculty_info_section.dart';
+import 'package:ilab_connect/features/faculty/view_models/faculty_detail_view_model.dart';
+import 'package:ilab_connect/features/faculty/views/widgets/faculty_contact_row.dart';
+import 'package:ilab_connect/features/faculty/views/widgets/faculty_detail_header.dart';
+import 'package:ilab_connect/features/faculty/views/widgets/faculty_info_section.dart';
 
 /// Faculty detail/profile screen.
 ///
@@ -51,7 +51,11 @@ class FacultyDetailScreen extends HookConsumerWidget {
                 FacultyDetailHeader(detail: detail),
 
                 // Divider
-                Divider(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5)),
+                Divider(
+                  color: theme.colorScheme.outlineVariant.withValues(
+                    alpha: 0.5,
+                  ),
+                ),
                 const SizedBox(height: 12),
 
                 // Contact info
@@ -61,7 +65,11 @@ class FacultyDetailScreen extends HookConsumerWidget {
                     child: FacultyContactRow(contact: detail.contact!),
                   ),
                   const SizedBox(height: 16),
-                  Divider(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5)),
+                  Divider(
+                    color: theme.colorScheme.outlineVariant.withValues(
+                      alpha: 0.5,
+                    ),
+                  ),
                   const SizedBox(height: 12),
                 ],
 

@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/search/data/models/search_category.dart';
-import 'package:iitpkd_one/features/search/view_models/providers.dart';
-import 'package:iitpkd_one/features/search/view_models/recent_searches_view_model.dart';
-import 'package:iitpkd_one/features/search/view_models/search_view_model.dart';
-import 'package:iitpkd_one/features/search/views/widgets/search_bar_field.dart';
-import 'package:iitpkd_one/features/search/views/widgets/search_category_chips.dart';
-import 'package:iitpkd_one/features/search/views/widgets/search_empty_state.dart';
-import 'package:iitpkd_one/features/search/views/widgets/search_result_detail_sheet.dart';
-import 'package:iitpkd_one/features/search/views/widgets/search_result_tile.dart';
-import 'package:iitpkd_one/features/search/views/widgets/search_suggestion_chip.dart';
+import 'package:ilab_connect/features/search/data/models/search_category.dart';
+import 'package:ilab_connect/features/search/view_models/providers.dart';
+import 'package:ilab_connect/features/search/view_models/recent_searches_view_model.dart';
+import 'package:ilab_connect/features/search/view_models/search_view_model.dart';
+import 'package:ilab_connect/features/search/views/widgets/search_bar_field.dart';
+import 'package:ilab_connect/features/search/views/widgets/search_category_chips.dart';
+import 'package:ilab_connect/features/search/views/widgets/search_empty_state.dart';
+import 'package:ilab_connect/features/search/views/widgets/search_result_detail_sheet.dart';
+import 'package:ilab_connect/features/search/views/widgets/search_result_tile.dart';
+import 'package:ilab_connect/features/search/views/widgets/search_suggestion_chip.dart';
 
 /// The main Search screen — the second tab of the bottom navigation.
 ///

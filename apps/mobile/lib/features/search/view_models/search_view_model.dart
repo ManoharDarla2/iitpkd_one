@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/search/data/models/search_category.dart';
-import 'package:iitpkd_one/features/search/data/models/search_result.dart';
-import 'package:iitpkd_one/features/search/view_models/providers.dart';
+import 'package:ilab_connect/features/search/data/models/search_category.dart';
+import 'package:ilab_connect/features/search/data/models/search_result.dart';
+import 'package:ilab_connect/features/search/view_models/providers.dart';
 
 /// Riverpod provider for the search view model.
 final searchViewModelProvider =

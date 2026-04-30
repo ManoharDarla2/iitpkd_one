@@ -1,5 +1,5 @@
-import 'package:iitpkd_one/core/network/api_client_interface.dart';
-import 'package:iitpkd_one/features/search/data/models/search_result.dart';
+import 'package:ilab_connect/core/network/api_client_interface.dart';
+import 'package:ilab_connect/features/search/data/models/search_result.dart';
 
 /// Repository that manages search data.
 ///

@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
-import 'package:iitpkd_one/features/faculty/view_models/providers.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_member.dart';
+import 'package:ilab_connect/features/faculty/view_models/providers.dart';
 
 /// Riverpod provider for the faculty list view model.
 final facultyListViewModelProvider =
@@ -59,8 +59,6 @@ class FacultyListViewModel extends AsyncNotifier<List<FacultyMember>> {
   /// Applies the department filter to the full list.
   List<FacultyMember> _applyFilter(List<FacultyMember> faculty) {
     if (_selectedDepartment == null) return faculty;
-    return faculty
-        .where((f) => f.department == _selectedDepartment)
-        .toList();
+    return faculty.where((f) => f.department == _selectedDepartment).toList();
   }
 }

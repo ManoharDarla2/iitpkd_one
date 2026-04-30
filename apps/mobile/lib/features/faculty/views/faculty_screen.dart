@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/faculty/view_models/faculty_list_view_model.dart';
-import 'package:iitpkd_one/features/faculty/views/widgets/department_filter_chips.dart';
-import 'package:iitpkd_one/features/faculty/views/widgets/faculty_card.dart';
+import 'package:ilab_connect/features/faculty/view_models/faculty_list_view_model.dart';
+import 'package:ilab_connect/features/faculty/views/widgets/department_filter_chips.dart';
+import 'package:ilab_connect/features/faculty/views/widgets/faculty_card.dart';
 
 /// The main Faculty list screen — a bottom tab of the app.
 ///

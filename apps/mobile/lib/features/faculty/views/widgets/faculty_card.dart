@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_member.dart';
 
 /// A card displaying a faculty member in the list view.
 ///

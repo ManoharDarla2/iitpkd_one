@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/features/competitions/data/models/competition.dart';
-import 'package:iitpkd_one/features/competitions/view_models/competition_view_model.dart';
-import 'package:iitpkd_one/routes/app_shell.dart';
-import 'package:iitpkd_one/shared/widgets/main_tab_app_bar.dart';
+import 'package:ilab_connect/features/competitions/data/models/competition.dart';
+import 'package:ilab_connect/features/competitions/view_models/competition_view_model.dart';
+import 'package:ilab_connect/routes/app_shell.dart';
+import 'package:ilab_connect/shared/widgets/main_tab_app_bar.dart';
 
 class CompetitionsScreen extends ConsumerWidget {
   const CompetitionsScreen({super.key});

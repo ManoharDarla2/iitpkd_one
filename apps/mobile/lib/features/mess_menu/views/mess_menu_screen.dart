@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:iitpkd_one/features/schedule/view_models/mess_view_model.dart';
-import 'package:iitpkd_one/features/schedule/views/widgets/day_toggle.dart';
-import 'package:iitpkd_one/features/schedule/views/widgets/mess_meal_card.dart';
-import 'package:iitpkd_one/features/schedule/views/widgets/mess_week_toggle.dart';
+import 'package:ilab_connect/features/schedule/view_models/mess_view_model.dart';
+import 'package:ilab_connect/features/schedule/views/widgets/day_toggle.dart';
+import 'package:ilab_connect/features/schedule/views/widgets/mess_meal_card.dart';
+import 'package:ilab_connect/features/schedule/views/widgets/mess_week_toggle.dart';
 
 class MessMenuScreen extends ConsumerStatefulWidget {
   const MessMenuScreen({super.key});

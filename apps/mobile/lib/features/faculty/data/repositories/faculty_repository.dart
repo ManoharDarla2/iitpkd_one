@@ -1,6 +1,6 @@
-import 'package:iitpkd_one/core/network/api_client_interface.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_detail.dart';
-import 'package:iitpkd_one/features/faculty/data/models/faculty_member.dart';
+import 'package:ilab_connect/core/network/api_client_interface.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
+import 'package:ilab_connect/features/faculty/data/models/faculty_member.dart';
 
 /// Repository that manages faculty data.
 ///

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:iitpkd_one/core/auth/auth_provider.dart';
-import 'package:iitpkd_one/shared/widgets/main_tab_app_bar.dart';
+import 'package:ilab_connect/core/auth/auth_provider.dart';
+import 'package:ilab_connect/shared/widgets/main_tab_app_bar.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -30,11 +30,7 @@ class ProfileScreen extends ConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 48,
-                      color: cs.error,
-                    ),
+                    Icon(Icons.error_outline, size: 48, color: cs.error),
                     const SizedBox(height: 16),
                     Text(
                       'Error',
@@ -53,7 +49,9 @@ class ProfileScreen extends ConsumerWidget {
                     const SizedBox(height: 24),
                     OutlinedButton(
                       onPressed: () {
-                        ref.read(authNotifierProvider.notifier).signInWithGoogle();
+                        ref
+                            .read(authNotifierProvider.notifier)
+                            .signInWithGoogle();
                       },
                       child: const Text('Try Again'),
                     ),
@@ -84,7 +82,11 @@ class ProfileScreen extends ConsumerWidget {
                       ? NetworkImage(user.image!)
                       : null,
                   child: user.image == null
-                      ? Icon(Icons.person, size: 50, color: cs.onPrimaryContainer)
+                      ? Icon(
+                          Icons.person,
+                          size: 50,
+                          color: cs.onPrimaryContainer,
+                        )
                       : null,
                 ),
                 const SizedBox(height: 16),
@@ -122,9 +124,7 @@ class ProfileScreen extends ConsumerWidget {
                   width: double.infinity,
                   child: FilledButton.icon(
                     onPressed: () async {
-                      await ref
-                          .read(authNotifierProvider.notifier)
-                          .signOut();
+                      await ref.read(authNotifierProvider.notifier).signOut();
                     },
                     icon: const Icon(Icons.logout_rounded),
                     label: const Text('Sign Out'),
@@ -143,7 +143,11 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSignInPrompt(BuildContext context, WidgetRef ref, ThemeData theme) {
+  Widget _buildSignInPrompt(
+    BuildContext context,
+    WidgetRef ref,
+    ThemeData theme,
+  ) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         18,

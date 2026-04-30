@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iitpkd_one/features/search/data/models/search_category.dart';
-import 'package:iitpkd_one/features/search/data/models/search_result_item.dart';
+import 'package:ilab_connect/features/search/data/models/search_category.dart';
+import 'package:ilab_connect/features/search/data/models/search_result_item.dart';
 
 /// Bottom sheet that displays detailed information about a search result.
 ///

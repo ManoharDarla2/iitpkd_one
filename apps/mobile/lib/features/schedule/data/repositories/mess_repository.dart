@@ -1,6 +1,6 @@
-import 'package:iitpkd_one/core/network/api_client_interface.dart';
-import 'package:iitpkd_one/core/services/hive_service.dart';
-import 'package:iitpkd_one/features/schedule/data/models/mess_menu.dart';
+import 'package:ilab_connect/core/network/api_client_interface.dart';
+import 'package:ilab_connect/core/services/hive_service.dart';
+import 'package:ilab_connect/features/schedule/data/models/mess_menu.dart';
 
 /// Repository that manages mess menu data.
 ///
@@ -39,7 +39,8 @@ class MessRepository {
       try {
         final metaResponse = await _apiClient.getMessMetadata();
         if (metaResponse.data != null) {
-          final serverTimestamp = metaResponse.data!.updatedAt.toIso8601String();
+          final serverTimestamp = metaResponse.data!.updatedAt
+              .toIso8601String();
           final localTimestamp = _hiveService.getCachedMessMetadataTimestamp();
 
           if (localTimestamp == serverTimestamp) {

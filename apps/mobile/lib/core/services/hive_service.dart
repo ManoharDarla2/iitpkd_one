@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:iitpkd_one/core/constants/api_constants.dart';
+import 'package:ilab_connect/core/constants/api_constants.dart';
 
 /// Service responsible for initializing Hive and managing box access.
 ///
