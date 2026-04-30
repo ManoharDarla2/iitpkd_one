@@ -33,3 +33,5 @@ flutter:
   assets:
     - .env
     - assets/images/map_bg.png
+    - assets/images/app_icon_light.png
+    - assets/images/app_icon_dark.png

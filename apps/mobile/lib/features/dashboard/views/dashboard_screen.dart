@@ -8,7 +8,6 @@ import 'package:ilab_connect/features/dashboard/views/widgets/shuttle_tracker_se
 import 'package:ilab_connect/features/dashboard/views/widgets/todays_mess_preview_section.dart';
 import 'package:ilab_connect/features/schedule/view_models/mess_view_model.dart';
 import 'package:ilab_connect/routes/app_shell.dart';
-import 'package:ilab_connect/shared/widgets/main_tab_app_bar.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -32,12 +31,7 @@ class DashboardScreen extends ConsumerWidget {
       }
     });
 
-    return Scaffold(
-      appBar: const MainTabAppBar(
-        title: 'IITPKD One',
-        subtitle: 'Your campus control center',
-      ),
-      body: Container(
+    return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [cs.surface, cs.surfaceContainerLowest, cs.surface],
@@ -80,8 +74,7 @@ class DashboardScreen extends ConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   static String _nextShuttleLabel(

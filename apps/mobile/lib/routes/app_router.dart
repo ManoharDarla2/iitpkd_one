@@ -95,16 +95,20 @@ final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
+    // Search screen — pushed full-screen over the nav shell
     GoRoute(
       path: '/search',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const SearchScreen(),
     ),
+
+    // Mess menu — pushed full-screen over the nav shell
     GoRoute(
       path: '/schedules/mess',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const MessMenuScreen(),
     ),
+
     // Faculty detail — pushed full-screen over the nav shell
     GoRoute(
       path: '/faculty/:slug',
@@ -114,11 +118,19 @@ final appRouter = GoRouter(
         return FacultyDetailScreen(slug: slug);
       },
     ),
+
     GoRoute(
       path: '/faculty',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const FacultyScreen(),
     ),
+
+    GoRoute(
+      path: '/profile',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const ProfileScreen(),
+    ),
+
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return AppShell(navigationShell: navigationShell);
@@ -164,16 +176,6 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/competitions',
               builder: (context, state) => const CompetitionsScreen(),
-            ),
-          ],
-        ),
-
-        // Profile
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/profile',
-              builder: (context, state) => const ProfileScreen(),
             ),
           ],
         ),

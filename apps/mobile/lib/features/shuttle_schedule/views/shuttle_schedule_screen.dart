@@ -5,7 +5,6 @@ import 'package:ilab_connect/features/schedule/views/widgets/day_toggle.dart';
 import 'package:ilab_connect/features/schedule/views/widgets/route_filter_chips.dart';
 import 'package:ilab_connect/features/schedule/views/widgets/schedule_shuttle_card.dart';
 import 'package:ilab_connect/routes/app_shell.dart';
-import 'package:ilab_connect/shared/widgets/main_tab_app_bar.dart';
 
 class ShuttleScheduleScreen extends ConsumerStatefulWidget {
   const ShuttleScheduleScreen({super.key});
@@ -26,12 +25,7 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
     final cs = theme.colorScheme;
     final bottomPadding = mainTabBottomPadding(context, extra: 10);
 
-    return Scaffold(
-      appBar: const MainTabAppBar(
-        title: 'Shuttle Schedule',
-        subtitle: 'Live by route and day',
-      ),
-      body: RefreshIndicator(
+    return RefreshIndicator(
         onRefresh: () => viewModel.refreshSchedules(),
         child: CustomScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -135,7 +129,6 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }

@@ -13,7 +13,7 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'IIT-PKD ONE',
+      title: 'ILab Connect',
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       themeMode: ThemeMode.light,

@@ -20,12 +20,26 @@ class AppShell extends StatelessWidget {
 
   final StatefulNavigationShell navigationShell;
 
+  String _getAppBarTitle(int index) {
+    switch (index) {
+      case 0: return 'ILab Connect';
+      case 1: return 'Shuttle Schedule';
+      case 2: return 'Collab';
+      case 3: return 'Competitions';
+      default: return 'ILab Connect';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentIndex = navigationShell.currentIndex;
 
     return Scaffold(
       extendBody: true,
+      appBar: AppBar(
+        title: _AppBarTitle(title: _getAppBarTitle(currentIndex)),
+
+      ),
       body: navigationShell,
       bottomNavigationBar: _BumpedBottomBar(
         currentIndex: currentIndex,
@@ -37,6 +51,38 @@ class AppShell extends StatelessWidget {
         },
         onCenterAction: () => context.push('/search'),
       ),
+    );
+  }
+}
+
+
+class _AppBarTitle extends StatelessWidget {
+  final String title;
+  const _AppBarTitle({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          isDark 
+            ? 'assets/images/app_icon_dark.png' 
+            : 'assets/images/app_icon_light.png',
+          height: 36,
+        ),
+        const SizedBox(width: 4),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold, // Bold as requested
+            fontSize: 18,               // Somewhat smaller
+            letterSpacing: 0.5,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -112,15 +158,6 @@ class _BumpedBottomBar extends StatelessWidget {
                         label: 'Competitions',
                         selected: currentIndex == 3,
                         onTap: () => onTabTap(3),
-                      ),
-                    ),
-                    Expanded(
-                      child: _BottomTab(
-                        icon: Icons.person_outline,
-                        activeIcon: Icons.person_rounded,
-                        label: 'Profile',
-                        selected: currentIndex == 4,
-                        onTap: () => onTabTap(4),
                       ),
                     ),
                   ],
