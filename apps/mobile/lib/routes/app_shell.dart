@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ilab_connect/shared/widgets/profile_avatar_action.dart';
 
 const double _kBottomBarBaseHeight = 72;
 const double _kBottomBarBumpRise = 22;
@@ -37,6 +38,7 @@ class AppShell extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
+        actions: const [ProfileAvatarAction()],
         title: _AppBarTitle(title: _getAppBarTitle(currentIndex)),
 
       ),

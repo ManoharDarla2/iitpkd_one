@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ilab_connect/core/auth/auth_provider.dart';
-import 'package:ilab_connect/shared/widgets/main_tab_app_bar.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -13,9 +12,8 @@ class ProfileScreen extends ConsumerWidget {
     final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: const MainTabAppBar(
-        title: 'Profile',
-        subtitle: 'Your account information',
+      appBar: AppBar(
+        title: Text('Profile')
       ),
       body: Builder(
         builder: (context) {
