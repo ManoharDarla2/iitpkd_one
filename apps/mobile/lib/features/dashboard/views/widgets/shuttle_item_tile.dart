@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:csquare_connect/features/dashboard/data/models/shuttle_schedule.dart';
 
 /// A single shuttle schedule tile showing route, time, and countdown.
 ///

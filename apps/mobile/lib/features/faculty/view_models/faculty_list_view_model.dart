@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/faculty/data/models/faculty_member.dart';
-import 'package:ilab_connect/features/faculty/view_models/providers.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_member.dart';
+import 'package:csquare_connect/features/faculty/view_models/providers.dart';
 
 /// Riverpod provider for the faculty list view model.
 final facultyListViewModelProvider =

@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/dashboard/view_models/providers.dart';
-import 'package:ilab_connect/features/schedule/data/repositories/mess_repository.dart';
-import 'package:ilab_connect/features/schedule/data/repositories/schedule_shuttle_repository.dart';
+import 'package:csquare_connect/features/dashboard/view_models/providers.dart';
+import 'package:csquare_connect/features/schedule/data/repositories/mess_repository.dart';
+import 'package:csquare_connect/features/schedule/data/repositories/schedule_shuttle_repository.dart';
 
 /// -- Dependency Injection Providers for the Schedule feature --
 

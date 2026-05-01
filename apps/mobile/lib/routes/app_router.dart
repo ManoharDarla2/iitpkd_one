@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ilab_connect/features/competitions/views/competitions_screen.dart';
-import 'package:ilab_connect/features/dashboard/views/dashboard_screen.dart';
-import 'package:ilab_connect/features/faculty/views/faculty_detail_screen.dart';
-import 'package:ilab_connect/features/faculty/views/faculty_screen.dart';
-import 'package:ilab_connect/features/mess_menu/views/mess_menu_screen.dart';
-import 'package:ilab_connect/features/profile/views/profile_screen.dart';
-import 'package:ilab_connect/features/search/views/search_screen.dart';
-import 'package:ilab_connect/features/shuttle_schedule/views/shuttle_schedule_screen.dart';
-import 'package:ilab_connect/routes/app_shell.dart';
-import 'package:ilab_connect/shared/widgets/main_tab_app_bar.dart';
+import 'package:csquare_connect/features/competitions/views/competitions_screen.dart';
+import 'package:csquare_connect/features/dashboard/views/dashboard_screen.dart';
+import 'package:csquare_connect/features/faculty/views/faculty_detail_screen.dart';
+import 'package:csquare_connect/features/faculty/views/faculty_screen.dart';
+import 'package:csquare_connect/features/mess_menu/views/mess_menu_screen.dart';
+import 'package:csquare_connect/features/profile/views/profile_screen.dart';
+import 'package:csquare_connect/features/search/views/search_screen.dart';
+import 'package:csquare_connect/features/shuttle_schedule/views/shuttle_schedule_screen.dart';
+import 'package:csquare_connect/routes/app_shell.dart';
 
 /// Placeholder screen for tabs that are not yet implemented.
 class _PlaceholderScreen extends StatelessWidget {
@@ -23,10 +22,6 @@ class _PlaceholderScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: MainTabAppBar(
-        title: title,
-        subtitle: 'Fresh updates landing soon',
-      ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(
           18,

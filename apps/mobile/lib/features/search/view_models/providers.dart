@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/dashboard/view_models/providers.dart';
-import 'package:ilab_connect/features/search/data/repositories/recent_search_repository.dart';
-import 'package:ilab_connect/features/search/data/repositories/search_repository.dart';
+import 'package:csquare_connect/features/dashboard/view_models/providers.dart';
+import 'package:csquare_connect/features/search/data/repositories/recent_search_repository.dart';
+import 'package:csquare_connect/features/search/data/repositories/search_repository.dart';
 
 /// -- Dependency Injection Providers for the Search feature --
 

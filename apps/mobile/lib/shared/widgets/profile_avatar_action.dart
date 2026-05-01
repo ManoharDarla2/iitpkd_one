@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/core/auth/auth_provider.dart';
+import 'package:csquare_connect/core/auth/auth_provider.dart';
 
 class ProfileAvatarAction extends ConsumerWidget {
   const ProfileAvatarAction({super.key});
@@ -64,11 +64,7 @@ class _ProfileAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: size / 2,
       backgroundColor: cs.surfaceContainerHighest,
-      child: Icon(
-        Icons.person,
-        size: size * 0.7,
-        color: cs.onSurfaceVariant,
-      ),
+      child: Icon(Icons.person, size: size * 0.7, color: cs.onSurfaceVariant),
     );
   }
 

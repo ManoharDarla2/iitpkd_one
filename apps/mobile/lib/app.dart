@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/core/theme/app_theme.dart';
-import 'package:ilab_connect/routes/app_router.dart';
+import 'package:csquare_connect/core/theme/app_theme.dart';
+import 'package:csquare_connect/routes/app_router.dart';
 
 /// Root application widget.
 ///
@@ -13,7 +13,7 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'ILab Connect',
+      title: 'CSquare Connect',
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       themeMode: ThemeMode.light,

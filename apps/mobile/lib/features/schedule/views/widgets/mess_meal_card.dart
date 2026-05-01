@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
+import 'package:csquare_connect/features/schedule/data/models/meal_day.dart';
 
 /// Displays a single day's mess menu as a vertical timeline.
 ///

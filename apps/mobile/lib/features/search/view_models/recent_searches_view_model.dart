@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/search/view_models/providers.dart';
+import 'package:csquare_connect/features/search/view_models/providers.dart';
 
 /// Riverpod provider for recent searches state.
 final recentSearchesViewModelProvider =

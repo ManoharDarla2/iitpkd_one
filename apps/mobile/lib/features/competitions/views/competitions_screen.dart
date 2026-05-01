@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/competitions/data/models/competition.dart';
-import 'package:ilab_connect/features/competitions/view_models/competition_view_model.dart';
-import 'package:ilab_connect/routes/app_shell.dart';
+import 'package:csquare_connect/features/competitions/data/models/competition.dart';
+import 'package:csquare_connect/features/competitions/view_models/competition_view_model.dart';
+import 'package:csquare_connect/routes/app_shell.dart';
 
 class CompetitionsScreen extends ConsumerWidget {
   const CompetitionsScreen({super.key});
@@ -25,86 +25,86 @@ class CompetitionsScreen extends ConsumerWidget {
     });
 
     return RefreshIndicator(
-        onRefresh: () => viewModel.refreshCompetitions(),
-        child: competitionsAsync.when(
-          data: (competitions) {
-            if (competitions.isEmpty) {
-              return ListView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                children: [
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.5,
-                    child: Center(
-                      child: Text(
-                        'No competitions available right now.',
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          color: cs.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }
-
-            return ListView.builder(
+      onRefresh: () => viewModel.refreshCompetitions(),
+      child: competitionsAsync.when(
+        data: (competitions) {
+          if (competitions.isEmpty) {
+            return ListView(
               physics: const AlwaysScrollableScrollPhysics(),
-              padding: EdgeInsets.fromLTRB(14, 12, 14, bottomPadding),
-              itemCount: competitions.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      gradient: LinearGradient(
-                        colors: [
-                          cs.primaryContainer.withValues(alpha: 0.78),
-                          cs.secondaryContainer.withValues(alpha: 0.76),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
+              children: [
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.5,
+                  child: Center(
                     child: Text(
-                      'Track upcoming robotics and aerospace competitions. Pull to refresh for latest updates.',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: cs.onPrimaryContainer,
-                        height: 1.35,
+                      'No competitions available right now.',
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: cs.onSurfaceVariant,
                       ),
                     ),
-                  );
-                }
-
-                final item = competitions[index - 1];
-                return _CompetitionCard(item: item);
-              },
-            );
-          },
-          loading: () => const Center(
-            child: SizedBox(
-              width: 24,
-              height: 24,
-              child: CircularProgressIndicator(strokeWidth: 2.5),
-            ),
-          ),
-          error: (_, _) => ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.5,
-                child: Center(
-                  child: FilledButton.tonal(
-                    onPressed: () => viewModel.refreshCompetitions(),
-                    child: const Text('Retry loading competitions'),
                   ),
                 ),
-              ),
-            ],
+              ],
+            );
+          }
+
+          return ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: EdgeInsets.fromLTRB(14, 12, 14, bottomPadding),
+            itemCount: competitions.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    gradient: LinearGradient(
+                      colors: [
+                        cs.primaryContainer.withValues(alpha: 0.78),
+                        cs.secondaryContainer.withValues(alpha: 0.76),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: Text(
+                    'Track upcoming robotics and aerospace competitions. Pull to refresh for latest updates.',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: cs.onPrimaryContainer,
+                      height: 1.35,
+                    ),
+                  ),
+                );
+              }
+
+              final item = competitions[index - 1];
+              return _CompetitionCard(item: item);
+            },
+          );
+        },
+        loading: () => const Center(
+          child: SizedBox(
+            width: 24,
+            height: 24,
+            child: CircularProgressIndicator(strokeWidth: 2.5),
           ),
         ),
-      );
+        error: (_, _) => ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.5,
+              child: Center(
+                child: FilledButton.tonal(
+                  onPressed: () => viewModel.refreshCompetitions(),
+                  child: const Text('Retry loading competitions'),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/faculty/view_models/faculty_detail_view_model.dart';
-import 'package:ilab_connect/features/faculty/views/widgets/faculty_contact_row.dart';
-import 'package:ilab_connect/features/faculty/views/widgets/faculty_detail_header.dart';
-import 'package:ilab_connect/features/faculty/views/widgets/faculty_info_section.dart';
+import 'package:csquare_connect/features/faculty/view_models/faculty_detail_view_model.dart';
+import 'package:csquare_connect/features/faculty/views/widgets/faculty_contact_row.dart';
+import 'package:csquare_connect/features/faculty/views/widgets/faculty_detail_header.dart';
+import 'package:csquare_connect/features/faculty/views/widgets/faculty_info_section.dart';
 
 /// Faculty detail/profile screen.
 ///

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "in.ac.iitpkd.ilab.connect"
+    namespace = "in.ac.iitpkd.csquare"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "in.ac.iitpkd.ilab.connect"
+        applicationId = "in.ac.iitpkd.csquare"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

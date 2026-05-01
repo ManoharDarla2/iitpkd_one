@@ -1,4 +1,4 @@
-import 'package:ilab_connect/core/services/hive_service.dart';
+import 'package:csquare_connect/core/services/hive_service.dart';
 
 /// Repository that manages recent search queries via Hive.
 ///

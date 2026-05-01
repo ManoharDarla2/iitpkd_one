@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
-import 'package:ilab_connect/features/dashboard/view_models/shuttle_view_model.dart';
+import 'package:csquare_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:csquare_connect/features/dashboard/view_models/shuttle_view_model.dart';
 
 class ShuttleTrackerSection extends ConsumerWidget {
   const ShuttleTrackerSection({super.key});

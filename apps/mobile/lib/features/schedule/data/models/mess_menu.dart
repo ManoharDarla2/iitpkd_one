@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
+import 'package:csquare_connect/features/schedule/data/models/meal_day.dart';
 
 /// Represents the full 14-day rotating mess menu.
 ///

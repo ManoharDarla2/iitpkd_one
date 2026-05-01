@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/core/auth/auth_provider.dart';
+import 'package:csquare_connect/core/auth/auth_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -12,9 +12,7 @@ class ProfileScreen extends ConsumerWidget {
     final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile')
-      ),
+      appBar: AppBar(title: Text('Profile')),
       body: Builder(
         builder: (context) {
           if (authState.status == AuthStatus.loading) {

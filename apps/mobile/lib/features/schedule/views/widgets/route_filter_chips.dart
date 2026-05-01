@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilab_connect/features/schedule/data/repositories/schedule_shuttle_repository.dart';
+import 'package:csquare_connect/features/schedule/data/repositories/schedule_shuttle_repository.dart';
 
 /// Horizontal scrollable route filter chips for shuttle schedules.
 ///

@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/core/network/api_client_interface.dart';
-import 'package:ilab_connect/core/network/real_api_client.dart';
-import 'package:ilab_connect/core/services/hive_service.dart';
-import 'package:ilab_connect/features/dashboard/data/repositories/shuttle_repository.dart';
+import 'package:csquare_connect/core/network/api_client_interface.dart';
+import 'package:csquare_connect/core/network/real_api_client.dart';
+import 'package:csquare_connect/core/services/hive_service.dart';
+import 'package:csquare_connect/features/dashboard/data/repositories/shuttle_repository.dart';
 
 /// -- Dependency Injection Providers --
 

@@ -1,4 +1,4 @@
-import 'package:ilab_connect/features/search/data/models/search_result_item.dart';
+import 'package:csquare_connect/features/search/data/models/search_result_item.dart';
 
 /// Top-level response model for the search endpoint.
 ///

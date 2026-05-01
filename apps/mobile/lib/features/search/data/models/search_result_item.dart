@@ -1,4 +1,4 @@
-import 'package:ilab_connect/features/search/data/models/search_category.dart';
+import 'package:csquare_connect/features/search/data/models/search_category.dart';
 
 /// A single item returned from the search API.
 ///

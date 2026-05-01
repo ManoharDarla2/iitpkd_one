@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
-import 'package:ilab_connect/features/schedule/view_models/mess_view_model.dart';
+import 'package:csquare_connect/features/schedule/data/models/meal_day.dart';
+import 'package:csquare_connect/features/schedule/view_models/mess_view_model.dart';
 
 class TodaysMessPreviewSection extends ConsumerWidget {
   const TodaysMessPreviewSection({super.key});

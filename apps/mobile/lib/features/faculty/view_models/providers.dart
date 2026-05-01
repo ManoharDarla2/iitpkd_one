@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/dashboard/view_models/providers.dart';
-import 'package:ilab_connect/features/faculty/data/repositories/faculty_repository.dart';
+import 'package:csquare_connect/features/dashboard/view_models/providers.dart';
+import 'package:csquare_connect/features/faculty/data/repositories/faculty_repository.dart';
 
 /// -- Dependency Injection Providers for the Faculty feature --
 

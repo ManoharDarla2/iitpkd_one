@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/competitions/data/models/competition.dart';
-import 'package:ilab_connect/features/competitions/view_models/providers.dart';
+import 'package:csquare_connect/features/competitions/data/models/competition.dart';
+import 'package:csquare_connect/features/competitions/view_models/providers.dart';
 
 final competitionViewModelProvider =
     AsyncNotifierProvider<CompetitionViewModel, List<Competition>>(

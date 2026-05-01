@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
-import 'package:ilab_connect/shared/widgets/markdown_card.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_detail.dart';
+import 'package:csquare_connect/shared/widgets/markdown_card.dart';
 
 /// Displays the detailed information sections of a faculty profile.
 ///

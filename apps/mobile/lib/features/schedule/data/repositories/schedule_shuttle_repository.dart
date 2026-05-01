@@ -1,5 +1,5 @@
-import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
-import 'package:ilab_connect/features/dashboard/data/repositories/shuttle_repository.dart';
+import 'package:csquare_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:csquare_connect/features/dashboard/data/repositories/shuttle_repository.dart';
 
 /// Route filter options for the schedule shuttle view.
 enum ShuttleRouteFilter { all, nilaToSahyadri, sahyadriToNila, outside }

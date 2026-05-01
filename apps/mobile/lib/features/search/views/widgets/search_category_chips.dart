@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilab_connect/features/search/data/models/search_category.dart';
+import 'package:csquare_connect/features/search/data/models/search_category.dart';
 
 /// Horizontal scrollable category filter chips for search.
 ///

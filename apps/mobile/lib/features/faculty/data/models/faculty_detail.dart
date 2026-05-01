@@ -1,4 +1,4 @@
-import 'package:ilab_connect/features/faculty/data/models/faculty_contact.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_contact.dart';
 
 /// Full detailed profile of a faculty member.
 ///

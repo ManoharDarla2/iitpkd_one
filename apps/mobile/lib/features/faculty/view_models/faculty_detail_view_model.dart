@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
-import 'package:ilab_connect/features/faculty/view_models/providers.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_detail.dart';
+import 'package:csquare_connect/features/faculty/view_models/providers.dart';
 
 /// Family provider for faculty detail, keyed by slug.
 ///

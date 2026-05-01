@@ -1,6 +1,6 @@
-import 'package:ilab_connect/core/network/api_client_interface.dart';
-import 'package:ilab_connect/core/services/hive_service.dart';
-import 'package:ilab_connect/features/schedule/data/models/mess_menu.dart';
+import 'package:csquare_connect/core/network/api_client_interface.dart';
+import 'package:csquare_connect/core/services/hive_service.dart';
+import 'package:csquare_connect/features/schedule/data/models/mess_menu.dart';
 
 /// Repository that manages mess menu data.
 ///

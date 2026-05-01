@@ -1,18 +1,18 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:ilab_connect/core/constants/api_constants.dart';
-import 'package:ilab_connect/core/network/api_client_interface.dart';
-import 'package:ilab_connect/core/network/api_response.dart';
-import 'package:ilab_connect/features/competitions/data/models/competition.dart';
-import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
-import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
-import 'package:ilab_connect/features/faculty/data/models/faculty_member.dart';
-import 'package:ilab_connect/features/schedule/data/models/meal_day.dart';
-import 'package:ilab_connect/features/schedule/data/models/mess_menu.dart';
-import 'package:ilab_connect/features/schedule/data/models/mess_metadata.dart';
-import 'package:ilab_connect/features/schedule/data/models/shuttle_metadata.dart';
-import 'package:ilab_connect/features/search/data/models/search_result.dart';
+import 'package:csquare_connect/core/constants/api_constants.dart';
+import 'package:csquare_connect/core/network/api_client_interface.dart';
+import 'package:csquare_connect/core/network/api_response.dart';
+import 'package:csquare_connect/features/competitions/data/models/competition.dart';
+import 'package:csquare_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_detail.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_member.dart';
+import 'package:csquare_connect/features/schedule/data/models/meal_day.dart';
+import 'package:csquare_connect/features/schedule/data/models/mess_menu.dart';
+import 'package:csquare_connect/features/schedule/data/models/mess_metadata.dart';
+import 'package:csquare_connect/features/schedule/data/models/shuttle_metadata.dart';
+import 'package:csquare_connect/features/search/data/models/search_result.dart';
 
 class RealApiClient implements ApiClientInterface {
   RealApiClient({http.Client? httpClient})

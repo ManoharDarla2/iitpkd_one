@@ -1,6 +1,6 @@
-import 'package:ilab_connect/core/network/api_client_interface.dart';
-import 'package:ilab_connect/core/services/hive_service.dart';
-import 'package:ilab_connect/features/dashboard/data/models/shuttle_schedule.dart';
+import 'package:csquare_connect/core/network/api_client_interface.dart';
+import 'package:csquare_connect/core/services/hive_service.dart';
+import 'package:csquare_connect/features/dashboard/data/models/shuttle_schedule.dart';
 
 /// Repository that manages shuttle schedule data.
 ///

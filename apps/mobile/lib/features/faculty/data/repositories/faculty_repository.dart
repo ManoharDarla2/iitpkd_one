@@ -1,6 +1,6 @@
-import 'package:ilab_connect/core/network/api_client_interface.dart';
-import 'package:ilab_connect/features/faculty/data/models/faculty_detail.dart';
-import 'package:ilab_connect/features/faculty/data/models/faculty_member.dart';
+import 'package:csquare_connect/core/network/api_client_interface.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_detail.dart';
+import 'package:csquare_connect/features/faculty/data/models/faculty_member.dart';
 
 /// Repository that manages faculty data.
 ///
