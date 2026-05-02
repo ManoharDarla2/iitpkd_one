@@ -1,8 +1,8 @@
 import { Elysia, t } from 'elysia';
 
 import { SuccessEnvelope } from '../../common/http';
-import { CompetitionItemSchema } from './competition.model';
-import { competitionService } from './competition.service';
+import { CompetitionItemSchema } from './model';
+import { competitionService } from './service';
 
 export const competitionController = new Elysia({ prefix: '/competitions' })
   .get('/', async () => {

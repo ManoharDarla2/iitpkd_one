@@ -6,8 +6,8 @@ import {
   MessTodaySchema,
   WeekTypeQuerySchema,
   WeekTypeSchema,
-} from './mess.model';
-import { messService } from './mess.service';
+} from './model';
+import { messService } from './service';
 
 export const messController = new Elysia({ prefix: '/mess' })
   .get('/menu', async ({ query }) => {

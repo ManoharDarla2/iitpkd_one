@@ -1,8 +1,8 @@
 import { Elysia, t } from 'elysia';
 
 import { MetaSchema, SuccessEnvelope, toIso } from '../../common/http';
-import { ShuttleItemSchema, ShuttleQuerySchema } from './shuttle.model';
-import { shuttleService } from './shuttle.service';
+import { ShuttleItemSchema, ShuttleQuerySchema } from './model';
+import { shuttleService } from './service';
 
 export const shuttleController = new Elysia({ prefix: '/shuttles' })
   .get('/', async ({ query }) => {

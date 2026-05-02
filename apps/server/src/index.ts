@@ -2,12 +2,12 @@ import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { openapi } from '@elysiajs/openapi';
 
-import { authController } from './modules/auth/auth.controller';
-import { competitionController } from './modules/competition/competition.controller';
-import { facultyController } from './modules/faculty/faculty.controller';
-import { messController } from './modules/mess/mess.controller';
-import { searchController } from './modules/search/search.controller';
-import { shuttleController } from './modules/shuttle/shuttle.controller';
+import { authController } from './modules/auth';
+import { competitionController } from './modules/competition';
+import { facultyController } from './modules/faculty';
+import { messController } from './modules/mess';
+import { searchController } from './modules/search';
+import { shuttleController } from './modules/shuttle';
 
 const port = Number(process.env.PORT ?? 3000);
 

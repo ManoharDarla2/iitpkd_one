@@ -6,8 +6,8 @@ import {
   FacultyListItemSchema,
   FacultyListQuerySchema,
   FacultySlugParamsSchema,
-} from './faculty.model';
-import { facultyService } from './faculty.service';
+} from './model';
+import { facultyService } from './service';
 
 export const facultyController = new Elysia({ prefix: '/faculty' })
   .get('/', async ({ query }) => {

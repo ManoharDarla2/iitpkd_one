@@ -5,8 +5,8 @@ import {
   SearchQuerySchema,
   SearchResponseDataSchema,
   SearchSuggestionsQuerySchema,
-} from './search.model';
-import { searchService } from './search.service';
+} from './model';
+import { searchService } from './service';
 
 export const searchController = new Elysia({ prefix: '/search' })
   .get('/', async ({ query }) => {
