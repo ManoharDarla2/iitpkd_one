@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { betterAuth } from 'better-auth';
+import { openAPI } from 'better-auth/plugins'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { db } from '../../db/neon';
@@ -10,6 +11,7 @@ export const auth = betterAuth({
     provider: 'pg',
     schema
   }),
+  plugins: [openAPI()],
   trustedOrigins: [
     ...(process.env.NODE_ENV === 'development'
       ? ['http://localhost:3000']

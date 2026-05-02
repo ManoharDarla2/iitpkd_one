@@ -1,12 +1,12 @@
 import { t } from 'elysia';
 
-export const SuccessEnvelope = <T>(data: T, message: string) => ({
+export const SuccessEnvelope = <T>(data: T, message: string): { success: true; message: string; data: T } => ({
   success: true,
   message,
   data,
 });
 
-export const ErrorEnvelope = (message: string) => ({
+export const ErrorEnvelope = (message: string): { success: false; message: string } => ({
   success: false,
   message,
 });
