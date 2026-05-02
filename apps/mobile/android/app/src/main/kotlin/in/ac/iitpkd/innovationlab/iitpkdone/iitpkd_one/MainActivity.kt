@@ -1,4 +1,4 @@
-package `in`.ac.iitpkd.square.connect
+package `in`.ac.iitpkd.square
 
 import io.flutter.embedding.android.FlutterActivity
 
