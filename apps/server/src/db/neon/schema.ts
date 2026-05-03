@@ -1,5 +1,14 @@
 import { relations, sql } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  index,
+  integer,
+  pgEnum,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -13,6 +22,94 @@ export const user = pgTable("user", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+export const colabTypeEnum = pgEnum("colab_type", ["project", "job"]);
+export const colabRequestTypeEnum = pgEnum("colab_request_type", ["join", "invite"]);
+export const colabRequestStatusEnum = pgEnum("colab_request_status", [
+  "pending",
+  "accepted",
+  "rejected",
+  "cancelled",
+  "expired",
+]);
+
+export const colab = pgTable(
+  "colab",
+  {
+    id: text("id").primaryKey(),
+    imageUrl: text("image_url"),
+    title: text("title").notNull(),
+    description: text("description").notNull(),
+    type: colabTypeEnum("type").notNull(),
+    requirements: text("requirements").notNull().default(""),
+    maxMembers: integer("max_members"),
+    startDate: timestamp("start_date"),
+    endDate: timestamp("end_date"),
+    isActive: boolean("is_active").notNull().default(true),
+    createdBy: text("created_by")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("colab_created_by_idx").on(table.createdBy),
+    index("colab_type_idx").on(table.type),
+    index("colab_active_idx").on(table.isActive),
+  ],
+);
+
+export const colabMember = pgTable(
+  "colab_member",
+  {
+    colabId: text("colab_id")
+      .notNull()
+      .references(() => colab.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    joinedAt: timestamp("joined_at").defaultNow().notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.colabId, table.userId] }),
+    index("colab_member_colab_idx").on(table.colabId),
+    index("colab_member_user_idx").on(table.userId),
+  ],
+);
+
+export const colabRequest = pgTable(
+  "colab_request",
+  {
+    id: text("id").primaryKey(),
+    colabId: text("colab_id")
+      .notNull()
+      .references(() => colab.id, { onDelete: "cascade" }),
+    requesterId: text("requester_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    recipientId: text("recipient_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    type: colabRequestTypeEnum("type").notNull(),
+    status: colabRequestStatusEnum("status").notNull().default("pending"),
+    message: text("message").notNull().default(""),
+    expiresAt: timestamp("expires_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("colab_request_colab_idx").on(table.colabId),
+    index("colab_request_requester_idx").on(table.requesterId),
+    index("colab_request_recipient_idx").on(table.recipientId),
+    index("colab_request_status_idx").on(table.status),
+  ],
+);
 
 export const session = pgTable(
   "session",
@@ -76,6 +173,10 @@ export const verification = pgTable(
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  colabs: many(colab),
+  colabMemberships: many(colabMember),
+  colabRequestsSent: many(colabRequest, { relationName: "colabRequestsSent" }),
+  colabRequestsReceived: many(colabRequest, { relationName: "colabRequestsReceived" }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -89,5 +190,42 @@ export const accountRelations = relations(account, ({ one }) => ({
   user: one(user, {
     fields: [account.userId],
     references: [user.id],
+  }),
+}));
+
+export const colabRelations = relations(colab, ({ one, many }) => ({
+  creator: one(user, {
+    fields: [colab.createdBy],
+    references: [user.id],
+  }),
+  members: many(colabMember),
+  requests: many(colabRequest),
+}));
+
+export const colabMemberRelations = relations(colabMember, ({ one }) => ({
+  colab: one(colab, {
+    fields: [colabMember.colabId],
+    references: [colab.id],
+  }),
+  user: one(user, {
+    fields: [colabMember.userId],
+    references: [user.id],
+  }),
+}));
+
+export const colabRequestRelations = relations(colabRequest, ({ one }) => ({
+  colab: one(colab, {
+    fields: [colabRequest.colabId],
+    references: [colab.id],
+  }),
+  requester: one(user, {
+    fields: [colabRequest.requesterId],
+    references: [user.id],
+    relationName: "colabRequestsSent",
+  }),
+  recipient: one(user, {
+    fields: [colabRequest.recipientId],
+    references: [user.id],
+    relationName: "colabRequestsReceived",
   }),
 }));

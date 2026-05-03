@@ -8,6 +8,13 @@
       "when": 1777127841195,
       "tag": "0000_nebulous_joshua_kane",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778064945124,
+      "tag": "0001_stale_thena",
+      "breakpoints": true
     }
   ]
 }
