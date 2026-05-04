@@ -2,16 +2,17 @@ import { Elysia, t } from 'elysia';
 
 import { ErrorEnvelope, SuccessEnvelope, toIso } from '../../common/http';
 import {
-  ColabCreateSchema,
+  ColabCreateFormSchema,
   ColabDetailSchema,
   ColabItemSchema,
   ColabListQuerySchema,
   ColabRequestCreateSchema,
   ColabRequestDecisionSchema,
   ColabRequestSchema,
-  ColabUpdateSchema,
+  ColabUpdateFormSchema,
 } from './model';
 import { colabService } from './service';
+import { imageService } from '../../services/image.service';
 
 const ColabIdParamsSchema = t.Object({
   id: t.String(),
@@ -82,7 +83,24 @@ export const colabController = new Elysia({ prefix: '/colabs' })
     },
   })
   .post('/', async ({ body, user }) => {
-    const data = await colabService.create(user.id, body);
+    let imageUrl: string | null = null;
+
+    if (body.image) {
+      const arrayBuffer = await body.image.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      imageUrl = await imageService.optimizeAndUpload(buffer);
+    }
+
+    const data = await colabService.create(user.id, {
+      title: body.title,
+      description: body.description,
+      type: body.type,
+      requirements: body.requirements,
+      maxMembers: body.maxMembers ? parseInt(body.maxMembers) : undefined,
+      startDate: body.startDate,
+      endDate: body.endDate,
+      isActive: body.isActive ? body.isActive === 'true' : undefined,
+    }, imageUrl);
 
     return SuccessEnvelope({
       ...data,
@@ -94,7 +112,7 @@ export const colabController = new Elysia({ prefix: '/colabs' })
     }, 'Colab created successfully');
   }, {
     auth: true,
-    body: ColabCreateSchema,
+    body: ColabCreateFormSchema,
     response: {
       200: t.Object({
         success: t.Literal(true),
@@ -103,12 +121,29 @@ export const colabController = new Elysia({ prefix: '/colabs' })
       }),
     },
     detail: {
-      summary: 'Create colab',
+      summary: 'Create colab with image upload',
       tags: ['Colab'],
     },
   })
   .patch('/:id', async ({ params, body, user, status: setStatus }) => {
-    const data = await colabService.update(params.id, user.id, body);
+    let imageUrl: string | null | undefined = undefined;
+
+    if (body.image) {
+      const arrayBuffer = await body.image.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      imageUrl = await imageService.optimizeAndUpload(buffer);
+    }
+
+    const data = await colabService.update(params.id, user.id, {
+      title: body.title,
+      description: body.description,
+      type: body.type,
+      requirements: body.requirements,
+      maxMembers: body.maxMembers ? parseInt(body.maxMembers) : undefined,
+      startDate: body.startDate,
+      endDate: body.endDate,
+      isActive: body.isActive ? body.isActive === 'true' : undefined,
+    }, imageUrl);
 
     if (!data) {
       return setStatus(404, ErrorEnvelope('Colab not found'));
@@ -125,7 +160,7 @@ export const colabController = new Elysia({ prefix: '/colabs' })
   }, {
     auth: true,
     params: ColabIdParamsSchema,
-    body: ColabUpdateSchema,
+    body: ColabUpdateFormSchema,
     response: {
       200: t.Object({
         success: t.Literal(true),
@@ -138,7 +173,7 @@ export const colabController = new Elysia({ prefix: '/colabs' })
       }),
     },
     detail: {
-      summary: 'Update colab',
+      summary: 'Update colab with image upload',
       tags: ['Colab'],
     },
   })

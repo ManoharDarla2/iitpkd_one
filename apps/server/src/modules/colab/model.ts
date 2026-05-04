@@ -10,18 +10,35 @@ export const ColabRequestStatusSchema = t.Union([
   t.Literal('expired'),
 ]);
 
-export const ColabCreateSchema = t.Object({
+export const ColabCreateFormSchema = t.Object({
   title: t.String({ minLength: 3, maxLength: 120 }),
   description: t.String({ minLength: 10, maxLength: 2000 }),
   type: ColabTypeSchema,
   requirements: t.Optional(t.String({ maxLength: 2000 })),
-  maxMembers: t.Optional(t.Integer({ minimum: 1, maximum: 1000 })),
+  maxMembers: t.Optional(t.String()),
   startDate: t.Optional(t.String()),
   endDate: t.Optional(t.String()),
-  isActive: t.Optional(t.Boolean()),
+  isActive: t.Optional(t.String()),
+  image: t.File({
+    type: 'image',
+    maxSize: '10m',
+  }),
 });
 
-export const ColabUpdateSchema = t.Partial(ColabCreateSchema);
+export const ColabUpdateFormSchema = t.Object({
+  title: t.Optional(t.String({ minLength: 3, maxLength: 120 })),
+  description: t.Optional(t.String({ minLength: 10, maxLength: 2000 })),
+  type: t.Optional(ColabTypeSchema),
+  requirements: t.Optional(t.String({ maxLength: 2000 })),
+  maxMembers: t.Optional(t.String()),
+  startDate: t.Optional(t.String()),
+  endDate: t.Optional(t.String()),
+  isActive: t.Optional(t.String()),
+  image: t.Optional(t.File({
+    type: 'image',
+    maxSize: '10m',
+  })),
+});
 
 export const ColabListQuerySchema = t.Object({
   type: t.Optional(ColabTypeSchema),
