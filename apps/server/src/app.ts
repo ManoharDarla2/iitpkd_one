@@ -1,4 +1,4 @@
-import { Elysia, status } from 'elysia';
+import { Elysia } from 'elysia';
 import { cors, openapi } from './plugins';
 import { apiRouter } from './modules';
 

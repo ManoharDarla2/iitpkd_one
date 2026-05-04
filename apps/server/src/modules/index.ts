@@ -2,6 +2,7 @@ import Elysia from "elysia";
 
 import { authController } from './auth';
 import { competitionController } from './competition';
+import { colabController } from './colab';
 import { facultyController } from './faculty';
 import { messController } from './mess';
 import { searchController } from './search';
@@ -24,7 +25,8 @@ export const apiRouter = new Elysia({
 
 	// Versioned API routes
 	.group('/v1', (v1) =>
-			v1
+		v1
+			.use(colabController)
 			.use(facultyController)
 			.use(messController)
 			.use(shuttleController)

@@ -23,19 +23,12 @@ export const cors = new Elysia({ name: "cors" }).use(
         }
       }
 
-            if (process.env.ALLOWED_ORIGINS) {
-                const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim());
-                if (allowedOrigins.includes(origin)) {
-                    return true;
-                }
-            }
-
-            if (process.env.MOBILE_APP_SCHEME) {
-                const mobileAppScheme = process.env.MOBILE_APP_SCHEME.trim();
-                if (origin.startsWith(mobileAppScheme)) {
-                    return true;
-                }
-            }
+      if (process.env.ALLOWED_ORIGINS) {
+          const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim());
+          if (allowedOrigins.includes(origin)) {
+              return true;
+          }
+      }
 
       return false;
     },
@@ -52,7 +45,7 @@ export const openapi = new Elysia({ name: "openapi" }).use(
     provider: 'scalar',
     documentation: {
         info: {
-        title: 'Innovation Lab API',
+        title: 'CSquare Connect API',
         version: '1.0.0',
         description: 'Backend API for shuttle, mess, faculty and search modules.',
         },
