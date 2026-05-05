@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:csquare_connect/core/constants/api_constants.dart';
+import 'package:csquare_connect/features/colab/data/models/colab_item.dart';
 
 /// Service responsible for initializing Hive and managing box access.
 ///
@@ -16,6 +19,7 @@ class HiveService {
     await Hive.openBox<String>(ApiConstants.shuttleCacheBox);
     await Hive.openBox<String>(ApiConstants.messCacheBox);
     await Hive.openBox<String>(ApiConstants.recentSearchesBox);
+    await Hive.openBox<String>(ApiConstants.colabCacheBox);
     _initialized = true;
   }
 
@@ -156,5 +160,53 @@ class HiveService {
   /// Clears all recent searches.
   Future<void> clearRecentSearches() async {
     await recentSearchesBox.delete(ApiConstants.recentSearchesKey);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Colab cache
+  // ---------------------------------------------------------------------------
+
+  /// Returns the colab cache box.
+  Box<String> get colabBox => Hive.box<String>(ApiConstants.colabCacheBox);
+
+  /// Stores colab list JSON data and records the fetch timestamp.
+  Future<void> cacheColabList(String jsonData) async {
+    final box = colabBox;
+    await box.put(ApiConstants.colabListKey, jsonData);
+    await box.put(
+      ApiConstants.colabListLastFetchedKey,
+      DateTime.now().toIso8601String(),
+    );
+  }
+
+  /// Retrieves cached colab list JSON data, or null if not cached.
+  List<ColabItem>? getCachedColabList() {
+    final jsonStr = colabBox.get(ApiConstants.colabListKey);
+    if (jsonStr == null) return null;
+
+    try {
+      final List<dynamic> decoded = jsonDecode(jsonStr);
+      return decoded.map((e) => ColabItem.fromJson(e as Map<String, dynamic>)).toList();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Returns true if the colab cache is still valid (within TTL).
+  bool isColabCacheValid() {
+    final lastFetchedStr = colabBox.get(ApiConstants.colabListLastFetchedKey);
+    if (lastFetchedStr == null) return false;
+
+    final lastFetched = DateTime.tryParse(lastFetchedStr);
+    if (lastFetched == null) return false;
+
+    return DateTime.now().difference(lastFetched) < ApiConstants.colabCacheTtl;
+  }
+
+  /// Clears the colab cache, forcing a fresh fetch next time.
+  Future<void> clearColabCache() async {
+    final box = colabBox;
+    await box.delete(ApiConstants.colabListKey);
+    await box.delete(ApiConstants.colabListLastFetchedKey);
   }
 }
