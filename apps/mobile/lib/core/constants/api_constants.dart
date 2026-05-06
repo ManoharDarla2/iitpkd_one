@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// Central location for all API endpoint paths and configuration.
 abstract final class ApiConstants {
   /// Base URL for the backend server.
-  static final String baseUrl = dotenv.env['API_BASE_URL'] ?? 'http://10.128.8.171:3000';
+  static final String baseUrl = dotenv.env['API_BASE_URL'] ?? 'http://10.128.4.192:3000';
 
   /// API version prefix.
   static const String apiVersion = '/api/v1';

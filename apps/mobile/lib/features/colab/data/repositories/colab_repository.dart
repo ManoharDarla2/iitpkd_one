@@ -5,6 +5,7 @@ import 'package:csquare_connect/core/services/hive_service.dart';
 import 'package:csquare_connect/features/colab/data/models/colab_item.dart';
 import 'package:csquare_connect/features/colab/data/models/colab_request.dart';
 import 'package:csquare_connect/features/colab/data/models/colab_type.dart';
+import 'package:flutter/material.dart';
 
 class ColabRepository {
   final ApiClientInterface _apiClient;
@@ -89,6 +90,14 @@ class ColabRepository {
       imageBytes: imageBytes,
       imageName: imageName,
     );
+    debugPrint('Create Colab Response: ${response.data}');
+    if (response.success && response.data != null) {
+      debugPrint('Created Colab ID: ${response.data!.id}');
+      debugPrint('Create Colab Message: ${response.message}');
+    }
+    if (!response.success) {
+      debugPrint('Create Colab Error: ${response.error}');
+    }
 
     if (response.isError || response.data == null) {
       throw Exception(response.error ?? 'Failed to create colab');

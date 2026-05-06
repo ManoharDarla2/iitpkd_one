@@ -8,6 +8,8 @@ import 'package:csquare_connect/features/dashboard/views/widgets/shuttle_tracker
 import 'package:csquare_connect/features/dashboard/views/widgets/todays_mess_preview_section.dart';
 import 'package:csquare_connect/features/schedule/view_models/mess_view_model.dart';
 import 'package:csquare_connect/routes/app_shell.dart';
+import 'package:csquare_connect/shared/widgets/app_logo_title.dart';
+import 'package:csquare_connect/shared/widgets/profile_avatar_action.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -31,47 +33,53 @@ class DashboardScreen extends ConsumerWidget {
       }
     });
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [cs.surface, cs.surfaceContainerLowest, cs.surface],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const AppLogoTitle(title: 'CSquare Connect'),
+        actions: const [ProfileAvatarAction()],
       ),
-      child: RefreshIndicator(
-        onRefresh: () async {
-          await Future.wait([
-            ref.read(shuttleViewModelProvider.notifier).refreshSchedules(),
-            ref.read(messViewModelProvider.notifier).refreshMenu(),
-          ]);
-        },
-        child: CustomScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          slivers: [
-            SliverPadding(
-              padding: EdgeInsets.fromLTRB(
-                16,
-                10,
-                16,
-                mainTabBottomPadding(context, extra: 6),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [cs.surface, cs.surfaceContainerLowest, cs.surface],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await Future.wait([
+              ref.read(shuttleViewModelProvider.notifier).refreshSchedules(),
+              ref.read(messViewModelProvider.notifier).refreshMenu(),
+            ]);
+          },
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              SliverPadding(
+                padding: EdgeInsets.fromLTRB(
+                  16,
+                  10,
+                  16,
+                  mainTabBottomPadding(context, extra: 6),
+                ),
+                sliver: SliverList.list(
+                  children: [
+                    _HeroPanel(
+                      nextShuttle: _nextShuttleLabel(shuttleAsync),
+                      activeMeal: _activeMealLabel(),
+                    ),
+                    const SizedBox(height: 12),
+                    const ShuttleTrackerSection(),
+                    const SizedBox(height: 12),
+                    const TodaysMessPreviewSection(),
+                    const SizedBox(height: 12),
+                    const QuickActionsSection(),
+                  ],
+                ),
               ),
-              sliver: SliverList.list(
-                children: [
-                  _HeroPanel(
-                    nextShuttle: _nextShuttleLabel(shuttleAsync),
-                    activeMeal: _activeMealLabel(),
-                  ),
-                  const SizedBox(height: 12),
-                  const ShuttleTrackerSection(),
-                  const SizedBox(height: 12),
-                  const TodaysMessPreviewSection(),
-                  const SizedBox(height: 12),
-                  const QuickActionsSection(),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

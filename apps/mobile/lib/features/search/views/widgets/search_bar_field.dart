@@ -13,6 +13,7 @@ class SearchBarField extends StatelessWidget {
     required this.onClear,
     this.onSubmitted,
     this.focusNode,
+    this.hintText,
   });
 
   final TextEditingController controller;
@@ -20,6 +21,7 @@ class SearchBarField extends StatelessWidget {
   final VoidCallback onClear;
   final ValueChanged<String>? onSubmitted;
   final FocusNode? focusNode;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class SearchBarField extends StatelessWidget {
             textInputAction: TextInputAction.search,
             style: theme.textTheme.bodyLarge,
             decoration: InputDecoration(
-              hintText: 'Search campus...',
+              hintText: hintText ?? 'Search campus...',
               hintStyle: theme.textTheme.bodyLarge?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant.withValues(
                   alpha: 0.65,

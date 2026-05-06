@@ -4,79 +4,15 @@ import 'package:csquare_connect/features/competitions/views/competitions_screen.
 import 'package:csquare_connect/features/dashboard/views/dashboard_screen.dart';
 import 'package:csquare_connect/features/faculty/views/faculty_detail_screen.dart';
 import 'package:csquare_connect/features/faculty/views/faculty_screen.dart';
+import 'package:csquare_connect/features/colab/views/colab_screen.dart';
+import 'package:csquare_connect/features/colab/views/colab_detail_screen.dart';
+import 'package:csquare_connect/features/colab/views/colab_requests_screen.dart';
+import 'package:csquare_connect/features/colab/views/create_colab_screen.dart';
 import 'package:csquare_connect/features/mess_menu/views/mess_menu_screen.dart';
 import 'package:csquare_connect/features/profile/views/profile_screen.dart';
 import 'package:csquare_connect/features/search/views/search_screen.dart';
 import 'package:csquare_connect/features/shuttle_schedule/views/shuttle_schedule_screen.dart';
 import 'package:csquare_connect/routes/app_shell.dart';
-
-/// Placeholder screen for tabs that are not yet implemented.
-class _PlaceholderScreen extends StatelessWidget {
-  const _PlaceholderScreen({required this.title, required this.icon});
-
-  final String title;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(
-          18,
-          18,
-          18,
-          mainTabBottomPadding(context, extra: 18),
-        ),
-        child: Center(
-          child: Container(
-            width: double.infinity,
-            constraints: const BoxConstraints(maxWidth: 420),
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              gradient: LinearGradient(
-                colors: [
-                  theme.colorScheme.primaryContainer.withValues(alpha: 0.52),
-                  theme.colorScheme.surfaceContainerLow,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              border: Border.all(
-                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.45),
-              ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(icon, size: 54, color: theme.colorScheme.primary),
-                const SizedBox(height: 14),
-                Text(
-                  '$title is getting a full redesign',
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'We are crafting better layouts, smarter data blocks, and smoother interactions for this tab.',
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 /// Navigation key for each shell branch.
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -126,6 +62,26 @@ final appRouter = GoRouter(
       builder: (context, state) => const ProfileScreen(),
     ),
 
+    // Colab routes — pushed full-screen over the nav shell
+    GoRoute(
+      path: '/colab/create',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const CreateColabScreen(),
+    ),
+    GoRoute(
+      path: '/colab/requests',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const ColabRequestsScreen(),
+    ),
+    GoRoute(
+      path: '/colab/:id',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return ColabDetailScreen(id: id);
+      },
+    ),
+
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return AppShell(navigationShell: navigationShell);
@@ -157,10 +113,7 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/collab',
-              builder: (context, state) => const _PlaceholderScreen(
-                title: 'Collab',
-                icon: Icons.groups_rounded,
-              ),
+              builder: (context, state) => const ColabScreen(),
             ),
           ],
         ),

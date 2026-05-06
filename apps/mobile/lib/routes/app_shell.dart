@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:csquare_connect/shared/widgets/profile_avatar_action.dart';
 
 const double _kBottomBarBaseHeight = 72;
 const double _kBottomBarBumpRise = 22;
@@ -19,31 +18,12 @@ class AppShell extends StatelessWidget {
 
   final StatefulNavigationShell navigationShell;
 
-  String _getAppBarTitle(int index) {
-    switch (index) {
-      case 0:
-        return 'CSquare Connect';
-      case 1:
-        return 'Shuttle Schedule';
-      case 2:
-        return 'Collab';
-      case 3:
-        return 'Competitions';
-      default:
-        return 'CSquare Connect';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final currentIndex = navigationShell.currentIndex;
 
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
-        actions: const [ProfileAvatarAction()],
-        title: _AppBarTitle(title: _getAppBarTitle(currentIndex)),
-      ),
       body: navigationShell,
       bottomNavigationBar: _BumpedBottomBar(
         currentIndex: currentIndex,
@@ -55,37 +35,6 @@ class AppShell extends StatelessWidget {
         },
         onCenterAction: () => context.push('/search'),
       ),
-    );
-  }
-}
-
-class _AppBarTitle extends StatelessWidget {
-  final String title;
-  const _AppBarTitle({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image.asset(
-          isDark
-              ? 'assets/images/app_icon_dark.png'
-              : 'assets/images/app_icon_light.png',
-          height: 36,
-        ),
-        const SizedBox(width: 4),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold, // Bold as requested
-            fontSize: 18, // Somewhat smaller
-            letterSpacing: 0.5,
-          ),
-        ),
-      ],
     );
   }
 }
