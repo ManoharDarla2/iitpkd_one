@@ -19,10 +19,10 @@ export const ColabCreateFormSchema = t.Object({
   startDate: t.Optional(t.String()),
   endDate: t.Optional(t.String()),
   isActive: t.Optional(t.String()),
-  image: t.File({
+  image: t.Optional(t.File({
     type: 'image',
     maxSize: '10m',
-  }),
+  })),
 });
 
 export const ColabUpdateFormSchema = t.Object({

@@ -16,12 +16,27 @@ import 'package:csquare_connect/features/colab/data/models/colab_item.dart';
 import 'package:csquare_connect/features/colab/data/models/colab_request.dart';
 import 'package:csquare_connect/features/colab/data/models/colab_type.dart';
 import 'package:http/http.dart' as http;
+import 'package:better_auth_flutter/better_auth_flutter.dart';
 
 class RealApiClient implements ApiClientInterface {
   RealApiClient({http.Client? httpClient})
     : _httpClient = httpClient ?? http.Client();
 
   final http.Client _httpClient;
+
+  Future<Map<String, String>> _authHeaders({bool isJson = true}) async {
+    final headers = <String, String>{'Accept': 'application/json'};
+    if (isJson) {
+      headers['Content-Type'] = 'application/json';
+    }
+
+    final session = BetterAuth.instance.client.session;
+    if (session != null && session.token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer ${session.token}';
+    }
+
+    return headers;
+  }
 
   Uri _uri(String path, [Map<String, String>? queryParameters]) {
     final base = Uri.parse(ApiConstants.baseUrl);
@@ -39,7 +54,7 @@ class RealApiClient implements ApiClientInterface {
   }) async {
     final response = await _httpClient.get(
       _uri(path, queryParameters),
-      headers: {'Accept': 'application/json'},
+      headers: await _authHeaders(isJson: false),
     );
 
     final body = response.body.isEmpty
@@ -305,6 +320,9 @@ class RealApiClient implements ApiClientInterface {
         _uri(ApiConstants.colabs),
       );
 
+      final authHeaders = await _authHeaders(isJson: false);
+      request.headers.addAll(authHeaders);
+
       request.fields['title'] = title;
       request.fields['description'] = description;
       request.fields['type'] = type.value;
@@ -321,16 +339,19 @@ class RealApiClient implements ApiClientInterface {
 
       final streamedResponse = await _httpClient.send(request);
       final response = await http.Response.fromStream(streamedResponse);
+
       final body = jsonDecode(response.body) as Map<String, dynamic>;
 
       if (response.statusCode >= 400) {
         throw Exception(body['message'] ?? 'Failed to create colab');
       }
 
-      return _parseEnvelope<ColabItem>(
+      final result = _parseEnvelope<ColabItem>(
         body,
         (data) => ColabItem.fromJson(data as Map<String, dynamic>),
       );
+
+      return result;
     } catch (e) {
       return ApiResponse.error(error: e.toString());
     }
@@ -355,6 +376,9 @@ class RealApiClient implements ApiClientInterface {
         'PATCH',
         _uri('${ApiConstants.colabDetail}/$id'),
       );
+
+      final authHeaders = await _authHeaders(isJson: false);
+      request.headers.addAll(authHeaders);
 
       if (title != null) request.fields['title'] = title;
       if (description != null) request.fields['description'] = description;
@@ -392,7 +416,7 @@ class RealApiClient implements ApiClientInterface {
     try {
       final response = await _httpClient.delete(
         _uri('${ApiConstants.colabDetail}/$id'),
-        headers: {'Accept': 'application/json'},
+        headers: await _authHeaders(isJson: false),
       );
 
       final body = jsonDecode(response.body) as Map<String, dynamic>;
@@ -420,7 +444,7 @@ class RealApiClient implements ApiClientInterface {
 
       final response = await _httpClient.post(
         _uri(ApiConstants.colabJoinRequest),
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: await _authHeaders(),
         body: jsonEncode(body),
       );
 
@@ -456,7 +480,7 @@ class RealApiClient implements ApiClientInterface {
 
       final response = await _httpClient.post(
         _uri(ApiConstants.colabInviteRequest),
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: await _authHeaders(),
         body: jsonEncode(body),
       );
 
@@ -494,7 +518,7 @@ class RealApiClient implements ApiClientInterface {
       final body = {'requestId': requestId};
       final response = await _httpClient.post(
         _uri(ApiConstants.colabAcceptRequest),
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: await _authHeaders(),
         body: jsonEncode(body),
       );
 
@@ -519,7 +543,7 @@ class RealApiClient implements ApiClientInterface {
       final body = {'requestId': requestId};
       final response = await _httpClient.post(
         _uri(ApiConstants.colabRejectRequest),
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: await _authHeaders(),
         body: jsonEncode(body),
       );
 
