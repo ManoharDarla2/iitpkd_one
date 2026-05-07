@@ -1,4 +1,4 @@
-import { and, eq, ilike, or } from 'drizzle-orm';
+import { and, eq, like, or } from 'drizzle-orm';
 
 import { tursoDb as db } from '../../db';
 import { equipmentTable, facultyTable, messTable, shuttleTable } from '../../db/turso/schema';
@@ -77,11 +77,11 @@ export class SearchService {
         .from(equipmentTable)
         .where(
           or(
-            ilike(equipmentTable.name, `%${filters.q}%`),
-            ilike(equipmentTable.make, `%${filters.q}%`),
-            ilike(equipmentTable.model, `%${filters.q}%`),
-            ilike(equipmentTable.type, `%${filters.q}%`),
-            ilike(equipmentTable.description, `%${filters.q}%`),
+            like(equipmentTable.name, `%${filters.q}%`),
+            like(equipmentTable.make, `%${filters.q}%`),
+            like(equipmentTable.model, `%${filters.q}%`),
+            like(equipmentTable.type, `%${filters.q}%`),
+            like(equipmentTable.description, `%${filters.q}%`),
           ),
         )
         .limit(filters.limit * 3);
@@ -123,10 +123,10 @@ export class SearchService {
         .from(facultyTable)
         .where(
           or(
-            ilike(facultyTable.name, `%${filters.q}%`),
-            ilike(facultyTable.department, `%${filters.q}%`),
-            ilike(facultyTable.designation, `%${filters.q}%`),
-            ilike(facultyTable.biosketch, `%${filters.q}%`),
+            like(facultyTable.name, `%${filters.q}%`),
+            like(facultyTable.department, `%${filters.q}%`),
+            like(facultyTable.designation, `%${filters.q}%`),
+            like(facultyTable.biosketch, `%${filters.q}%`),
           ),
         )
         .limit(filters.limit * 3);
@@ -171,11 +171,11 @@ export class SearchService {
         .from(shuttleTable)
         .where(and(
           or(
-            ilike(shuttleTable.from, `%${filters.q}%`),
-            ilike(shuttleTable.to, `%${filters.q}%`),
-            ilike(shuttleTable.time, `%${filters.q}%`),
+            like(shuttleTable.from, `%${filters.q}%`),
+            like(shuttleTable.to, `%${filters.q}%`),
+            like(shuttleTable.time, `%${filters.q}%`),
           ),
-          ...(matchedDay ? [ilike(shuttleTable.days, `%${matchedDay}%`)] : []),
+          ...(matchedDay ? [like(shuttleTable.days, `%${matchedDay}%`)] : []),
         ))
         .limit(filters.limit * 2);
 
@@ -212,8 +212,8 @@ export class SearchService {
         .from(messTable)
         .where(and(
           or(
-            ilike(messTable.day, `%${filters.q}%`),
-            ilike(messTable.weekType, `%${filters.q}%`),
+            like(messTable.day, `%${filters.q}%`),
+            like(messTable.weekType, `%${filters.q}%`),
           ),
           ...(weekType ? [eq(messTable.weekType, weekType)] : []),
         ))
@@ -267,14 +267,14 @@ export class SearchService {
           term: equipmentTable.name,
         })
         .from(equipmentTable)
-        .where(ilike(equipmentTable.name, `${query}%`))
+        .where(like(equipmentTable.name, `${query}%`))
         .limit(limit),
       db
         .select({
           term: facultyTable.name,
         })
         .from(facultyTable)
-        .where(ilike(facultyTable.name, `${query}%`))
+        .where(like(facultyTable.name, `${query}%`))
         .limit(limit),
       db
         .select({
@@ -282,7 +282,7 @@ export class SearchService {
           to: shuttleTable.to,
         })
         .from(shuttleTable)
-        .where(or(ilike(shuttleTable.from, `${query}%`), ilike(shuttleTable.to, `${query}%`)))
+        .where(or(like(shuttleTable.from, `${query}%`), like(shuttleTable.to, `${query}%`)))
         .limit(limit),
     ]);
 
