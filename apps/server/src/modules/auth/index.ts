@@ -6,7 +6,10 @@ export const authController = new Elysia({
   name: "auth",
   prefix: "/auth",
   tags: ["Auth"],
-}).all("/*", ({ request }) => authService.handler(request))
+}).all("/*", async ({ request }) => {
+    const response = await authService.handler(request);
+    return response;
+})
   .macro({
         auth: {
             async resolve({ status, request: { headers } }) {
