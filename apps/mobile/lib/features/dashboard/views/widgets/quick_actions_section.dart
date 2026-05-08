@@ -10,14 +10,8 @@ class QuickActionsSection extends StatelessWidget {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
-      decoration: BoxDecoration(
-        color: cs.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.55)),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -124,8 +118,7 @@ class _MapActionTile extends StatelessWidget {
         child: Ink(
           height: 110,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.5)),
+            borderRadius: BorderRadius.circular(20),
             image: const DecorationImage(
               image: AssetImage('assets/images/map_bg.png'),
               fit: BoxFit.cover,
@@ -230,13 +223,8 @@ class _ActionTile extends StatelessWidget {
         child: Ink(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            // gradient: LinearGradient(
-            //   colors: [cs.surfaceContainerLow, cs.surface],
-            //   begin: Alignment.topLeft,
-            //   end: Alignment.bottomRight,
-            // ),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.5)),
+            color: cs.surfaceContainerLowest,
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

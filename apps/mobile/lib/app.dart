@@ -16,7 +16,7 @@ class App extends ConsumerWidget {
       title: 'CSquare Connect',
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       theme: AppTheme.light,
     );
   }

@@ -4,8 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:csquare_connect/features/dashboard/data/models/shuttle_schedule.dart';
 import 'package:csquare_connect/features/dashboard/view_models/shuttle_view_model.dart';
 import 'package:csquare_connect/features/dashboard/views/widgets/quick_actions_section.dart';
-import 'package:csquare_connect/features/dashboard/views/widgets/shuttle_tracker_section.dart';
-import 'package:csquare_connect/features/dashboard/views/widgets/todays_mess_preview_section.dart';
+import 'package:csquare_connect/features/dashboard/views/widgets/live_updates_section.dart';
 import 'package:csquare_connect/features/schedule/view_models/mess_view_model.dart';
 import 'package:csquare_connect/routes/app_shell.dart';
 import 'package:csquare_connect/shared/widgets/app_logo_title.dart';
@@ -69,11 +68,9 @@ class DashboardScreen extends ConsumerWidget {
                       nextShuttle: _nextShuttleLabel(shuttleAsync),
                       activeMeal: _activeMealLabel(),
                     ),
-                    const SizedBox(height: 12),
-                    const ShuttleTrackerSection(),
-                    const SizedBox(height: 12),
-                    const TodaysMessPreviewSection(),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 24),
+                    const LiveUpdatesSection(),
+                    const SizedBox(height: 24),
                     const QuickActionsSection(),
                   ],
                 ),
