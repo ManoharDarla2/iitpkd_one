@@ -10,65 +10,152 @@ class QuickActionsSection extends StatelessWidget {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            _SectionIcon(icon: Icons.grid_view_rounded),
+            const SizedBox(width: 8),
+            Text(
+              'Quick Actions',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 14),
+        GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 1.25,
+          primary: false,
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            _ActionTile(
+              icon: Icons.school_rounded,
+              title: 'Faculty',
+              subtitle: 'Directory & contacts',
+              onTap: '/faculty',
+            ),
+            _ActionTile(
+              icon: Icons.calendar_month_rounded,
+              title: 'Shuttle',
+              subtitle: 'Routes & timings',
+              onTap: '/schedules/shuttle',
+            ),
+            _ActionTile(
+              icon: Icons.groups_rounded,
+              title: 'Collab',
+              subtitle: 'Team updates',
+              onTap: '/collab',
+            ),
+            _ActionTile(
+              icon: Icons.emoji_events_rounded,
+              title: 'Competitions',
+              subtitle: 'Open opportunities',
+              onTap: '/competitions',
+            ),
+          ],
+        ),
+        const SizedBox(height: 14),
+        const _MapActionTile(),
+      ],
+    );
+  }
+}
+
+class _SectionIcon extends StatelessWidget {
+  const _SectionIcon({required this.icon});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      width: 30,
+      height: 30,
+      decoration: BoxDecoration(
+        color: cs.primaryContainer,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Icon(icon, color: cs.onPrimaryContainer, size: 18),
+    );
+  }
+}
+
+class _ActionTile extends StatelessWidget {
+  const _ActionTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final String onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final cs = theme.colorScheme;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () => context.push(onTap),
+        child: Ink(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: cs.surfaceContainerLowest,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: cs.outlineVariant.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _HeaderIcon(icon: Icons.grid_view_rounded),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Quick Actions',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: cs.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, size: 20, color: cs.primary),
+              ),
+              const Spacer(),
+              Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                subtitle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: cs.onSurfaceVariant,
+                  height: 1.3,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          GridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 1.4,
-            primary: false,
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              _ActionTile(
-                icon: Icons.school_rounded,
-                title: 'Faculty',
-                subtitle: 'Directory and contacts',
-                onTap: () => context.push('/faculty'),
-              ),
-              _ActionTile(
-                icon: Icons.calendar_month_rounded,
-                title: 'Shuttle',
-                subtitle: 'Route and timings',
-                onTap: () => context.go('/schedules/shuttle'),
-              ),
-              _ActionTile(
-                icon: Icons.groups_rounded,
-                title: 'Collab',
-                subtitle: 'Team updates',
-                onTap: () => context.go('/collab'),
-              ),
-              _ActionTile(
-                icon: Icons.emoji_events_rounded,
-                title: 'Competitions',
-                subtitle: 'Open opportunities',
-                onTap: () => context.go('/competitions'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          const _MapActionTile(),
-        ],
+        ),
       ),
     );
   }
@@ -87,9 +174,7 @@ class _MapActionTile extends StatelessWidget {
       mode: LaunchMode.externalApplication,
     );
 
-    if (openedExternally) {
-      return;
-    }
+    if (openedExternally) return;
 
     final openedInApp = await launchUrl(
       _campusMapUri,
@@ -113,175 +198,77 @@ class _MapActionTile extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         onTap: () => _openCampusMap(context),
         child: Ink(
-          height: 110,
+          height: 90,
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                cs.tertiary.withValues(alpha: 0.15),
+                cs.primary.withValues(alpha: 0.1),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             borderRadius: BorderRadius.circular(20),
-            image: const DecorationImage(
-              image: AssetImage('assets/images/map_bg.png'),
-              fit: BoxFit.cover,
+            border: Border.all(
+              color: cs.outlineVariant.withValues(alpha: 0.3),
+              width: 1,
             ),
           ),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black.withValues(alpha: 0.08),
-                  Colors.black.withValues(alpha: 0.58),
-                ],
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Row(
-                children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      color: cs.primaryContainer.withValues(alpha: 0.9),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(
-                      Icons.map_rounded,
-                      size: 20,
-                      color: cs.onPrimaryContainer,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Interactive Campus Map',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.titleSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Open in your browser',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: Colors.white.withValues(alpha: 0.92),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Icon(
-                    Icons.open_in_new_rounded,
-                    size: 20,
-                    color: Colors.white.withValues(alpha: 0.95),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ActionTile extends StatelessWidget {
-  const _ActionTile({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final cs = theme.colorScheme;
-
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Ink(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: cs.surfaceContainerLowest,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
               Container(
-                width: 32,
-                height: 32,
+                width: 42,
+                height: 42,
                 decoration: BoxDecoration(
                   color: cs.primaryContainer,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(icon, size: 18, color: cs.onPrimaryContainer),
-              ),
-              const Spacer(),
-              Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
+                child: Icon(
+                  Icons.map_rounded,
+                  size: 22,
+                  color: cs.onPrimaryContainer,
                 ),
               ),
-              const SizedBox(height: 2),
-              Text(
-                subtitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: cs.onSurfaceVariant,
-                  height: 1.25,
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Interactive Campus Map',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        color: cs.onSurface,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Navigate campus buildings & routes',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: cs.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                size: 22,
+                color: cs.onSurfaceVariant,
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class _HeaderIcon extends StatelessWidget {
-  const _HeaderIcon({required this.icon});
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-
-    return Container(
-      width: 30,
-      height: 30,
-      decoration: BoxDecoration(
-        color: cs.primaryContainer,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Icon(icon, color: cs.onPrimaryContainer, size: 18),
     );
   }
 }
