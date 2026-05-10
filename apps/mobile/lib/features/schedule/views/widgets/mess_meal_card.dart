@@ -18,28 +18,28 @@ class MessMealCard extends StatelessWidget {
         subtitle: '7:30 – 9:00 AM',
         icon: Icons.wb_sunny_rounded,
         items: mealDay.meals.breakfast,
-        gradientIndex: 0,
+        colorIndex: 0,
       ),
       _MealData(
         title: 'Lunch',
         subtitle: '12:00 – 2:00 PM',
         icon: Icons.light_mode_rounded,
         items: mealDay.meals.lunch,
-        gradientIndex: 1,
+        colorIndex: 1,
       ),
       _MealData(
         title: 'Snacks',
         subtitle: '4:30 – 5:30 PM',
         icon: Icons.coffee_rounded,
         items: mealDay.meals.snacks,
-        gradientIndex: 2,
+        colorIndex: 2,
       ),
       _MealData(
         title: 'Dinner',
         subtitle: '7:30 – 9:00 PM',
         icon: Icons.dark_mode_rounded,
         items: mealDay.meals.dinner,
-        gradientIndex: 3,
+        colorIndex: 3,
       ),
     ];
 
@@ -65,14 +65,14 @@ class _MealData {
   final String subtitle;
   final IconData icon;
   final List<String> items;
-  final int gradientIndex;
+  final int colorIndex;
 
   const _MealData({
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.items,
-    required this.gradientIndex,
+    required this.colorIndex,
   });
 }
 
@@ -99,7 +99,7 @@ class _MealTimelineNode extends StatelessWidget {
       theme.colorScheme.tertiary, // Snacks - purple-ish
       theme.colorScheme.primaryContainer, // Dinner - deep teal
     ];
-    final accentColor = mealColors[meal.gradientIndex];
+    final accentColor = mealColors[meal.colorIndex];
 
     return IntrinsicHeight(
       child: Row(

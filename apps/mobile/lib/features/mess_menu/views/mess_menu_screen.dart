@@ -49,17 +49,10 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
                 margin: const EdgeInsets.fromLTRB(16, 12, 16, 10),
                 padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                  gradient: LinearGradient(
-                    colors: [
-                      cs.secondaryContainer.withValues(alpha: 0.72),
-                      cs.surfaceContainerLow,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  color: theme.colorScheme.surfaceContainerLow,
                   border: Border.all(
-                    color: cs.outlineVariant.withValues(alpha: 0.45),
+                    color: cs.outlineVariant.withValues(alpha: 0.5),
                   ),
                 ),
                 child: Column(
@@ -68,8 +61,8 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
                     Text(
                       'Plan meals for $selectedDateLabel',
                       style: theme.textTheme.labelLarge?.copyWith(
-                        color: cs.onSecondaryContainer,
-                        fontWeight: FontWeight.w700,
+                        color: cs.onSurface,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 10),

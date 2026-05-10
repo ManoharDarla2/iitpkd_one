@@ -22,18 +22,17 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
     final cs = theme.colorScheme;
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         side: BorderSide(
           color: schedule.isOutsideTrip
-              ? cs.secondary.withValues(alpha: 0.35)
-              : cs.outlineVariant.withValues(alpha: 0.5),
-          width: schedule.isOutsideTrip ? 1 : 0.5,
+              ? cs.secondary.withValues(alpha: 0.3)
+              : cs.outlineVariant.withValues(alpha: 0.3),
+          width: 1,
         ),
       ),
-      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: schedule.via.isNotEmpty
             ? () => setState(() => _isExpanded = !_isExpanded)
@@ -46,7 +45,7 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
             children: [
               // Collapsed content
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
+                padding: const EdgeInsets.fromLTRB(14, 12, 10, 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -55,13 +54,13 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
                       children: [
                         _TimeChip(time: schedule.time),
                         if (schedule.isOutsideTrip) ...[
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 6),
                           const _OutsideBadge(),
                         ],
                         const Spacer(),
                         SizedBox(
-                          width: 32,
-                          height: 32,
+                          width: 28,
+                          height: 28,
                           child: IconButton(
                             onPressed: () {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -75,7 +74,7 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
                             },
                             icon: Icon(
                               Icons.notifications_none_rounded,
-                              size: 18,
+                              size: 16,
                               color: cs.onSurfaceVariant,
                             ),
                             padding: EdgeInsets.zero,
@@ -94,35 +93,35 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
                           ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 8),
                     // Row 2: Route summary
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 8,
+                        horizontal: 8,
+                        vertical: 6,
                       ),
                       decoration: BoxDecoration(
                         color: cs.surfaceContainerHighest.withValues(
-                          alpha: 0.22,
+                          alpha: 0.18,
                         ),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
                         children: [
                           Icon(
                             Icons.alt_route_rounded,
-                            size: 16,
+                            size: 14,
                             color: cs.onSurfaceVariant,
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 6),
                           Expanded(
                             child: Row(
                               children: [
                                 Flexible(
                                   child: Text(
                                     schedule.from,
-                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                    style: theme.textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                                     overflow: TextOverflow.ellipsis,
@@ -130,18 +129,18 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 6,
+                                    horizontal: 4,
                                   ),
                                   child: Icon(
                                     Icons.arrow_forward_rounded,
-                                    size: 14,
+                                    size: 12,
                                     color: cs.onSurfaceVariant,
                                   ),
                                 ),
                                 Flexible(
                                   child: Text(
                                     schedule.to,
-                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                    style: theme.textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                                     overflow: TextOverflow.ellipsis,
@@ -157,9 +156,11 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
                 ),
               ),
 
-              // Expanded stop flow
-              if (_isExpanded && schedule.via.isNotEmpty)
-                _RouteStopsFlow(schedule: schedule),
+                // Expanded stop flow
+                if (_isExpanded && schedule.via.isNotEmpty) ...[
+                  const SizedBox(height: 4),
+                  _RouteStopsFlow(schedule: schedule),
+                ],
             ],
           ),
         ),
@@ -192,29 +193,29 @@ class _TimeChip extends StatelessWidget {
             children: [
               TextSpan(
                 text: displayTime,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
                   color: cs.onSurface,
-                  letterSpacing: 0.2,
                 ),
               ),
-              TextSpan(
-                text: ' $period',
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  color: period == 'PM'
-                      ? cs.primary
-                      : cs.tertiary,
+              if (period.isNotEmpty)
+                TextSpan(
+                  text: ' $period',
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: period == 'PM'
+                        ? cs.primary
+                        : cs.tertiary,
+                  ),
                 ),
-              ),
             ],
           ),
         ),
         Text(
-          'Departure time',
+          'Departure',
           style: theme.textTheme.labelSmall?.copyWith(
             color: cs.onSurfaceVariant,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
@@ -231,21 +232,26 @@ class _OutsideBadge extends StatelessWidget {
     final cs = theme.colorScheme;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
       decoration: BoxDecoration(
-        color: cs.secondaryContainer.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(8),
+        color: cs.secondaryContainer.withValues(alpha: 0.25),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(
+          color: cs.secondary.withValues(alpha: 0.3),
+          width: 0.5,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.open_in_new_rounded, size: 11, color: cs.secondary),
-          const SizedBox(width: 4),
+          Icon(Icons.open_in_new_rounded, size: 10, color: cs.secondary),
+          const SizedBox(width: 3),
           Text(
             'Outside',
             style: theme.textTheme.labelSmall?.copyWith(
               color: cs.secondary,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
+              fontSize: 10,
             ),
           ),
         ],
@@ -267,30 +273,30 @@ class _RouteStopsFlow extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+      padding: const EdgeInsets.fromLTRB(14, 0, 14, 12),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
-          color: cs.surfaceContainerHighest.withValues(alpha: 0.28),
-          borderRadius: BorderRadius.circular(12),
+          color: cs.surfaceContainerHighest.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Icon(Icons.route_rounded, size: 15, color: cs.onSurfaceVariant),
+                Icon(Icons.route_rounded, size: 14, color: cs.onSurfaceVariant),
                 const SizedBox(width: 6),
                 Text(
                   'Route stops',
-                  style: theme.textTheme.labelMedium?.copyWith(
+                  style: theme.textTheme.labelSmall?.copyWith(
                     color: cs.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
             for (int i = 0; i < stops.length; i++) ...[
               _FlowStopRow(
                 name: stops[i],
@@ -325,21 +331,16 @@ class _FlowStopRow extends StatelessWidget {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     final isEndpoint = isFirst || isLast;
-    final rowColor = isFirst
-        ? cs.secondaryContainer.withValues(alpha: 0.24)
-        : isLast
-        ? cs.primaryContainer.withValues(alpha: 0.24)
-        : cs.surface.withValues(alpha: 0.65);
     final dotColor = isFirst
         ? cs.secondary
         : isLast
         ? cs.primary
         : cs.onSurfaceVariant.withValues(alpha: 0.55);
     final labelText = isFirst
-        ? 'Starting stop'
+        ? 'Start'
         : isLast
-        ? 'Destination stop'
-        : 'Via stop';
+        ? 'End'
+        : 'Via';
     final labelColor = isFirst
         ? cs.secondary
         : isLast
@@ -350,67 +351,53 @@ class _FlowStopRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 16,
+          width: 14,
           child: Padding(
-            padding: const EdgeInsets.only(top: 12),
+            padding: const EdgeInsets.only(top: 10),
             child: Center(
               child: Container(
-                width: isEndpoint ? 9 : 7,
-                height: isEndpoint ? 9 : 7,
+                width: isEndpoint ? 8 : 6,
+                height: isEndpoint ? 8 : 6,
                 decoration: BoxDecoration(
                   color: isEndpoint ? dotColor : cs.surface,
-                  border: Border.all(color: dotColor, width: 1.2),
+                  border: Border.all(color: dotColor, width: 1),
                   shape: BoxShape.circle,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 6),
         Expanded(
           child: Container(
-            margin: const EdgeInsets.only(bottom: 4),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            margin: const EdgeInsets.only(bottom: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
-              color: rowColor,
-              borderRadius: BorderRadius.circular(10),
+              color: cs.surface,
+              borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: isEndpoint
-                    ? labelColor.withValues(alpha: 0.28)
-                    : cs.outlineVariant.withValues(alpha: 0.45),
+                color: cs.outlineVariant.withValues(alpha: 0.4),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  name,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: isEndpoint ? FontWeight.w700 : FontWeight.w500,
-                    color: cs.onSurface,
+                Expanded(
+                  child: Text(
+                    name,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontWeight: isEndpoint ? FontWeight.w600 : FontWeight.w400,
+                      color: cs.onSurface,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 2),
-                Row(
-                  children: [
-                    Text(
-                      labelText,
-                      style: theme.textTheme.labelSmall?.copyWith(
-                        color: labelColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    if (isOutsideTrip && isLast) ...[
-                      const SizedBox(width: 8),
-                      Text(
-                        'Outside route',
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          color: cs.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ],
+                const SizedBox(width: 6),
+                Text(
+                  labelText,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: labelColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 10,
+                  ),
                 ),
               ],
             ),
@@ -428,14 +415,11 @@ class _FlowConnector extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Padding(
-      padding: const EdgeInsets.only(left: 7),
+      padding: const EdgeInsets.only(left: 6),
       child: Container(
         width: 1,
-        height: 14,
-        decoration: BoxDecoration(
-          color: cs.outlineVariant.withValues(alpha: 0.75),
-          borderRadius: BorderRadius.circular(1),
-        ),
+        height: 10,
+        color: cs.outlineVariant.withValues(alpha: 0.6),
       ),
     );
   }

@@ -19,6 +19,10 @@ class ShuttleScheduleScreen extends ConsumerStatefulWidget {
 class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
   DateTime _selectedDate = DateTime.now();
 
+  bool _isSameDay(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
+  }
+
   @override
   Widget build(BuildContext context) {
     final shuttleAsync = ref.watch(scheduleShuttleViewModelProvider);
@@ -42,17 +46,10 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
                 margin: const EdgeInsets.fromLTRB(16, 12, 16, 10),
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                  gradient: LinearGradient(
-                    colors: [
-                      cs.primaryContainer.withValues(alpha: 0.7),
-                      cs.surfaceContainerLow,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  color: theme.colorScheme.surfaceContainerLow,
                   border: Border.all(
-                    color: cs.outlineVariant.withValues(alpha: 0.45),
+                    color: cs.outlineVariant.withValues(alpha: 0.5),
                   ),
                 ),
                 child: Column(
@@ -61,8 +58,8 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
                     Text(
                       'Choose your travel day',
                       style: theme.textTheme.labelLarge?.copyWith(
-                        color: cs.onPrimaryContainer,
-                        fontWeight: FontWeight.w700,
+                        color: cs.onSurface,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -89,12 +86,22 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
             ),
             shuttleAsync.when(
               data: (schedules) {
-                if (schedules.isEmpty) {
+                final today = DateTime.now();
+                final isToday = _isSameDay(_selectedDate, today);
+
+                // Filter out past shuttles if viewing today
+                final filteredSchedules = isToday
+                    ? schedules.where((s) => s.isUpcoming).toList()
+                    : [...schedules];
+
+                if (filteredSchedules.isEmpty) {
                   return SliverFillRemaining(
                     hasScrollBody: false,
                     child: Center(
                       child: Text(
-                        'No shuttles scheduled for this day.',
+                        isToday
+                            ? 'No upcoming shuttles for today.'
+                            : 'No shuttles scheduled for this day.',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: cs.onSurfaceVariant,
                         ),
@@ -102,7 +109,7 @@ class _ShuttleScheduleScreenState extends ConsumerState<ShuttleScheduleScreen> {
                     ),
                   );
                 }
-                final sorted = [...schedules]
+                final sorted = filteredSchedules
                   ..sort((a, b) => a.todayDateTime.compareTo(b.todayDateTime));
                 return SliverList.builder(
                   itemCount: sorted.length + 1,
