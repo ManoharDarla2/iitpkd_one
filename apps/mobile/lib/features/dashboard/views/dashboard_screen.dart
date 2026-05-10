@@ -14,9 +14,6 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final cs = theme.colorScheme;
-
     ref.listen(shuttleViewModelProvider, (previous, next) {
       if (next.hasError && previous?.hasError != true) {
         _showErrorSnackbar(context, 'Failed to load shuttle schedules');
@@ -34,43 +31,34 @@ class DashboardScreen extends ConsumerWidget {
         title: const AppLogoTitle(title: 'CSquare Connect'),
         actions: const [ProfileAvatarAction()],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [cs.surface, cs.surfaceContainerLowest, cs.surface],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: RefreshIndicator(
-          onRefresh: () async {
-            await Future.wait([
-              ref.read(shuttleViewModelProvider.notifier).refreshSchedules(),
-              ref.read(messViewModelProvider.notifier).refreshMenu(),
-            ]);
-          },
-          child: CustomScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              SliverPadding(
-                padding: EdgeInsets.fromLTRB(
-                  16,
-                  10,
-                  16,
-                  mainTabBottomPadding(context, extra: 6),
-                ),
-                sliver: SliverList.list(
-                  children: [
-                    _GreetingHeader(),
-                    const SizedBox(height: 16),
-                    const LiveUpdatesSection(),
-                    const SizedBox(height: 24),
-                    const QuickActionsSection(),
-                  ],
-                ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.wait([
+            ref.read(shuttleViewModelProvider.notifier).refreshSchedules(),
+            ref.read(messViewModelProvider.notifier).refreshMenu(),
+          ]);
+        },
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverPadding(
+              padding: EdgeInsets.fromLTRB(
+                16,
+                10,
+                16,
+                mainTabBottomPadding(context, extra: 6),
               ),
-            ],
-          ),
+              sliver: SliverList.list(
+                children: [
+                  _GreetingHeader(),
+                  const SizedBox(height: 16),
+                  const LiveUpdatesSection(),
+                  const SizedBox(height: 24),
+                  const QuickActionsSection(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -89,13 +77,14 @@ class _GreetingHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final cs = theme.colorScheme;
     final hour = DateTime.now().hour;
     final greeting = hour < 12
         ? 'Good morning'
         : hour < 17
         ? 'Good afternoon'
         : 'Good evening';
+
+    final cs = theme.colorScheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

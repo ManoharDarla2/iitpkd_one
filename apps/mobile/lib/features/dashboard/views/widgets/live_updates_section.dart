@@ -79,13 +79,23 @@ class _ShuttleSection extends ConsumerWidget {
               );
             }
 
+            // Check if next shuttle is >= 1hr 10min (70 min) away
+            final nextBusMinutes = upcoming.first.minutesUntilDeparture;
+            if (nextBusMinutes >= 70) {
+              return _EmptyCard(
+                message: 'Next shuttle is more than an hour away.',
+                actionLabel: 'View Full Schedule',
+                onTap: () => context.go('/schedules/shuttle'),
+              );
+            }
+
             return SizedBox(
               height: 150,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 clipBehavior: Clip.none,
                 itemCount: upcoming.length > 3 ? 3 : upcoming.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 14),
+                separatorBuilder: (_, _) => const SizedBox(width: 14),
                 itemBuilder: (context, index) {
                   return _ShuttleCard(
                     bus: upcoming[index],
