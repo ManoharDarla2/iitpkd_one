@@ -383,26 +383,6 @@ class _CurrentMealCard extends StatelessWidget {
   }
 }
 
-class _SectionIcon extends StatelessWidget {
-  const _SectionIcon({required this.icon});
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return Container(
-      width: 30,
-      height: 30,
-      decoration: BoxDecoration(
-        color: cs.primaryContainer,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Icon(icon, color: cs.onPrimaryContainer, size: 18),
-    );
-  }
-}
-
 class _LoadingCard extends StatelessWidget {
   const _LoadingCard({required this.message});
   final String message;

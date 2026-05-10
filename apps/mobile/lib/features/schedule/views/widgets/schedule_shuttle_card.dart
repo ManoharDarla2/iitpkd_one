@@ -171,19 +171,17 @@ class _ScheduleShuttleCardState extends State<ScheduleShuttleCard> {
 class _TimeChip extends StatelessWidget {
   const _TimeChip({required this.time});
 
-  final String time;
+  final String time; // Example: "12:00 PM"
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
-    final parts = time.split(':');
-    final hour = int.parse(parts[0]);
-    final minute = parts[1];
-    final period = hour >= 12 ? 'PM' : 'AM';
-    final displayHour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
-    final formatted = '${displayHour.toString().padLeft(2, '0')}:$minute';
+    // Extract time and period
+    final parts = time.trim().split(' ');
+    final displayTime = parts[0];
+    final period = parts.length > 1 ? parts[1] : '';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,7 +191,7 @@ class _TimeChip extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: formatted,
+                text: displayTime,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                   color: cs.onSurface,
@@ -203,8 +201,10 @@ class _TimeChip extends StatelessWidget {
               TextSpan(
                 text: ' $period',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: cs.onSurface.withValues(alpha: 0.8),
+                  fontWeight: FontWeight.w800,
+                  color: period == 'PM'
+                      ? cs.primary
+                      : cs.tertiary,
                 ),
               ),
             ],
