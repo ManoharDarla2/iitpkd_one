@@ -59,6 +59,9 @@ class ShuttleSchedule {
 
   /// Parses the [time] string ("HH:mm") into a [DateTime] for today.
   /// Also supports 12-hour values like "09:00 PM".
+  ///
+  /// Late night buses (12 AM - 6 AM) are treated as today's buses
+  /// (they depart early morning the next day, but belong to today's schedule).
   DateTime get todayDateTime {
     final parsed = _parseHourMinute(time);
     final now = DateTime.now();
@@ -67,11 +70,28 @@ class ShuttleSchedule {
       return DateTime(now.year, now.month, now.day);
     }
 
-    return DateTime(now.year, now.month, now.day, parsed.$1, parsed.$2);
+    var hour = parsed.$1;
+    var dayOffset = 0;
+
+    // Treat 12 AM - 6 AM as today's late night buses
+    if (hour < 6) {
+      dayOffset = 1;
+    }
+
+    return DateTime(
+      now.year,
+      now.month,
+      now.day + dayOffset,
+      hour,
+      parsed.$2,
+    );
   }
 
   /// Calculates the number of minutes until this shuttle departs.
   /// Returns negative values if the departure time has already passed.
+  ///
+  /// For late night buses (12 AM - 6 AM), this compares against the
+  /// adjusted todayDateTime which places them on the next calendar day.
   int get minutesUntilDeparture {
     if (_parseHourMinute(time) == null) {
       return -1;
@@ -80,7 +100,9 @@ class ShuttleSchedule {
     return todayDateTime.difference(DateTime.now()).inMinutes;
   }
 
-  /// Whether this shuttle hasn't departed yet today.
+  /// Whether this shuttle hasn't departed yet.
+  /// For late night buses (12 AM - 6 AM), they belong to today's schedule
+  /// but depart early next morning.
   bool get isUpcoming => minutesUntilDeparture > 0;
 
   (int, int)? _parseHourMinute(String input) {

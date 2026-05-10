@@ -65,6 +65,7 @@ class _ShuttleSection extends ConsumerWidget {
 
         shuttleAsync.when(
           data: (schedules) {
+            // Get all upcoming shuttles (model now handles 12 AM as today's last bus)
             final upcoming =
                 schedules
                     .where((item) => item.isUpcoming && !item.isOutsideTrip)
