@@ -17,6 +17,27 @@ import 'package:csquare_connect/features/colab/data/models/colab_request.dart';
 import 'package:csquare_connect/features/colab/data/models/colab_type.dart';
 import 'package:http/http.dart' as http;
 import 'package:better_auth_flutter/better_auth_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const _kBearerTokenKey = 'bearer_token';
+
+/// Stores the bearer token persistently so it survives app restarts.
+/// This avoids depending on [better_auth_flutter]'s cookie jar which has
+/// known issues (cookie splitting on commas in expiry dates).
+Future<void> saveBearerToken(String token) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString(_kBearerTokenKey, token);
+}
+
+Future<String?> getBearerToken() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString(_kBearerTokenKey);
+}
+
+Future<void> clearBearerToken() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove(_kBearerTokenKey);
+}
 
 class RealApiClient implements ApiClientInterface {
   RealApiClient({http.Client? httpClient})
@@ -30,9 +51,17 @@ class RealApiClient implements ApiClientInterface {
       headers['Content-Type'] = 'application/json';
     }
 
+    String? token;
+
     final session = BetterAuth.instance.client.session;
     if (session != null && session.token.isNotEmpty) {
-      headers['Authorization'] = 'Bearer ${session.token}';
+      token = session.token;
+    } else {
+      token = await getBearerToken();
+    }
+
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
     }
 
     return headers;
@@ -52,10 +81,14 @@ class RealApiClient implements ApiClientInterface {
     String path, {
     Map<String, String>? queryParameters,
   }) async {
+    print('[CSquare] GET ${_uri(path, queryParameters)}');
+    print('[CSquare] Headers: ${await _authHeaders(isJson: false)}');
     final response = await _httpClient.get(
       _uri(path, queryParameters),
       headers: await _authHeaders(isJson: false),
     );
+    print('[CSquare] Response status: ${response.statusCode}');
+    print('[CSquare] Response body: ${response.body}');
 
     final body = response.body.isEmpty
         ? <String, dynamic>{}
@@ -315,10 +348,14 @@ class RealApiClient implements ApiClientInterface {
     String? imageName,
   }) async {
     try {
+      print('[CSquare] Creating colab with title: $title, type: ${type.value}');
+      print('[CSquare] Requirements: $requirements, maxMembers: $maxMembers, startDate: $startDate, endDate: $endDate, isActive: $isActive');
+      print('[CSquare] Image bytes length: ${imageBytes?.length}, imageName: $imageName');
       final request = http.MultipartRequest(
         'POST',
         _uri(ApiConstants.colabs),
       );
+      print('[CSquare] Multipart request created for ${_uri(ApiConstants.colabs)}');
 
       final authHeaders = await _authHeaders(isJson: false);
       request.headers.addAll(authHeaders);
@@ -339,6 +376,9 @@ class RealApiClient implements ApiClientInterface {
 
       final streamedResponse = await _httpClient.send(request);
       final response = await http.Response.fromStream(streamedResponse);
+
+      print('[CSquare] Create colab response status: ${response.statusCode}');
+      print('[CSquare] Create colab response body: ${response.body}');
 
       final body = jsonDecode(response.body) as Map<String, dynamic>;
 
@@ -372,6 +412,9 @@ class RealApiClient implements ApiClientInterface {
     String? imageName,
   }) async {
     try {
+      print('[CSquare] Updating colab $id with title: $title, type: ${type?.value}');
+      print('[CSquare] Requirements: $requirements, maxMembers: $maxMembers, startDate: $startDate, endDate: $endDate, isActive: $isActive');
+      print('[CSquare] Image bytes length: ${imageBytes?.length}, imageName: $imageName');
       final request = http.MultipartRequest(
         'PATCH',
         _uri('${ApiConstants.colabDetail}/$id'),
@@ -396,6 +439,10 @@ class RealApiClient implements ApiClientInterface {
 
       final streamedResponse = await _httpClient.send(request);
       final response = await http.Response.fromStream(streamedResponse);
+
+      print('[CSquare] Update colab response status: ${response.statusCode}');
+      print('[CSquare] Update colab response body: ${response.body}');
+
       final body = jsonDecode(response.body) as Map<String, dynamic>;
 
       if (response.statusCode >= 400) {
