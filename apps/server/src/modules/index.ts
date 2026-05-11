@@ -3,6 +3,7 @@ import Elysia from "elysia";
 import { authController } from './auth';
 import { competitionController } from './competition';
 import { colabController } from './colab';
+import { developerController } from './developer';
 import { facultyController } from './faculty';
 import { messController } from './mess';
 import { searchController } from './search';
@@ -22,6 +23,7 @@ export const apiRouter = new Elysia({
 			},
 	})
 	.use(authController)
+	.use(developerController)
 
 	// Versioned API routes
 	.group('/v1', (v1) =>

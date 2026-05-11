@@ -1,7 +1,7 @@
 import { and, desc, eq, sql } from 'drizzle-orm';
 
 import { tursoDb as db } from '../../db';
-import { messTable } from '../../db/turso/schema';
+import { messTable, messWeekConfigTable } from '../../db/turso/schema';
 
 type WeekType = 'odd' | 'even';
 
@@ -21,6 +21,23 @@ const WEEK_REFERENCE_UTC = new Date('2026-01-05T00:00:00.000Z');
 const normalizeWeekType = (value: string): WeekType => (value.toLowerCase() === 'even' ? 'even' : 'odd');
 
 export class MessService {
+  private weekConfigCache: { referenceDate: string; weekType: string } | null | undefined = undefined;
+
+  invalidateWeekConfigCache() {
+    this.weekConfigCache = undefined;
+  }
+
+  private async getWeekConfig() {
+    if (this.weekConfigCache === undefined) {
+      const rows = await db
+        .select({ referenceDate: messWeekConfigTable.referenceDate, weekType: messWeekConfigTable.weekType })
+        .from(messWeekConfigTable)
+        .limit(1);
+      this.weekConfigCache = rows[0] ?? null;
+    }
+    return this.weekConfigCache;
+  }
+
   async getMenu(filters: MessMenuFilters) {
     return db
       .select({
@@ -34,11 +51,21 @@ export class MessService {
       .orderBy(messTable.weekType, messTable.day);
   }
 
-  calculateCurrentWeek(date = new Date()): WeekType {
-    const diffMs = date.getTime() - WEEK_REFERENCE_UTC.getTime();
+  private calculateWeekType(date: Date, refDate: Date, baseType: WeekType): WeekType {
+    const diffMs = date.getTime() - refDate.getTime();
     const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
+    if (Math.abs(diffWeeks) % 2 === 0) return baseType;
+    return baseType === 'odd' ? 'even' : 'odd';
+  }
 
-    return Math.abs(diffWeeks) % 2 === 0 ? 'odd' : 'even';
+  async calculateCurrentWeek(date = new Date()): Promise<WeekType> {
+    const config = await this.getWeekConfig();
+    if (config) {
+      const refDate = new Date(config.referenceDate + 'T00:00:00.000Z');
+      return this.calculateWeekType(date, refDate, config.weekType as WeekType);
+    }
+
+    return this.calculateWeekType(date, WEEK_REFERENCE_UTC, 'odd');
   }
 
   getCurrentDay(date = new Date()) {
@@ -48,7 +75,7 @@ export class MessService {
 
   async getTodayMenu() {
     const now = new Date();
-    const calculatedWeek = this.calculateCurrentWeek(now);
+    const calculatedWeek = await this.calculateCurrentWeek(now);
     const day = this.getCurrentDay(now);
 
     const rows = await db

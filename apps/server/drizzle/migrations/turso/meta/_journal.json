@@ -8,6 +8,13 @@
       "when": 1777123004389,
       "tag": "0000_first_archangel",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1778178338262,
+      "tag": "0001_romantic_roulette",
+      "breakpoints": true
     }
   ]
 }

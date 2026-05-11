@@ -48,6 +48,14 @@ export const shuttleTable = sqliteTable('shuttle', {
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 });
 
+export const messWeekConfigTable = sqliteTable('mess_week_config', {
+  id: integer().primaryKey({ autoIncrement: true }),
+  referenceDate: text('reference_date').notNull(),
+  weekType: text('week_type').notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
+});
+
 export const equipmentTable = sqliteTable('equipment', {
   id: integer().primaryKey({ autoIncrement: true }),
   name: text().notNull(),
