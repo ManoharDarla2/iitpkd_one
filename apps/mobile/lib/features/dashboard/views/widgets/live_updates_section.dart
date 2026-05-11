@@ -235,8 +235,9 @@ class _MessSection extends ConsumerWidget {
         const SizedBox(height: 12),
         messAsync.when(
           data: (menu) {
+            final weekType = ref.read(messViewModelProvider.notifier).currentWeekType;
             final mealDay = menu.getMealsForDay(
-              MessViewModel.currentWeekType(),
+              weekType,
               DateFormat('EEEE').format(DateTime.now()).toLowerCase(),
             );
 

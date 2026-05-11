@@ -46,6 +46,7 @@ abstract final class ApiConstants {
   static const String messDataKey = 'mess_menu';
   static const String messLastFetchedKey = 'mess_last_fetched';
   static const String messMetadataKey = 'mess_metadata_updated_at';
+  static const String messCalculatedWeekKey = 'mess_calculated_week';
 
   static const String recentSearchesBox = 'recent_searches';
   static const String recentSearchesKey = 'recent_queries';

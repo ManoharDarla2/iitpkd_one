@@ -113,9 +113,12 @@ export class MessService {
 
     const total = versionRows[0]?.total ?? 0;
 
+    const calculatedWeek = await this.calculateCurrentWeek();
+
     return {
       updatedAt,
       version: `mess-${total}`,
+      calculatedWeek,
     };
   }
 

@@ -12,8 +12,8 @@ final messViewModelProvider = AsyncNotifierProvider<MessViewModel, MessMenu>(
 /// ViewModel that manages mess menu state for the Schedule screen.
 ///
 /// Loads the full 14-day menu on initialization.
-/// Provides helpers to calculate the current week type and retrieve
-/// meals for a specific day.
+/// Determines the current week type from the server (via metadata), with
+/// a local fallback calculation if no server value is cached yet.
 class MessViewModel extends AsyncNotifier<MessMenu> {
   @override
   Future<MessMenu> build() async {
@@ -30,18 +30,18 @@ class MessViewModel extends AsyncNotifier<MessMenu> {
     });
   }
 
+  /// Returns the current week type ("odd" or "even").
+  ///
+  /// Uses the server-determined value from cached metadata if available,
+  /// otherwise falls back to the local calculation.
+  String get currentWeekType {
+    final repo = ref.read(messRepositoryProvider);
+    return repo.getCachedWeekType();
+  }
+
   /// Returns meals for a specific [weekType] and [day].
   MealDay? getMealsForDay(String weekType, String day) {
     return state.value?.getMealsForDay(weekType, day);
-  }
-
-  /// Calculates the current week type ("odd" or "even").
-  ///
-  /// Uses Jan 5, 2026 as the reference "odd" week start date.
-  static String currentWeekType() {
-    final reference = DateTime(2026, 1, 5);
-    final weeksDiff = DateTime.now().difference(reference).inDays ~/ 7;
-    return weeksDiff.isEven ? 'odd' : 'even';
   }
 
   /// Returns the current day name in lowercase.

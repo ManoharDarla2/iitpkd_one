@@ -103,6 +103,7 @@ class HiveService {
     await box.delete(ApiConstants.messDataKey);
     await box.delete(ApiConstants.messLastFetchedKey);
     await box.delete(ApiConstants.messMetadataKey);
+    await box.delete(ApiConstants.messCalculatedWeekKey);
   }
 
   /// Stores the server's metadata `updated_at` timestamp for comparison.
@@ -113,6 +114,16 @@ class HiveService {
   /// Retrieves the cached metadata `updated_at` timestamp, or null.
   String? getCachedMessMetadataTimestamp() {
     return messBox.get(ApiConstants.messMetadataKey);
+  }
+
+  /// Caches the server-determined current week type ("odd"/"even").
+  Future<void> cacheMessCalculatedWeek(String weekType) async {
+    await messBox.put(ApiConstants.messCalculatedWeekKey, weekType);
+  }
+
+  /// Retrieves the cached calculated week type, or null.
+  String? getCachedMessCalculatedWeek() {
+    return messBox.get(ApiConstants.messCalculatedWeekKey);
   }
 
   // ---------------------------------------------------------------------------

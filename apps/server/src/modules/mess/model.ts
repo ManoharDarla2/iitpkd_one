@@ -20,6 +20,12 @@ export const MessMenuItemSchema = t.Object({
   meals: MealSchema,
 });
 
+export const MessMetadataResponseSchema = t.Object({
+  updatedAt: t.String(),
+  version: t.String(),
+  calculatedWeek: WeekTypeSchema,
+});
+
 export const MessTodaySchema = t.Object({
   date: t.String(),
   calculatedWeek: WeekTypeSchema,

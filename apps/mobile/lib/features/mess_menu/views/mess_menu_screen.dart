@@ -23,7 +23,7 @@ class _MessMenuScreenState extends ConsumerState<MessMenuScreen> {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
-    final currentWeekType = MessViewModel.currentWeekType();
+    final currentWeekType = ref.read(messViewModelProvider.notifier).currentWeekType;
     final displayWeekType = _isCurrentWeek
         ? currentWeekType
         : (currentWeekType == 'odd' ? 'even' : 'odd');

@@ -11,6 +11,9 @@ import 'package:csquare_connect/features/schedule/data/models/mess_menu.dart';
 /// 3. Otherwise, check `/mess/metadata` updated_at vs local timestamp.
 /// 4. If stale (or no cache), fetch full menu via `/mess/menu`, cache it.
 /// 5. Fallback to stale cache on network error.
+///
+/// Also caches the server's [calculatedWeek] so the frontend uses the
+/// server-determined week type instead of a local hardcoded calculation.
 class MessRepository {
   final ApiClientInterface _apiClient;
   final HiveService _hiveService;
@@ -20,6 +23,20 @@ class MessRepository {
     required HiveService hiveService,
   }) : _apiClient = apiClient,
        _hiveService = hiveService;
+
+  /// Returns the server-determined current week type, with a local
+  /// fallback calculation if no server value has been cached yet.
+  String getCachedWeekType() {
+    final server = _hiveService.getCachedMessCalculatedWeek();
+    if (server != null) return server;
+    return _localFallback();
+  }
+
+  static String _localFallback() {
+    final reference = DateTime(2026, 1, 5);
+    final weeksDiff = DateTime.now().difference(reference).inDays ~/ 7;
+    return weeksDiff.isEven ? 'odd' : 'even';
+  }
 
   /// Fetches the full 14-day mess menu.
   ///
@@ -39,9 +56,13 @@ class MessRepository {
       try {
         final metaResponse = await _apiClient.getMessMetadata();
         if (metaResponse.data != null) {
-          final serverTimestamp = metaResponse.data!.updatedAt
-              .toIso8601String();
+          final meta = metaResponse.data!;
+          final serverTimestamp = meta.updatedAt.toIso8601String();
           final localTimestamp = _hiveService.getCachedMessMetadataTimestamp();
+
+          if (meta.calculatedWeek != null) {
+            await _hiveService.cacheMessCalculatedWeek(meta.calculatedWeek!);
+          }
 
           if (localTimestamp == serverTimestamp) {
             // Server data hasn't changed, use cache if available
@@ -72,13 +93,17 @@ class MessRepository {
     final menu = response.data!;
     await _hiveService.cacheMessData(menu.encode());
 
-    // Store metadata timestamp for future comparisons
+    // Store metadata timestamp and calculatedWeek for future comparisons
     try {
       final metaResponse = await _apiClient.getMessMetadata();
       if (metaResponse.data != null) {
+        final meta = metaResponse.data!;
         await _hiveService.cacheMessMetadataTimestamp(
-          metaResponse.data!.updatedAt.toIso8601String(),
+          meta.updatedAt.toIso8601String(),
         );
+        if (meta.calculatedWeek != null) {
+          await _hiveService.cacheMessCalculatedWeek(meta.calculatedWeek!);
+        }
       }
     } catch (_) {
       // Non-critical: metadata caching failed

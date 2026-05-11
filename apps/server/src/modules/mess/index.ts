@@ -1,8 +1,9 @@
 import { Elysia, t } from 'elysia';
 
-import { ErrorEnvelope, MetaSchema, SuccessEnvelope, toIso } from '../../common/http';
+import { ErrorEnvelope, SuccessEnvelope, toIso } from '../../common/http';
 import {
   MessMenuItemSchema,
+  MessMetadataResponseSchema,
   MessTodaySchema,
   WeekTypeQuerySchema,
   WeekTypeSchema,
@@ -65,13 +66,14 @@ export const messController = new Elysia({ prefix: '/mess' })
     return SuccessEnvelope({
       updatedAt: toIso(data.updatedAt) ?? '',
       version: data.version,
+      calculatedWeek: data.calculatedWeek,
     }, 'Mess metadata retrieved');
   }, {
     response: {
       200: t.Object({
         success: t.Literal(true),
         message: t.String(),
-        data: MetaSchema,
+        data: MessMetadataResponseSchema,
       }),
     },
     detail: {
