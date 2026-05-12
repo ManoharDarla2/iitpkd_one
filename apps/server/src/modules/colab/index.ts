@@ -1,6 +1,7 @@
 import { Elysia, t } from 'elysia';
 
 import { ErrorEnvelope, SuccessEnvelope, toIso } from '../../common/http';
+import { authPlugin } from '../auth/auth-plugin';
 import {
   ColabCreateFormSchema,
   ColabDetailSchema,
@@ -19,6 +20,7 @@ const ColabIdParamsSchema = t.Object({
 });
 
 export const colabController = new Elysia({ prefix: '/colabs' })
+  .use(authPlugin)
   .get('/', async ({ query }) => {
     const data = await colabService.list({
       type: query.type,

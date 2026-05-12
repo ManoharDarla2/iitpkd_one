@@ -31,7 +31,7 @@ type ColabListFilters = {
 
 type ColabRequestCreateInput = {
   colabId: string;
-  recipientId: string;
+  recipientId?: string;
   message?: string;
   expiresAt?: string;
 };

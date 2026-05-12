@@ -43,36 +43,46 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<void> _init() async {
     state = state.copyWith(status: AuthStatus.loading);
 
+    // Tier 1: Try cookie-based session restore from server
     final (result, error) = await BetterAuth.instance.client.getSession();
     if (error == null && result != null) {
       final (session, user) = result;
       if (user != null) {
         BetterAuth.instance.client.session = session;
-        if (session != null) await saveBearerToken(session.token);
+        if (session != null) {
+          await saveBearerToken(session.token);
+          await saveUserJson(user.toJson());
+          await saveSessionJson(session.toJson());
+        }
         state = state.copyWith(status: AuthStatus.authenticated, user: user);
         return;
       }
     }
 
-    // getSession() failed or returned no user – the BetterAuthClient
-    // constructor may have already restored session+user from KVStore.
-    final client = BetterAuth.instance.client;
-    final cachedSession = client.session;
-    final cachedUser = client.user;
-    if (cachedSession != null &&
-        cachedUser != null &&
-        cachedSession.expiresAt.isAfter(DateTime.now())) {
-      if (cachedSession.token.isNotEmpty) {
-        await saveBearerToken(cachedSession.token);
+    // Tier 2: Restore from our own SharedPreferences storage
+    final userJson = await getUserJson();
+
+    if (userJson != null) {
+      try {
+        final user = User.fromJson(userJson);
+        final sessionJson = await getSessionJson();
+        if (sessionJson != null) {
+          final session = Session.fromJson(sessionJson);
+          BetterAuth.instance.client.session = session;
+          await saveBearerToken(session.token);
+        }
+        state = state.copyWith(status: AuthStatus.authenticated, user: user);
+        return;
+      } catch (_) {
+        await clearAuthData();
       }
-      state = state.copyWith(status: AuthStatus.authenticated, user: cachedUser);
-      return;
     }
 
-    if (cachedSession != null &&
-        cachedSession.expiresAt.isBefore(DateTime.now())) {
-      client.session = null;
-      client.user = null;
+    // Tier 3: Try BetterAuthClient KVStore cache (may have user but no session)
+    final client = BetterAuth.instance.client;
+    if (client.user != null) {
+      state = state.copyWith(status: AuthStatus.authenticated, user: client.user);
+      return;
     }
 
     state = state.copyWith(status: AuthStatus.unauthenticated);
@@ -149,7 +159,12 @@ class AuthNotifier extends Notifier<AuthState> {
           if (session != null) {
             BetterAuth.instance.client.session = session;
             await saveBearerToken(session.token);
+            await saveUserJson(user.toJson());
+            await saveSessionJson(session.toJson());
           }
+        } else {
+          // Even without session, persist user for profile display
+          await saveUserJson(user.toJson());
         }
         state = state.copyWith(status: AuthStatus.authenticated, user: user);
       }
@@ -166,7 +181,7 @@ class AuthNotifier extends Notifier<AuthState> {
     await BetterAuth.instance.client.signOut();
     BetterAuth.instance.client.session = null;
     BetterAuth.instance.client.user = null;
-    await clearBearerToken();
+    await clearAuthData();
     state = const AuthState(status: AuthStatus.unauthenticated);
   }
 }

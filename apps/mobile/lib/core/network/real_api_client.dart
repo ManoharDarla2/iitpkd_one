@@ -20,10 +20,9 @@ import 'package:better_auth_flutter/better_auth_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _kBearerTokenKey = 'bearer_token';
+const _kUserJsonKey = 'user_json';
+const _kSessionJsonKey = 'session_json';
 
-/// Stores the bearer token persistently so it survives app restarts.
-/// This avoids depending on [better_auth_flutter]'s cookie jar which has
-/// known issues (cookie splitting on commas in expiry dates).
 Future<void> saveBearerToken(String token) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString(_kBearerTokenKey, token);
@@ -37,6 +36,33 @@ Future<String?> getBearerToken() async {
 Future<void> clearBearerToken() async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.remove(_kBearerTokenKey);
+}
+
+Future<void> saveUserJson(String json) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString(_kUserJsonKey, json);
+}
+
+Future<String?> getUserJson() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString(_kUserJsonKey);
+}
+
+Future<void> saveSessionJson(String json) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString(_kSessionJsonKey, json);
+}
+
+Future<String?> getSessionJson() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString(_kSessionJsonKey);
+}
+
+Future<void> clearAuthData() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove(_kBearerTokenKey);
+  await prefs.remove(_kUserJsonKey);
+  await prefs.remove(_kSessionJsonKey);
 }
 
 class RealApiClient implements ApiClientInterface {
