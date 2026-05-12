@@ -213,7 +213,12 @@ export const colabController = new Elysia({ prefix: '/colabs' })
       return setStatus(404, ErrorEnvelope('Colab not found'));
     }
 
-    return SuccessEnvelope(data, 'Join request created');
+    return SuccessEnvelope({
+      ...data,
+      createdAt: toIso(data.createdAt) ?? '',
+      updatedAt: toIso(data.updatedAt) ?? '',
+      expiresAt: toIso(data.expiresAt) ?? null,
+    }, 'Join request created');
   }, {
     auth: true,
     body: ColabRequestCreateSchema,
@@ -240,7 +245,12 @@ export const colabController = new Elysia({ prefix: '/colabs' })
       return setStatus(400, ErrorEnvelope('Invalid invite request'));
     }
 
-    return SuccessEnvelope(data, 'Invite request created');
+    return SuccessEnvelope({
+      ...data,
+      createdAt: toIso(data.createdAt) ?? '',
+      updatedAt: toIso(data.updatedAt) ?? '',
+      expiresAt: toIso(data.expiresAt) ?? null,
+    }, 'Invite request created');
   }, {
     auth: true,
     body: ColabRequestCreateSchema,
@@ -263,7 +273,15 @@ export const colabController = new Elysia({ prefix: '/colabs' })
   .get('/requests', async ({ user }) => {
     const data = await colabService.listRequests(user.id);
 
-    return SuccessEnvelope(data, 'Requests retrieved successfully');
+    return SuccessEnvelope(
+      data.map((item) => ({
+        ...item,
+        createdAt: toIso(item.createdAt) ?? '',
+        updatedAt: toIso(item.updatedAt) ?? '',
+        expiresAt: toIso(item.expiresAt) ?? null,
+      })),
+      'Requests retrieved successfully',
+    );
   }, {
     auth: true,
     response: {
@@ -285,7 +303,15 @@ export const colabController = new Elysia({ prefix: '/colabs' })
       return setStatus(404, ErrorEnvelope('Request not found'));
     }
 
-    return SuccessEnvelope(data, 'Request accepted');
+    return SuccessEnvelope(
+      {
+        ...data,
+        createdAt: toIso(data.createdAt) ?? '',
+        updatedAt: toIso(data.updatedAt) ?? '',
+        expiresAt: toIso(data.expiresAt) ?? null,
+      },
+      'Request accepted',
+    );
   }, {
     auth: true,
     body: ColabRequestDecisionSchema,
@@ -312,7 +338,12 @@ export const colabController = new Elysia({ prefix: '/colabs' })
       return setStatus(404, ErrorEnvelope('Request not found'));
     }
 
-    return SuccessEnvelope(data, 'Request rejected');
+    return SuccessEnvelope({
+      ...data,
+      createdAt: toIso(data.createdAt) ?? '',
+      updatedAt: toIso(data.updatedAt) ?? '',
+      expiresAt: toIso(data.expiresAt) ?? null,
+    }, 'Request rejected');
   }, {
     auth: true,
     body: ColabRequestDecisionSchema,

@@ -82,7 +82,7 @@ export const messController = new Elysia({ prefix: '/mess' })
     },
   })
   .get('/week-types', () => {
-    return SuccessEnvelope(['odd', 'even'], 'Available week types retrieved');
+    return SuccessEnvelope(['odd', 'even'] as ('odd' | 'even')[], 'Available week types retrieved');
   }, {
     response: {
       200: t.Object({

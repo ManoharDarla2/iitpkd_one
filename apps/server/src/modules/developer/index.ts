@@ -22,7 +22,7 @@ export const developerController = new Elysia({ prefix: '/developer' })
     const result = await developerService.setWeekType(body.weekType);
     messService.invalidateWeekConfigCache();
     return SuccessEnvelope(
-      { referenceDate: result.referenceDate, weekType: result.weekType },
+      { referenceDate: result.referenceDate, weekType: result.weekType as 'odd' | 'even' },
       'Mess week type configuration saved',
     );
   }, {
