@@ -9,8 +9,8 @@ COPY tsconfig.json ./
 COPY src ./src
 
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=3000
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD ["bun", "run", "src/index.ts"]
