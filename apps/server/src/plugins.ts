@@ -1,12 +1,9 @@
-import {cors as corsPlugin} from "@elysiajs/cors";
-import { openapi as openaiPlugin } from '@elysiajs/openapi';
+import {cors} from "@elysiajs/cors";
+import { openapi } from '@elysiajs/openapi';
 import Elysia from "elysia";
-import { OpenAPI } from "./modules/auth/openapi";
 
-
-
-export const cors = new Elysia({ name: "cors" }).use(
-  corsPlugin({
+export const corsPlugin = new Elysia({ name: "cors" }).use(
+  cors({
     origin: (request) => {
       const origin = request.headers.get("origin");
             if (!origin) return true;
@@ -38,8 +35,8 @@ export const cors = new Elysia({ name: "cors" }).use(
   })
 );
 
-export const openapi = new Elysia({ name: "openapi" }).use(
-  openaiPlugin({
+export const openapiPlugin = new Elysia({ name: "openapi" }).use(
+  openapi({
     path: '/docs',
     specPath: '/docs/json',
     provider: 'scalar',
@@ -48,8 +45,6 @@ export const openapi = new Elysia({ name: "openapi" }).use(
         title: 'CSquare Connect API',
         version: '1.0.0',
         description: 'Backend API for shuttle, mess, faculty and search modules.',
-        },
-        components: await OpenAPI.components,
-        paths: await OpenAPI.getPaths()
+        }
     },
 }))

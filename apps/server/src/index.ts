@@ -1,12 +1,13 @@
-import { app } from "./app";
+import { Elysia } from 'elysia';
+// import { corsPlugin, openapiPlugin } from './plugins';
+// import { apiRouter } from './modules';
 
-// const port = Number(process.env.PORT ?? 3001);
-
-// app.listen({
-//   port,
-//   hostname: '0.0.0.0'
-// })
-
-// console.log(`Csquare Connect API running at http://${app.server?.hostname}:${app.server?.port}`);
-
-export default app;
+export default new Elysia()
+.get('/', () => {
+    return {
+        status: 'ok'
+    }
+})
+// .use(corsPlugin)
+// .use(openapiPlugin)
+// .use(apiRouter);
